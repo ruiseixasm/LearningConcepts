@@ -1,0 +1,5 @@
+1. Download and install .NET core SDK in dotnet.microsoft.com/Download
+2. Check if the dotnet core is installed by typing on the command line:
+    i. dotnet --version
+3. Install the Extension C# Dev Kit in VS Code (it takes some time)
+4. Install the Extension C# from Microsoft in VS Code (it takes some time)
