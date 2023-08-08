@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Animation</title>
+    </head>
+    <body>
+        <div id="urgent"><h1>Red Alert!</h1>The Web server is under attack!</div>
+        <script>
+            let e = document.getElementById("urgent");
+            let colors = ["white", "yellow", "orange", "red"];
+            let nextColor = 0;
+            setInterval("e.style.backgroundColor=colors[nextColor++%colors.length];", 500);
+        </script>
+    </body>
+</html>

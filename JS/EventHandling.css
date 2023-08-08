@@ -1,0 +1,5 @@
+div, div * {
+    padding: 30px;
+    display: block;
+    background-color: beige;
+  }

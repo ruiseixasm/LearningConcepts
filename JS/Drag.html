@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dragging DOM Level 2</title>
+    </head>
+    <body>
+        <script src="Drag.js"></script>
+        <div style="position:absolute; left:100px; top:100px;
+                    background-color: white; border: solid black;">
+                    
+        <div style="background-color: gray; border-bottom: dotted black;
+                    padding: 3px; font-family: sans-serif; font-weight: bold;"
+            onmousedown="beginDrag(this.parentNode, event);">Drag Me</div>
+                
+        <p>This is a test. Testing, testing, testing.</p>        
+        </div>
+
+        <img src="plus_400x400.png" width="40" height="40"
+            style="position: absolute; left:0px; top:0px"
+            onmousedown="if (event.shiftKey) beginDrag(this, event);">
+    </body>
+</html>
