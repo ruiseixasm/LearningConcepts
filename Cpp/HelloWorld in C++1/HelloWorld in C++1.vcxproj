@@ -130,6 +130,10 @@
   <ItemGroup>
     <ClCompile Include="HelloWorld.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Printable.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Printable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
