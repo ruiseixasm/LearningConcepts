@@ -131,6 +131,7 @@
     <ClCompile Include="HelloWorld.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Printable.cpp" />
+    <ClCompile Include="References.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Printable.h" />

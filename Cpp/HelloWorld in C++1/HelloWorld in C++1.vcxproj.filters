@@ -20,6 +20,9 @@
     <ClCompile Include="Printable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="References.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Printable.h">

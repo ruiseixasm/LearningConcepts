@@ -6,7 +6,7 @@
 
 class Printable {
 public:
-	std::string toString() {
+	const std::string& toString() {
 		std::string text = "text";
 		return text;
 	}
