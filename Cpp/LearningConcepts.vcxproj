@@ -131,10 +131,13 @@
     <ClCompile Include="Arrays.cpp" />
     <ClCompile Include="HelloWorld.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="OperatorOverloading.cpp" />
     <ClCompile Include="Printable.cpp" />
     <ClCompile Include="References.cpp" />
+    <ClCompile Include="StaticCast.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LibraryDeclarations.h" />
     <ClInclude Include="Printable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
