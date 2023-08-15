@@ -1,6 +1,0 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (HelloWorld in C++1.vcxproj, HelloWorld.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Main.cpp
-  References.cpp
-  Generating Code...
-C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\Cpp\HelloWorld in C++1\References.cpp(14): warning C4172: returning address of local variable or temporary: someNumber
-  HelloWorld in C++1.vcxproj -> C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\Cpp\x64\Debug\LearningConcepts.exe
