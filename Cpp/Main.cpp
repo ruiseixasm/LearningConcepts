@@ -8,9 +8,10 @@ int main(int argc, char* argv[]) {
 
 	//HelloWorld::HelloWorldCall();
 	//MyArray::StringReferences();
+	MyArray::ForArrayLocal();
 	//StaticCast();
 	//ComplexOperatorOverloading();
-	YouTubeOperatorOverloaded();
+	//YouTubeOperatorOverloaded();
 
 	return 0;
 }

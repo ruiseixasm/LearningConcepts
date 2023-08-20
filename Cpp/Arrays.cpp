@@ -46,6 +46,24 @@ public:
 		//std::cout << "returnSizeOfByReference sizeof: " << returnSizeOfByReference(myArrayString) << std::endl;
 	}
 
+	static void ForArrayLocal() {
+		int int_array[] = { 1,2,3,4,5,6,7,8,9,10 };
+		for (auto number : int_array) {
+			std::cout << "number: " << number << std::endl;
+		}
+	}
+
+	static void ForArray(int (&someArray)[10]) {
+		for (auto number : someArray) {
+			std::cout << "number: " << number << std::endl;
+		}
+	}
+
+	static void ForArrayRemote() {
+		int int_array[] = { 1,2,3,4,5,6,7,8,9,10 };
+		ForArray(int_array);
+	}
+
 private:
 
 };

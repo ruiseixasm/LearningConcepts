@@ -38,12 +38,14 @@ void ComplexOperatorOverloading()
 struct YouTubeChannel {
 	std::string Name;
 	int SubscriberCount;
+	mutable int debugValue = 0; // marked as mutable allows to be changed inside const methods
 
 	YouTubeChannel(std::string name, int subscribersCount) {
 		Name = name;
 		SubscriberCount = subscribersCount;
 	}
 	bool operator==(const YouTubeChannel& channel) const {
+		debugValue++; // marked as mutable
 		return this->Name == channel.Name;
 	}
 };
