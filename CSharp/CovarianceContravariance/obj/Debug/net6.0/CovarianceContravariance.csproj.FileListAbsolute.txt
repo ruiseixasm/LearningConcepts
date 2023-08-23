@@ -1,0 +1,15 @@
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\bin\Debug\net6.0\CovarianceContravariance.exe
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\bin\Debug\net6.0\CovarianceContravariance.deps.json
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\bin\Debug\net6.0\CovarianceContravariance.runtimeconfig.json
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\bin\Debug\net6.0\CovarianceContravariance.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\bin\Debug\net6.0\CovarianceContravariance.pdb
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.csproj.AssemblyReference.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.AssemblyInfoInputs.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.AssemblyInfo.cs
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.csproj.CoreCompileInputs.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\refint\CovarianceContravariance.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.pdb
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\CovarianceContravariance.genruntimeconfig.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\CovarianceContravariance\obj\Debug\net6.0\ref\CovarianceContravariance.dll
