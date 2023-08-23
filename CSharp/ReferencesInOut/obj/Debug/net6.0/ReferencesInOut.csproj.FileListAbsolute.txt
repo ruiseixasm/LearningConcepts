@@ -1,0 +1,15 @@
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\bin\Debug\net6.0\ReferencesInOut.exe
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\bin\Debug\net6.0\ReferencesInOut.deps.json
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\bin\Debug\net6.0\ReferencesInOut.runtimeconfig.json
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\bin\Debug\net6.0\ReferencesInOut.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\bin\Debug\net6.0\ReferencesInOut.pdb
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.csproj.AssemblyReference.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.AssemblyInfoInputs.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.AssemblyInfo.cs
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.csproj.CoreCompileInputs.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\refint\ReferencesInOut.dll
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.pdb
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ReferencesInOut.genruntimeconfig.cache
+C:\Users\Utilizador\Desktop\LEARNING\LearningConcepts\CSharp\ReferencesInOut\obj\Debug\net6.0\ref\ReferencesInOut.dll
