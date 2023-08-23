@@ -34,7 +34,6 @@ int main () {
     
     printf("A = %s\n", A);
     printf("B = %s\n", MS);
-    printf("SizeOff = %d\n", sizeof(MS));
-
+    printf("SizeOff = %d\n", sizeof(IS));
 
 }
