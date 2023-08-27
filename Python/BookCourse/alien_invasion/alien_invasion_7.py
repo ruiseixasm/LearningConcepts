@@ -1,6 +1,6 @@
 import sys
 import pygame
-from settings import Settings
+from settings_2 import Settings
 from ship_3 import Ship # v.7
 
 class AlienInvasion:
