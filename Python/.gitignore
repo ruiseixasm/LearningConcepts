@@ -11,6 +11,11 @@ __pycache__/
 
 # Resources folder
 Resources/
+Resources/*
+Resourses
+Resourses
+Resourses
+Resourses
 
 # Distribution / packaging
 .Python
