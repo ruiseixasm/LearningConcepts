@@ -3,7 +3,7 @@ from time import sleep # v.20
 import pygame
 from settings_6 import Settings # v.21
 from game_stats_2 import GameStats # v.21
-from scoreboard import Scoreboard # v.22
+from scoreboard_2 import Scoreboard # v.23
 from button import Button # v.21
 from ship_3 import Ship # v.7
 from bullet import Bullet # v.11
@@ -72,6 +72,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score() # v.22
+            self.sb.prep_level() # v.23
 
             # Hide the mouse
             pygame.mouse.set_visible(False)
@@ -159,12 +160,17 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
+            self.sb.check_high_score() # v.23
 
         if not self.aliens: # v.19
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed() # v.21
+
+            # Increase level.
+            self.stats.level += 1 # v.23
+            self.sb.prep_level() # v.23
 
     def _ship_hit(self): # v.20
         """Respond to the ship being hit by an alien."""
