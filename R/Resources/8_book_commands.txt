@@ -1,0 +1,24 @@
+options(prompt="R> ")
+
+mydatafile <- read.table(file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/8.2.1_mydatafile.txt",
+header=TRUE,sep=" ",na.strings="*",stringsAsFactors=FALSE)
+
+list.files("C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources")
+
+spread <- read.csv(file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/8.2.2_spreadsheetfile.csv",
+header=FALSE,stringsAsFactors=TRUE)
+
+write.table(x=mydatafile,file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/somenewfile.txt",
+sep="@",na="??",quote=FALSE,row.names=FALSE)
+
+jpeg(filename="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/myjpegplot.jpeg",
+width=600,height=600)
+
+pdf(file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/mypdfplot.pdf",
+width=5,height=5)
+
+ggsave(filename="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/mypngqplot.png")
+
+dput(x=somelist,file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/myRobject.txt")
+
+newobject <- dget(file="C:/Users/Utilizador/Desktop/LEARNING/LearningConcepts/R/Resources/myRobject.txt")
