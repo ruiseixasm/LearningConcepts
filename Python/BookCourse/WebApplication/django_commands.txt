@@ -1,0 +1,9 @@
+# Enter virtual environment (git bash)
+source ll_env/Scripts/activate
+
+# Exit virtual environment (git bash)
+deactivate
+
+# Starting Django server
+python manage.py runserver
+
