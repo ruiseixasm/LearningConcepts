@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect # v.4
+from django.contrib.auth.decorators import login_required # v.7
 from .models import Topic, Entry # v.2 v.6
 from .forms import TopicForm, EntryForm # v.4 v.5
 
@@ -7,12 +8,14 @@ def index(request): # v.1
     """The home page for Learning Log."""
     return render(request, 'learning_logs/index.html')
 
+@login_required
 def topics(request): # v.2
     """Show all topics."""
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
+@login_required
 def topic(request, topic_id): # v.3
     """Show a single topic and all its entries."""
     topic = Topic.objects.get(id=topic_id)
@@ -20,6 +23,7 @@ def topic(request, topic_id): # v.3
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
 
+@login_required
 def new_topic(request): # v.4
     """Add a new topic."""
     if request.method != 'POST':
@@ -36,6 +40,7 @@ def new_topic(request): # v.4
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+@login_required
 def new_entry(request, topic_id): # v.5
     """Add a new entry for a particular topic."""
     topic = Topic.objects.get(id=topic_id)
@@ -56,6 +61,7 @@ def new_entry(request, topic_id): # v.5
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id): # v.6
     """Edit an existing entry."""
     entry = Entry.objects.get(id=entry_id)
