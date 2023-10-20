@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect # v.4
 from django.contrib.auth.decorators import login_required # v.7
+from django.http import Http404 # v.9
 from .models import Topic, Entry # v.2 v.6
 from .forms import TopicForm, EntryForm # v.4 v.5
 
@@ -11,7 +12,7 @@ def index(request): # v.1
 @login_required
 def topics(request): # v.2
     """Show all topics."""
-    topics = Topic.objects.order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added') # v.8
     context = {'topics': topics}
     return render(request, 'learning_logs/topics.html', context)
 
@@ -33,7 +34,9 @@ def new_topic(request): # v.4
         # POST data submitted; process data.
         form = TopicForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_topic = form.save(commit=False) # v.10
+            new_topic.owner = request.user # v.10
+            new_topic.save() # v.10
             return redirect('learning_logs:topics')
         
     # Display a blank or invalid form.
@@ -44,6 +47,9 @@ def new_topic(request): # v.4
 def new_entry(request, topic_id): # v.5
     """Add a new entry for a particular topic."""
     topic = Topic.objects.get(id=topic_id)
+    # Make sure the topic belongs to the current user.
+    if topic.owner != request.user: # v.9
+        raise Http404
 
     if request.method != 'POST':
         # No data submitted; create a blank form.
