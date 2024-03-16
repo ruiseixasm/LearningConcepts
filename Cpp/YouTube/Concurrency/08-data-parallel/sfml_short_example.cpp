@@ -10,7 +10,7 @@ int main()
  
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("cute_image.jpg"))
+    if (!texture.loadFromFile("cute_image.png"))
         return EXIT_FAILURE;
     sf::Sprite sprite(texture);
  
@@ -22,7 +22,7 @@ int main()
  
     // Load a music to play
     sf::Music music;
-    if (!music.openFromFile("nice_music.ogg"))
+    if (!music.openFromFile("no-copyright-music-181373.ogg"))
         return EXIT_FAILURE;
  
     // Play the music
