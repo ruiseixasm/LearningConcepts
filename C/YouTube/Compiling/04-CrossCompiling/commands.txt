@@ -1,0 +1,52 @@
+# Cross compilling for ARM used in Raspberry pi
+sudo apt-get install gcc make gcc-arm-linux-gnueabi
+mkdir rootfs
+mkdir zlib
+cd zlib
+# Download zlib from zlib.net
+wget http://zlib.net/zlib-1.3.1.tar.gz
+tar -xf zlib-1.3.1.tar.gz 
+cd zlib-1.3.1/
+# Read the README file!
+xed README &
+./configure --help
+# This fails!
+./configure CC=arm-linux-gnueabi-gcc --prefix=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/rootfs/usr/local
+# This works!
+CC=arm-linux-gnueabi-gcc ./configure --prefix=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/rootfs/usr/local
+cat configure.log
+make
+ls
+# Check the existence of the .so file, libz.so.1.3.1
+make install
+
+# For the SSL
+cd ../..
+mkdir ssl
+cd ssl
+# go to https://www.openssl.org/source/
+wget https://www.openssl.org/source/openssl-3.0.13.tar.gz
+tar -xf openssl-3.0.13.tar.gz 
+cd openssl-3.0.13/
+xed README.md &
+xed INSTALL.md &
+
+# *linux-armv4* *linux-x86_64*
+
+
+./Configure \
+--cross-compile-prefix=arm-linux-gnueabi- \
+--openssldir=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/ssl \
+--prefix=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/rootfs/usr/local \
+--with-zlib-include=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/rootfs/usr/local/include \
+--with-zlib-lib=/home/rui/GitHub/LearningConcepts/C/YouTube/Compiling/04-CrossCompiling/rootfs/usr/local/lib \
+zlib-dynamic linux-armv4
+
+make
+# Check it's ARM object 
+file libcrypto.so.3
+# Make sure /lib/ld-linux.so.3 is available
+ls /lib | grep ld-linux
+
+
+
