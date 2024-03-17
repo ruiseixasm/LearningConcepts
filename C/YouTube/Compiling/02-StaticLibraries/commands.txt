@@ -1,0 +1,5 @@
+ar cr libmath.a addNumbers.o subNumbers.o
+ar t libmath.a
+gcc doMatch.c -lmath -o doMath.out -I include -L lib
+readelf -a doMath.out | grep Shared
+

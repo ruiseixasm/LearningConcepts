@@ -1,0 +1,8 @@
+gcc hello.c -lm -o hello.out
+gcc hello.c -lm -o hello_static.out -static
+file hello.out
+file hello_static.out
+readelf -a hello.out | grep Shared
+readelf -a hello.out | grep interpreter
+objdump -D hello.out > hello.dump
+
