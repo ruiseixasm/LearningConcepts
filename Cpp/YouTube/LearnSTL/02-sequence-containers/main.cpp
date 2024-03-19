@@ -81,16 +81,17 @@ int main() {
 
     /* List
      * -- double linked list
+     * is NOT a continuous allocated array in memory
      */
     list<int> mylist = {5, 2, 9};
     mylist.push_back(6);    // mylist:  {5, 2, 9, 6}
     mylist.push_front(4);   // mylist:  {4, 5, 2, 9, 6}
 
     list<int>::iterator itr = find(mylist.begin(), mylist.end(), 2);    // itr -> 2     (<algorithm>)
-    mylist.insert(itr, 8);      // mylist:  {4,5,8,2,9,6}
+    mylist.insert(itr, 8);      // mylist:  {4, 5, 8, 2, 9, 6}
                                 // o(1), faster than vector/deque
     itr++;                      // itr -> 9
-    mylist.erase(itr);          // mylist:  {4, 8, 5, 2, 6}     o(1)
+    itr = mylist.erase(itr);          // mylist:  {4, 8, 5, 2, 6}     o(1)
 
     /* Properties of List
      * 1. fast insert/remove at any place: O(1)
@@ -98,7 +99,44 @@ int main() {
      * 3. no random access, no [] operator.
      */
 
+    list<int> mylist1 = {5, 2, 9, 6};
+    list<int> mylist2 = {15, 12, 19, 16};
+    list<int>::iterator itr_a = find(mylist2.begin(), mylist2.end(), 15);    // itr -> 2     (<algorithm>)
+    list<int>::iterator itr_b = find(mylist2.begin(), mylist2.end(), 19);    // itr -> 2     (<algorithm>)
+    // Define iterator itr for position in mylist1 where elements from mylist2 will be spliced
+    itr = mylist1.begin();
+    mylist1.splice(itr, mylist2, itr_a, itr_b);     // o(1)
 
+    // Output the contents of mylist1 after splice
+    std::cout << "mylist1 after splice: ";
+    for (int elem : mylist1) {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    /* Array
+     * 
+    */
+    int a1[3] = {3, 4, 5};
+    array<int, 3> a2 = {3, 4, 5};
+    a2.begin();
+    a2.end();
+    a2.size();
+
+    std::cout << "a2 contents:";
+    for (auto it = a2.begin(); it != a2.end(); it++) {
+        std::cout << " " << *it; // Print the contents of a2
+    }
+    std::cout << std::endl;
+
+    array<int, 3> b = {13, 14, 15};
+    a2.swap(b);
+
+    std::cout << "a2 contents:";
+    for (auto it = a2.begin(); it != a2.end(); it++) {
+        std::cout << " " << *it; // Print the contents of a2
+    }
+    std::cout << std::endl;
 
     return 0;
 }
