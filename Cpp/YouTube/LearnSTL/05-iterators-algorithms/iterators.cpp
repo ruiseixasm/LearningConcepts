@@ -117,19 +117,34 @@ int main() {
     {
         istringstream str("0.1 0.2 0.3 0.4");   // can be used in place of cin
         vector<string> vec4;
+
+        cout << "Press Ctrl+D after entering text to exit!" << endl;
+        // 1st cin reading
         // Press Ctrl+D to end cin input!!
         copy(istream_iterator<string>(cin), istream_iterator<string>(),
             back_inserter(vec4));   // Copies each cin element into vec4
         copy(vec4.begin(), vec4.end(), ostream_iterator<string>(cout, " "));    // Prints out vec4
         cout << endl;
         
-        cin.clear();    // Makes sure the cin input is cleared from any enter
+        // Tries to clear cin state and ignore any remaining input
+        cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // 2nd cin reading
         // Press Ctrl+D to exit!!
-        // Make it terse (straight from cin to cout):
+        // Make it terse (straight from cin to cout) (cin >> ws):
         unique_copy(istream_iterator<string>(cin), istream_iterator<string>(),
                     ostream_iterator<string>(cout, "\n"));
         cout << endl;
+    }
+
+    // 3. Reverse Iterator:
+    {
+        vector<int> vec = {4, 5, 6, 7};
+        reverse_iterator<vector<int>::iterator> ritr;   // It's a reverse iterator
+        for (auto ritr = vec.rbegin(); ritr != vec.rend(); ++ritr)
+            cout << *ritr << " ";  // prints: 7 6 5 4
+        cout << endl << endl;
     }
 
     return 0;
