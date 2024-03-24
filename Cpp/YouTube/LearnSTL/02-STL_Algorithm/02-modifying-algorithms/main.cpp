@@ -53,6 +53,7 @@ int main() {
      *   copy, movie, transform, swap, fill, replace, remove
      */
 
+    std::cout << std::endl;
     {
         // 1. Copy
 
@@ -102,6 +103,7 @@ int main() {
         printContainer(vec2);                   // 0 0 0 0 9 60 70 8 45 87 90
     }
 
+    std::cout << std::endl;
     {
         // 2. Move
 
@@ -135,6 +137,7 @@ int main() {
         printContainer(vec2);                   // "" "" apple orange pear grape
     }
 
+    std::cout << std::endl;
     {
         // 3. Transform
 
@@ -161,6 +164,7 @@ int main() {
         printContainer(vec3);                           // 18 120 140 16 90 174 170 0 0 0 0
     }
 
+    std::cout << std::endl;
     {
         // 4. Swap - two way moving
 
@@ -173,6 +177,7 @@ int main() {
         printContainer(vec2);                           // apple orange pear grape
     }
 
+    std::cout << std::endl;
     {
         // 5. Fill
 
@@ -198,6 +203,109 @@ int main() {
         if (vec.size() >= elements_to_fill)
             generate_n(vec.begin(), elements_to_fill, rand);
         printContainer(vec);                            // 424238335 719885386 1649760492 0 0
+    }
+
+    std::cout << std::endl;
+    {
+        // 6. Replace
+
+        vector<int> vec = {9, 60, 70, 8, 45, 87, 90, 6};    // 8 items
+
+        replace(vec.begin(), vec.end(),     // Data Range
+            6,                              // Old value condition
+            9);                             // New value
+        printContainer(vec);                // 9 60 70 8 45 87 90 9
+
+        vec = {9, 60, 70, 8, 45, 87, 90, 6};                // 8 items
+
+        replace_if(vec.begin(), vec.end(),  // Data Range
+            [](int x){return x > 80;},      // Old value condition
+            9);                             // New value
+        printContainer(vec);                // 9 60 70 8 45 9 9 6
+
+        vec = {9, 60, 70, 8, 45, 87, 90, 6};                // 8 items
+        vector<int> vec2 = {11, 3, 4, 6, 9, 4, 9, 2, 56};   // 9 items
+
+        replace_copy(vec.begin(), vec.end(),    // Source
+            vec2.begin(),                       // Destination
+            6,                                  // Old value condition
+            9);                                 // New value
+        printContainer(vec);                // 9 60 70 8 45 87 90 6
+        printContainer(vec2);               // 9 60 70 8 45 87 90 9 56
+        // Generalized form: replace_copy_if()
+    }
+
+    std::cout << std::endl;
+    {
+        // 7. Remove
+
+        vector<int> vec = {9, 6, 70, 8, 3, 87, 90, 6};      // 8 items
+        vector<int> vec2(9, 0);                             // 9 items (all zeros)
+
+        remove(vec.begin(), vec.end(), 3);      // Remove all 3's
+        remove_copy(vec.begin(), vec.end(), vec2.begin(), 3);
+        printContainer(vec);                    // 9 6 70 8 87 90 6 6
+        printContainer(vec2);                   // 9 6 70 8 87 90 6 6 0
+
+        vec = {9, 6, 70, 8, 3, 87, 90, 6};      // 8 items
+        vec2 = vector<int>(9, 0);               // 9 items (all zeros)
+
+        // Remove items bigger than 80
+        remove_if(vec.begin(), vec.end(), [](int x){return x > 80;});
+        remove_copy_if(vec.begin(), vec.end(), vec2.begin(), [](int x){return x > 80;});
+        printContainer(vec);                    // 9 6 70 8 3 6 90 6
+        printContainer(vec2);                   // 9 6 70 8 3 6 6 0 0
+
+        vec = {9, 60, 70, 8, 3, 87, 90, 6};     // 8 items
+        vec2 = vector<int>(9, 0);               // 9 items (all zeros)
+
+        // Remove all 6's and copy the remaining items to vec2
+        remove_copy(vec.begin(), vec.end(),     // Source
+                    vec2.begin(),               // Destination
+                    6);                         // Condition
+        printContainer(vec);                    // 9 60 70 8 3 87 90 6
+        printContainer(vec2);                   // 9 60 70 8 3 87 90 0 0
+        // Generalized form: remove_copy_if()
+
+        vec = {9, 60, 70, 8, 8, 87, 90, 60};                // 8 items
+        vec2 = vector<int>(9, 0);               // 9 items (all zeros)
+
+        // Remove consecutive equal elements
+        unique(vec.begin(), vec.end());
+        unique_copy(vec.begin(), vec.end(), vec2.begin());
+        printContainer(vec);                    // 9 60 70 8 87 90 60 60
+        printContainer(vec2);                   // 9 60 70 8 87 90 60 0 0
+
+        vec = {9, 60, 70, 8, 3, 87, 90, 6};     // 8 items
+        vec2 = vector<int>(9, 0);               // 9 items (all zeros)
+
+        // Remove elements whose previous element is greater than itself
+        unique(vec.begin(), vec.end(), less<int>());
+        unique_copy(vec.begin(), vec.end(), vec2.begin(), less<int>());
+        printContainer(vec);                    // 9 8 3 8 3 87 90 6
+        printContainer(vec2);                   // 9 8 3 3 0 0 0 0 0
+
+        vec = {9, 9, 70, 8, 8, 87, 90, 6};      // 8 items
+        vec2 = vector<int>(9, 0);               // 9 items (all zeros)
+
+        // Remove consecutive equal elements, and then copy the uniquified items to vec2
+        unique_copy(vec.begin(), vec.end(), vec2.begin());
+        printContainer(vec);                    // 9 9 70 8 8 87 90 6
+        printContainer(vec2);                   // 9 70 8 87 90 6 0 0 0
+        // Generalized form: unique_copy()
+    }
+
+    /*
+     * Order-Changing Algorithms:
+     *   - reverse, rotate, permute, shuffle
+     * 
+     * They change the order of elements in a container, but not necessarly the
+     * elements themselves.
+     */
+
+    std::cout << std::endl;
+    {
+        // 1. Reverse
     }
 
     return 0;
