@@ -4,6 +4,7 @@
 #include <set>
 #include <cmath>    // for pow function
 #include <deque>
+#include <random>   // for default_random_engine()
 
 using namespace std;
 
@@ -306,6 +307,107 @@ int main() {
     std::cout << std::endl;
     {
         // 1. Reverse
+
+        vector<int> vec = {9, 60, 70, 8, 45, 87, 90};   // 7 items
+
+        reverse(vec.begin() + 1, vec.end() - 1);
+        printContainer(vec);                    // 9 87 45 8 70 60 90
+
+        vec = {9, 60, 70, 8, 45, 87, 90};       // 7 items
+        vector<int> vec2(7, 0);                 // 7 items (all zeroes)
+
+        reverse_copy(vec.begin() + 1, vec.end() - 1, vec2.begin());
+        printContainer(vec);                    // 9 60 70 8 45 87 90
+        printContainer(vec2);                   // 87 45 8 70 60 0 0
+    }
+
+    std::cout << std::endl;
+    {
+        // 2. Rotate
+
+        vector<int> vec = {9, 60, 70, 8, 45, 87, 90};   // 7 items
+
+        rotate(vec.begin(), vec.begin() + 3, vec.end());
+        printContainer(vec);                    // 8 45 87 90 9 60 70
+
+        vec = {9, 60, 70, 8, 45, 87, 90};       // 7 items
+        vector<int> vec2(7, 0);                 // 7 items (all zeroes)
+
+        // Copy vec to vec2 in rotated order
+        // vec is unchanged
+        rotate_copy(vec.begin(), vec.begin() + 3, vec.end(),    // Source
+                    vec2.begin());                              // Destination
+        printContainer(vec);                    // 9 60 70 8 45 87 90
+        printContainer(vec2);                   // 8 45 87 90 9 60 70
+    }
+
+    std::cout << std::endl;
+    {
+        // 3. Permute
+
+        vector<int> vec = {9, 60, 70, 8, 45, 87, 90};   // 7 items
+
+        // Lexicographical order, also known as dictionary order or alphabetical order,
+        //     is a way of ordering sequences of elements (such as characters or numbers)
+        //     based on their dictionary-like ordering. (Probabilistic permutations)
+
+        // Lexicographically next greater permutation
+        next_permutation(vec.begin(), vec.end());
+        printContainer(vec);                    // 9 60 70 8 45 90 87
+
+        vec = {9, 60, 70, 8, 45, 87, 90};       // 7 items
+
+        // Lexicographically next smaller permutation
+        prev_permutation(vec.begin(), vec.end());
+        printContainer(vec);                    // 9 60 45 90 87 70 8
+        // Generakized form: next_permutation(), prev_permutation()
+
+        vector<int> permuted_vec = {1, 2, 3};   // 3 items
+        do {
+            printContainer(permuted_vec);
+        } while (next_permutation(permuted_vec.begin(), permuted_vec.end()));
+        // Contents of the vector: 1 2 3 
+        // Contents of the vector: 1 3 2 
+        // Contents of the vector: 2 1 3 
+        // Contents of the vector: 2 3 1 
+        // Contents of the vector: 3 1 2 
+        // Contents of the vector: 3 2 1 
+        
+        prev_permutation(permuted_vec.begin(), permuted_vec.end());
+        do {
+            printContainer(permuted_vec);
+        } while (prev_permutation(permuted_vec.begin(), permuted_vec.end()));
+        // Contents of the vector: 3 2 1 
+        // Contents of the vector: 3 1 2 
+        // Contents of the vector: 2 3 1 
+        // Contents of the vector: 2 1 3 
+        // Contents of the vector: 1 3 2 
+        // Contents of the vector: 1 2 3 
+    }
+
+    std::cout << std::endl;
+    {
+        // 4. Shuffle
+
+        vector<int> vec = {9, 60, 70, 8, 45, 87, 90};   // 7 items
+
+        //    - Rearrange the elements randomly
+        //      (swap each element with a randomly selected element)
+        random_shuffle(vec.begin(), vec.end());
+        printContainer(vec);                    // 9 70 87 60 90 45 8
+
+        // The error you're encountering is likely due to the fact that
+        //     std::random_shuffle has been deprecated and removed in newer versions of C++,
+        //     starting from C++14. Instead, you should use std::shuffle.
+        // vec = {9, 60, 70, 8, 45, 87, 90};       // 7 items
+        // random_shuffle(vec.begin(), vec.end(), rand);
+        // printContainer(vec);                    // 9 60 45 90 87 70 8
+
+        // C++ 11
+        // Better random number generation (Modern Approach)
+        vec = {9, 60, 70, 8, 45, 87, 90};       // 7 items
+        shuffle(vec.begin(), vec.end(), default_random_engine());
+        printContainer(vec);                    // 8 9 45 90 87 60 70
     }
 
     return 0;
