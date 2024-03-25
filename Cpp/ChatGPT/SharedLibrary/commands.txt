@@ -1,0 +1,10 @@
+mkdir lib so.lib
+cd so.lib
+g++ -shared -o liblowlevelmath.so -fPIC lowlevelmath.cpp
+g++ -o my_program main.cpp -L./lib -llowlevelmath
+cd ..
+cp so.lib/lowlevelmath.h so.lib/liblowlevelmath.so lib/
+
+g++ -o main.out main.cpp -L./lib -llowlevelmath
+LD_LIBRARY_PATH=./lib ./main.out
+
