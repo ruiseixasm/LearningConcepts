@@ -1,0 +1,11 @@
+gcc -shared -o liblowlevelmath.so -fPIC lowlevelmath.c
+gcc -o my_program code.c -L./lib -llowlevelmath
+gcc -o my_program code.c -L$(pwd)/lib -llowlevelmath
+ldd code.out
+LD_LIBRARY_PATH=./lib ./code.out
+
+
+# Can also export variables as:
+export LD_LIBRARY_PATH=./lib
+./code.out
+
