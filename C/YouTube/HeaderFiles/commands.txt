@@ -9,3 +9,4 @@ LD_LIBRARY_PATH=./lib ./code.out
 export LD_LIBRARY_PATH=./lib
 ./code.out
 
+nm -D liblowlevelmath.so
