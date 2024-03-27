@@ -1,0 +1,28 @@
+# Create the files add.cpp and multiply.cpp with the respective code
+
+# After creating both files add.cpp and multiply.cpp and for position-independent code run:
+g++ -c add.cpp multiply.cpp -fpic
+
+# Then we create the shared library libtest.so with this command:
+g++ -shared add.o multiply.o -o libtest.so
+
+# Create the two header files add.h and multiply.h and code them
+# then create your main.cpp that uses the library
+
+# Comiple the main.cpp with the following command:
+g++ main.cpp -o main.out -ltest -L./
+
+# List all dynamic shared library dependences
+ldd main.out            # libtest.so => not found
+
+# Set the LD_LIBRARY_PATH before running main.out like this:
+LD_LIBRARY_PATH=./ ./main.out
+# Sum: 30
+# product: 200
+
+
+# Or, to a more definitive solution export the LD_LIBRARY_PATH first
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/rui/GitHub/LearningConcepts/Cpp/YouTube/SharedLibraries
+
+# and then just run:
+./main.out
