@@ -1,0 +1,19 @@
+ar --help       # ar stands for archive
+
+# generate object code files .o
+g++ add.cpp -c
+g++ multiply.cpp -c
+
+# to create the static library just archive all the object code files
+ar -crs libtest.a add.o multiply.o
+
+# to list the content of the archive library.a we do
+ar -t libtest.a
+
+# then to use the static library in our main.cpp linking
+g++ main.cpp -o main.out -ltest -L./
+
+# Output
+#Sum: 30
+#product: 200
+
