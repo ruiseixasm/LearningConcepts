@@ -1,0 +1,41 @@
+g++ -fsanitize=thread datarace.cpp -o datarace.out
+
+OUTPUT:
+
+==================
+WARNING: ThreadSanitizer: data race (pid=9021)
+  Read of size 4 at 0x55af9b589158 by thread T2:
+    #0 shared_value_increment() <null> (datarace.out+0x2470)
+    #1 void std::__invoke_impl<void, void (*)()>(std::__invoke_other, void (*&&)()) <null> (datarace.out+0x4ada)
+    #2 std::__invoke_result<void (*)()>::type std::__invoke<void (*)()>(void (*&&)()) <null> (datarace.out+0x4a2f)
+    #3 void std::thread::_Invoker<std::tuple<void (*)()> >::_M_invoke<0ul>(std::_Index_tuple<0ul>) <null> (datarace.out+0x4984)
+    #4 std::thread::_Invoker<std::tuple<void (*)()> >::operator()() <null> (datarace.out+0x4926)
+    #5 std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (*)()> > >::_M_run() <null> (datarace.out+0x48d8)
+    #6 <null> <null> (libstdc++.so.6+0xdc252)
+
+  Previous write of size 4 at 0x55af9b589158 by thread T1:
+    #0 shared_value_increment() <null> (datarace.out+0x2488)
+    #1 void std::__invoke_impl<void, void (*)()>(std::__invoke_other, void (*&&)()) <null> (datarace.out+0x4ada)
+    #2 std::__invoke_result<void (*)()>::type std::__invoke<void (*)()>(void (*&&)()) <null> (datarace.out+0x4a2f)
+    #3 void std::thread::_Invoker<std::tuple<void (*)()> >::_M_invoke<0ul>(std::_Index_tuple<0ul>) <null> (datarace.out+0x4984)
+    #4 std::thread::_Invoker<std::tuple<void (*)()> >::operator()() <null> (datarace.out+0x4926)
+    #5 std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (*)()> > >::_M_run() <null> (datarace.out+0x48d8)
+    #6 <null> <null> (libstdc++.so.6+0xdc252)
+
+  Location is global 'shared_value' of size 4 at 0x55af9b589158 (datarace.out+0x000000008158)
+
+  Thread T2 (tid=9024, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:969 (libtsan.so.0+0x605b8)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xdc328)
+    #2 main <null> (datarace.out+0x24ee)
+
+  Thread T1 (tid=9023, finished) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:969 (libtsan.so.0+0x605b8)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xdc328)
+    #2 main <null> (datarace.out+0x24ee)
+
+SUMMARY: ThreadSanitizer: data race (/home/rui/GitHub/LearningConcepts/Cpp/YouTube/Concurrency/13-thread-sanitizer-data-race/datarace.out+0x2470) in shared_value_increment()
+==================
+Shared value: 1000
+ThreadSanitizer: reported 1 warnings
+
