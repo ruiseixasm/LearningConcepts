@@ -39,13 +39,15 @@ public:
         stop = true;
         lock.unlock();
         condition.notify_all();
-        for (std::thread& worker : workers)
+        for (std::thread& worker : workers) {
+            std::cout << "Worker joined: " << worker.get_id() << std::endl;
             worker.join();
+        }
     }
 
 private:
     std::vector<std::thread> workers;
-    std::queue<std::function<void()>> tasks;
+    std::queue<std::function<void()>> tasks;    // tasks must have a function signature of void()
 
     std::mutex queueMutex;
     std::condition_variable condition;
@@ -68,10 +70,10 @@ int main() {
     std::cout << "Equeue (Assign) some tasks\n";
 
     // Job pushing task
-    for (int i = 0; i < 8; ++i) {
-        pool.enqueue([i] {
-            printf("Task %d %s executed by thread\n", i, get_thread_id().c_str());
+    for (int i = 0; i < 16; ++i) {
+        pool.enqueue([i] {  // task signature: void()
             std::this_thread::sleep_for(std::chrono::seconds(1));   // Simulate some work
+            printf("Task %d %s executed by thread\n", i, get_thread_id().c_str());
         });
     }
 
