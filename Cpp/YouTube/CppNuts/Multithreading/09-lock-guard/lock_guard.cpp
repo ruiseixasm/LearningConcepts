@@ -1,4 +1,4 @@
-// TOPiC: lock_guard in C++ (std::lock_guard<mutex> lock(ml))
+// TOPiC: lock_guard in C++ (std::lock_guard<mutex> lock(m1))
 
 // NOTES:
 // 0. It is very light weight wrapper for owning mutex on scoped basis.
