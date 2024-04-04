@@ -1,39 +1,62 @@
 import ctypes
+import os
 
-clibrary = ctypes.CDLL("./clibrary.so")   # recomended to write the full path
+path = os.getcwd()
+clibrary = ctypes.CDLL(os.path.join(path, 'clibrary.so'))
 
-ctypes.pointer  # is a function used to create a pointer to an existing ctypes object.
-ctypes.POINTER  # is a class used to create new pointer types for ctypes data types.
+# In Python's ctypes module, ctypes.c_int represents a ctypes data type for a signed integer.
+#     The expression ctypes.c_int * 10 creates a new data type that consists of an array
+#     of 10 ctypes.c_int elements.
+# To create an instance of this array type with some initial values, you can use the syntax
+#     (ctypes.c_int * 10)(initial_values), where initial_values is a sequence containing
+#     the initial values for the array elements.
+values = (ctypes.c_int * 10)()  # Initialization exclusive to ctypes!
+print(values)                       # <__main__.c_int_Array_10 object at 0x7f6126e640c0>
 
-alloc_func = clibrary.alloc_memory_v1
-alloc_func.restype = ctypes.POINTER(ctypes.c_char_p)
+for i in range(len(values)):
+    values[i] = i
 
-free_func = clibrary.free_memory_v1
-free_func.argtypes = [ctypes.POINTER(ctypes.c_char_p)]
+sum = clibrary.sumArray_v1(values, len(values))
+print("Sum:", sum)                  # Sum: 45
 
-cstring_pointer = alloc_func()  # returns the memory address pointer (char* str)
-print(cstring_pointer)      # <__main__.LP_c_char_p object at 0x7f37d2c47240>
+result = clibrary.incArray_v1(values, len(values))  # 1st increment of values
+print("Result:", result)            # Result: -1308246176
 
-#print(cstring_pointer.value)    # error, object has no attribute 'value'
+clibrary.incArray_v1.restype = ctypes.POINTER(ctypes.c_int)
+result = clibrary.incArray_v1(values, len(values))  # 2nd increment of values
+print("Result:", result)            # Result: <__main__.LP_c_int object at 0x7f67b20b8140>
+print("Result:", result.contents)   # Result: c_int(2)
 
-cstring = ctypes.c_char_p.from_buffer(cstring_pointer)  # converts C pointer to Python string
-print(cstring.value)        # b'Hello World'
+for i in range(10):
+    print(result[i])    # values was incremented twice (result points to values)
 
-free_func(cstring_pointer)
+print() # blank line
+
+clibrary.getArray_v1.restype = ctypes.POINTER(ctypes.c_int)
+result = clibrary.getArray_v1()
+
+for i in range(10):
+    print(result[i])    # array with values not incremented
+
+# do some other stuff
+# then need to free the Array memory dynamically allocated
+clibrary.free_memory_v1(result) # avoids memory leaks
 
 
-num = 100
-#ptr = ctypes.pointer(num)   # TypeError: _type_ must have storage info
-#print(ptr.contents)
 
-num = ctypes.c_int(100)
-ptr = ctypes.pointer(num)           # create a pointer to an existing ctypes object
-print(ptr.contents)         # c_int(100)
+# Command to be run
+# python3 -u ctypes_tutorial.py 
 
-ptr2 = ctypes.POINTER(ctypes.c_int) # create new pointer types for ctypes data types
-ptr2.contents = num         # num is an existing ctypes object
-print(ptr2.contents)        # c_int(100)
+# In Python, the -u flag stands for "unbuffered binary stdout and stderr".
+#     When Python is run in unbuffered mode (-u), it means that the
+#     standard output (stdout) and standard error (stderr) streams will be
+#     flushed immediately after each write operation, instead of being buffered
+#     and flushed periodically.
 
-num2 = ctypes.c_int(200)
-ptr2.contents = num2        # num2 is an existing ctypes object
-print(ptr2.contents)        # c_int(200)
+# This is particularly useful for ensuring that the output from your Python script
+#     is displayed in real-time, especially when the script's output is being
+#     redirected or piped to another program or process.
+
+# So, in the command python3 -u ctypes_tutorial.py, the -u flag is ensuring that
+#     the output produced by the ctypes_tutorial.py script is displayed
+#     immediately without buffering.

@@ -2,16 +2,32 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* alloc_memory_v1() {
-    // A copy of source is created dynamically and pointer to copy is returned.
-    char* str = strdup("Hello World");  // strdup() and strndup() are used to duplicate a string.
-    printf("Memory Allocated....\n");
-    return str;
+int sumArray_v1(int *arr, int size) {
+    int sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += arr[i];
+    }
+    return sum;
 }
 
-void free_memory_v1(char* ptr) {
-    printf("Memory Deallocated\n");
-    free(ptr);
+int* incArray_v1(int *arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        arr[i]++;
+    }
+    return arr;
+}
+
+int* getArray_v1() {
+    int* arr = malloc(10 * sizeof(int));
+    for (int i = 0; i < 10; i++) {
+        arr[i] = i;
+    }
+    return arr;
+}
+
+// Needs to free memory in C because Python doesn't have the needed functions
+void free_memory_v1(int* arr) {
+    free(arr);
 }
 
 // Generate the .so file with this command
