@@ -1,0 +1,9 @@
+
+python3 --version
+sudo apt install python3
+pip --version
+sudo apt install python3-pip
+pip show matplotlib
+pip install matplotlib
+
+
