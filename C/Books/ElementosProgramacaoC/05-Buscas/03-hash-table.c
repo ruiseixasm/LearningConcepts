@@ -6,8 +6,8 @@
 #define MAX_GRID 26
 #define MAX_HASH 37     // next prime above 26/0.80
 
-char names  [MAX_HASH + 1][16];
-int numbers [MAX_HASH + 1];
+char names  [MAX_HASH][16];
+int numbers [MAX_HASH];
 
 int n_cars;
 
@@ -112,7 +112,11 @@ int main()
     {
         if (strcmp(message, "\n") == 0) // Check if input is just a newline
             break;
-        else if ((index = hashsrch(message)) >= 0)
+          
+        // Remove newline character included by fgets!!
+        message[strcspn(message, "\n")] = '\0';
+
+        if ((index = hashsrch(message)) >= 0)
             printf("%d\n", numbers[index]);
         else
             printf("Não participa.\n");
@@ -122,7 +126,11 @@ int main()
     {
         if (strcmp(message, "\n") == 0) // Check if input is just a newline
             break;
-        else if ((index = hashsrch_index(message)) >= 0)
+
+        // Remove newline character included by fgets!!
+        message[strcspn(message, "\n")] = '\0';
+
+        if ((index = hashsrch_index(message)) >= 0)
             printf("%d\n", numbers[index]);
         else
             printf("Não participa.\n");
