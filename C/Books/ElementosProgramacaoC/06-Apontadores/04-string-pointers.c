@@ -1,7 +1,5 @@
 // Compiling command: gcc -Wall -g -c 04-string-pointers.c -o 04-string-pointers.o
 
-#include <stddef.h>     // needed for size_t
-
 
 // DECLARATION
 
