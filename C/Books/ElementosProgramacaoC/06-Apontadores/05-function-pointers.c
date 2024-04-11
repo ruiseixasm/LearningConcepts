@@ -1,7 +1,5 @@
 // Compiling command: gcc -Wall -g -c 05-function-pointers.c -o 05-function-pointers.o
 
-#include <stddef.h>     // needed for size_t
-
 
 // DECLARATION
 
