@@ -79,6 +79,24 @@ double *dblvmin_forward(double *x, int n)
     return mp;
 }
 
+int *intvint_while(int *x, int n, int a)
+{
+    while (n && *x != a)
+    {
+        --n;
+        ++x;
+    }
+    return (n ? x : NULL);
+}
+
+int *intvint_for(int *x, int n, int a)
+{
+    for (; n; --n, ++n)
+        if (*x == a)
+            return x;
+    return NULL;
+}
+
 int main()
 {
     double a;
