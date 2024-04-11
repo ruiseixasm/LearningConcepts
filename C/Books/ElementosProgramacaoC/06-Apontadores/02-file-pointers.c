@@ -1,4 +1,4 @@
-// Compile command: gcc 01-linear-search.c -o 01-linear-search.out
+// Compile command: gcc 02-file-pointers.c -o 02-file-pointers.out
 
 #include <stdio.h>
 #include <string.h>
@@ -10,11 +10,25 @@ int numbers [MAX_GRID + 1];
 
 int n_cars;
 
-int loadcars(FILE *f)   // For CARS_GRID.txt    (unsorted)
+int loadcars_value(FILE *f)     // For CARS_GRID.txt    (unsorted)
 {
     int i;
     for (i = 1; fscanf(f, "%d%s", &numbers[i], names[i]) != EOF; ++i) {}
     return i - 1;
+}
+
+int loadcars_pointer(FILE *f)   // For CARS_GRID.txt    (unsorted)
+{
+    int *ip;
+    char (*sp) [16];    // sizeof: 8 (integer 64 bits = 8 bytes)
+    printf("sp sizeof: %ld\n", sizeof(sp));
+    char *sp_dummy;     // sizeof: 8 (integer 64 bits = 8 bytes)
+    printf("sp_dummy sizeof: %ld\n", sizeof(sp_dummy));
+    char s_dummy[16];   // sizeof: 16 (char 8 bits -> 1 bytes * 16 = 16 bytes)
+    printf("s_dummy sizeof: %ld\n", sizeof(s_dummy));
+    //                                            same as:  ++sp  because: names[i] == names[i][0]
+    for (ip = numbers, sp = names; fscanf(f, "%d%s", ++ip, *++sp) != EOF;) {}
+    return ip - numbers - 1;
 }
 
 int indexof_number(int n)
@@ -24,11 +38,19 @@ int indexof_number(int n)
     return i;
 }
 
-int indexof_number_sentinel(int n)
+int indexof_number_sentinel_value(int n)
 {
     int i;
     for (i = n_cars, numbers[0] = n; numbers[i] != n; --i) {}
     return i;
+}
+
+int indexof_number_sentinel_pointer(int n)
+{
+    int *ip;
+    //                 same as: numbers[0] = n
+    for (ip = numbers + n_cars, *numbers = n; *ip != n; --ip) {}
+    return ip - numbers;
 }
 
 int indexof_name(char s[])
@@ -53,7 +75,7 @@ int main()
     int index;
 
     f_cars = fopen("CARS_GRID.txt", "r");
-    n_cars = loadcars(f_cars);
+    n_cars = loadcars_pointer(f_cars);
     fclose(f_cars);
 
     if (n_cars == 0)
