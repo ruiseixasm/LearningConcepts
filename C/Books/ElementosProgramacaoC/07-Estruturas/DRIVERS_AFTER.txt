@@ -1,0 +1,7 @@
+Senna A.             McLaren-Honda          77
+Mansell N.           Williams-Renault       59
+Piquet N.            Benetton-Ford          35
+Patrese R.           Williams-Renault       34
+Berger G.            McLaren-Honda          31
+Prost A.             Ferrari                25
+Alesi J.             Ferrari                13
