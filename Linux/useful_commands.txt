@@ -1,0 +1,2 @@
+# Remove Gnome
+sudo apt-get remove --auto-remove ubuntu-gnome-desktop
