@@ -6,3 +6,5 @@ sudo apt-get install mx-xfce-meta
 sudo apt-get install --reinstall mx-xfce-meta
 sudo apt-get install --reinstall xfce4
 
+# Check for the type of gui desktop running
+ps aux | grep session
