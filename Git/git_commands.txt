@@ -1,5 +1,13 @@
+# configure user credencials
+git config --list --show-origin						# shows all the origin configuration
+git config --global user.name "Rui Monteiro"		# sets the user name
+git config --global user.email johndoe@example.com	# sets the user email
+
 # Add a token:
 git remote set-url origin <address token>
 
 # Update remote repository
-git status
+git add .						# stage all files
+git status						# confirm files were staged
+git commit -m "new changes"
+git push origin main			# or simple git push
