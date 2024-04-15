@@ -4,3 +4,5 @@ sudo apt-get purge gnome*
 sudo apt-get autoremove
 sudo apt-get install mx-xfce-meta
 sudo apt-get install --reinstall mx-xfce-meta
+sudo apt-get install --reinstall xfce4
+
