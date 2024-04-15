@@ -1,0 +1,5 @@
+# Add a token:
+git remote set-url origin <address token>
+
+# Update remote repository
+git status
