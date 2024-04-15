@@ -1,0 +1,10 @@
+# Remove Gnome
+sudo apt-get remove --auto-remove ubuntu-gnome-desktop
+sudo apt-get purge gnome*
+sudo apt-get autoremove
+sudo apt-get install mx-xfce-meta
+sudo apt-get install --reinstall mx-xfce-meta
+sudo apt-get install --reinstall xfce4
+
+# Check for the type of gui desktop running
+ps aux | grep session
