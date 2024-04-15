@@ -1,4 +1,4 @@
-// Compile command: gcc 01-main-sets.c sets.c -o 01-main-sets.out
+// Compile command: gcc 01-totoloto-sets.c sets.c -o 01-totoloto-sets.out
 
 #define TOTOLOTO_MAX    49
 #define SET_MAX         TOTOLOTO_MAX
@@ -26,30 +26,9 @@ int prize(Set play, Set key, int supl)
     }
 }
 
-Set vowels;
-
-int isvowel(char c)
-{
-    return Setisin(c, vowels);
-  //return strchr("AEIOUaeiou", c) != NULL;
-}
-
 int main()
 {
-    Setclr(vowels);
-    Setadd(Setadd(Setadd(Setadd(Setadd
-        (vowels, 'A'), 'E'), 'I'), 'O'), 'U');
-    Setadd(Setadd(Setadd(Setadd(Setadd
-        (vowels, 'a'), 'e'), 'i'), 'o'), 'u');
-
-    char user_char;
-    printf("Escreva um caracter: ");
-    scanf("%c", &user_char);
-
-    if (isvowel(user_char))
-        printf("O caracter '%c' é uma vogal\n", user_char);
-    else
-        printf("O caracter '%c' NÃO é uma vogal\n", user_char);
+    
 
     return 0;
 }
