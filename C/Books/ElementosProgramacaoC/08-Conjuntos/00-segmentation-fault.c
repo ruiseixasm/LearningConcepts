@@ -1,11 +1,13 @@
-// Compile command: gcc 00-segmentation-fault.c sets-segmentation-fault.c -o 00-segmentation-fault.out
+// Compile command: gcc 00-segmentation-fault.c sets-segmentation-fault.c -DSET_MAX=49 -o 00-segmentation-fault.out
 
 #include <stdio.h>
 #include <limits.h>     // for UCHAR_MAX and CHAR_BIT
 #include <stddef.h>     // for size_t
 
 #define TOTOLOTO_MAX    49
-#define SET_MAX         TOTOLOTO_MAX
+// Requires the parameter -DSET_MAX=49 on the gcc command line
+// Otherwise, if ommited, it will return segmentation fault, even with the following line:
+// #define SET_MAX         TOTOLOTO_MAX
 
 #include "sets-segmentation-fault.h"
 

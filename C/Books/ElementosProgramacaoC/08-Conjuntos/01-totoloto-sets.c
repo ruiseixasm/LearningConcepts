@@ -1,7 +1,10 @@
-// Compile command: gcc 01-totoloto-sets.c sets.c -o 01-totoloto-sets.out -lm
+// Compile command: gcc 01-totoloto-sets.c sets.c -DSET_MAX=49 -o 01-totoloto-sets.out -lm
 
 #define TOTOLOTO_MAX    49
-#define SET_MAX         TOTOLOTO_MAX
+#define CHAVE           6
+// Requires the parameter -DSET_MAX=49 on the gcc command line
+// Otherwise, if ommited, it will return segmentation fault, even with the following line:
+// #define SET_MAX         TOTOLOTO_MAX
 
 #include <stdio.h>
 #include <stdlib.h> // needed for rand() and srand()
@@ -9,7 +12,6 @@
 
 #include "sets.h"
 
-#define CHAVE           6
 
 int hasprize(Set play, Set key)
 {
