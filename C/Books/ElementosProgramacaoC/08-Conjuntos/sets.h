@@ -11,7 +11,7 @@
 
 
 typedef unsigned char Set[SET_DIM];
-typedef unsigned Setelem;
+typedef unsigned char Setelem;          // same as typedef unsigned Setelem;
 typedef unsigned char * SetPtr;
 
 int Setisin(Setelem x, Set s);          /* pertença */

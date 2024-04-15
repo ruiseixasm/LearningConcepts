@@ -1,10 +1,15 @@
-// Compile command: gcc 01-totoloto-sets.c sets.c -o 01-totoloto-sets.out
+// Compile command: gcc 01-totoloto-sets.c sets.c -o 01-totoloto-sets.out -lm
 
 #define TOTOLOTO_MAX    49
 #define SET_MAX         TOTOLOTO_MAX
 
 #include <stdio.h>
+#include <stdlib.h> // needed for rand() and srand()
+#include <time.h>   // needed for time()
+
 #include "sets.h"
+
+#define CHAVE           6
 
 int hasprize(Set play, Set key)
 {
@@ -28,7 +33,37 @@ int prize(Set play, Set key, int supl)
 
 int main()
 {
+    srand(time(NULL));  // Needed to make it trully random!
     
+    Set play;
+    Set result;
+    
+    Setclr(play);
+    Setclr(result);
+    
+    unsigned int input_number;
+    
+    for (int i = 0; i < CHAVE; i++)
+    {
+        do
+        {
+            printf("Introduza o %dº número: ", i + 1);
+            scanf("%ud", &input_number);
+            input_number--;
+        } while (input_number >= TOTOLOTO_MAX || Setisin(input_number, play));
+        
+        Setadd(play, input_number);
+    }
+    
+    printf("Chave introduzida:");
+    for (int i = 0; i < TOTOLOTO_MAX; i++)
+    {
+        if (Setisin(i, play))
+            printf(" %d", i + 1);
+    }
+    printf("\n");
+    
+    int total = rand() % TOTOLOTO_MAX + 1;
 
     return 0;
 }

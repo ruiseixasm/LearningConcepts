@@ -58,6 +58,7 @@ size_t Setcard(Set s)                   /* cardinalidade */
     return n;
 }
 
+// Decays to pointer a given paramenter array in this case, Set!
 SetPtr Setclr(Set s)                    /* esvaziar */
 {
     for (size_t i = 0; i < SET_DIM; i++)
