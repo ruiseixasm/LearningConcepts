@@ -3,6 +3,7 @@
 
 #include <limits.h>     // for UCHAR_MAX and CHAR_BIT
 #include <stddef.h>     // for size_t
+#include <stdarg.h>     // variable number of arguments, ...
 
 #ifndef SET_MAX
 #define SET_MAX     UCHAR_MAX
@@ -19,6 +20,7 @@ SetPtr Setunion(Set s0, Set s1);        /* união de conjuntos */
 SetPtr Setinter(Set s0, Set s1);        /* intersecção de conjuntos */
 SetPtr Setdiff(Set s0, Set s1);         /* diferença de conjuntos (subtração) */
 SetPtr Setcompl(Set s);                 /* complementação */
+
 int Setissub(Set s0, Set s1);           /* inclusão */
 size_t Setcard(Set s);                  /* cardinalidade */
 SetPtr Setclr(Set s);                   /* esvaziar */
@@ -27,6 +29,15 @@ int Setisequal(Set s0, Set s1);         /* são iguais? */
 SetPtr Setcpy(Set s0, const Set s1);    /* copiar o segundo para o primeiro */
 SetPtr Setadd(Set s, Setelem x);        /* juntar */
 SetPtr Setrm(Set s, Setelem x);         /* tirar */
+
+// EXTRA FUNCTIONS
+
+SetPtr Setaddn(Set s, int n, ...);      /* adiciona sucessívos argumentos anónimos */
+SetPtr Setaddrng(Set s, Setelem x0, Setelem x1);    /* addiciona um range */
+SetPtr Setaddstr(Set s, char *w);       /* juntar string */
+
+Setelem Setfirst(const Set s);          /* primeiro elemento NÃO vazio */
+Setelem Setpos(const Set s, int n);     /* n-ésimo elemento NÃO vazio */
 
 
 #endif /* LIB_SETS */

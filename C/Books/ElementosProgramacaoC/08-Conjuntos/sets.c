@@ -104,3 +104,46 @@ SetPtr Setrm(Set s, Setelem x)          /* tirar */
     s[x/CHAR_BIT] &= ~(1 << x % CHAR_BIT);
     return s;
 }
+
+// EXTRA FUNCTIONS
+
+SetPtr Setaddn(Set s, int n, ...)       /* adiciona sucessívos argumentos anónimos */
+{
+    va_list p;          // multiple arguments iterator
+    va_start(p, n);     // initializes the iterator to n
+    while (n--)
+        Setadd(s, (Setelem) va_arg(p, int));    // va_arg returns present position
+                                                // and moves to the next one (va_next)
+    va_end(p);          // cleans up args iterator
+    return s;    
+}
+
+SetPtr Setaddrng(Set s, Setelem x0, Setelem x1)     /* addiciona um range */
+{
+    while (x0 <= x1)
+        Setadd(s, x0++);    // increments (moves) bit position
+    return s;
+}
+
+SetPtr Setaddstr(Set s, char *w)        /* juntar string */
+{
+    while (*w)  // scans up to the last char that is 0 ('\0')
+        Setadd(s, (Setelem) *w++);
+    return s;
+}
+
+Setelem Setfirst(const Set s)           /* primeiro elemento NÃO vazio */
+{
+    Setelem i = 0;
+    while (!Setisin(i, s))
+        i++;
+    return i;   // first element position
+}
+
+Setelem Setpos(const Set s, int n)      /* n-ésimo elemento NÃO vazio */
+{
+    Setelem i = 0;
+    while (n -= Setisin(i, s))
+        i++;
+    return i;   // n-th element position
+}
