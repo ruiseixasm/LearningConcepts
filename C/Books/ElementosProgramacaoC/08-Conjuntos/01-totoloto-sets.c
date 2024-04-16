@@ -66,6 +66,15 @@ int main()
     }
     printf("\n");
     
+    printf("A: ");
+    char string_format[] = "%d ";
+    Setprint(play, string_format, 1, 0);
+    printf("\nB: ");
+    Setprint(play, "%d ", 1, 0);
+    printf("\nC: ");
+    Setprint(play, NULL, 1, 0);
+    printf("\n");
+    
     for (int i = 0; i < CHAVE; i++)
     {
         do
@@ -101,7 +110,7 @@ int main()
             if (Setisin(i, match))
                 printf(" %d", i + 1);
         }
-        if (Setisin(supl, play))
+        if (Setcard(match) == 5 && Setisin(supl, play))
             printf(" - %d", supl + 1);
     }
     else
