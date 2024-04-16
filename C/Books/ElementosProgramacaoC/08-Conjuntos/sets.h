@@ -14,7 +14,7 @@ typedef unsigned char Set[SET_DIM];
 typedef unsigned char Setelem;          // same as typedef unsigned Setelem;
 typedef unsigned char * SetPtr;
 
-int Setisin(Setelem x, Set s);          /* pertença */
+int Setisin(Setelem x, const Set s);    /* pertença */
 SetPtr Setunion(Set s0, Set s1);        /* união de conjuntos */
 SetPtr Setinter(Set s0, Set s1);        /* intersecção de conjuntos */
 SetPtr Setdiff(Set s0, Set s1);         /* diferença de conjuntos (subtração) */

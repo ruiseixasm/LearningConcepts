@@ -1,4 +1,4 @@
-// Compile command: gcc 01-totoloto-sets.c sets.c -DSET_MAX=49 -o 01-totoloto-sets.out -lm
+// Compile command: gcc 01-totoloto-sets.c sets.c -DSET_MAX=49 -o 01-totoloto-sets.out
 
 #define TOTOLOTO_MAX    49
 #define CHAVE           6
@@ -39,6 +39,7 @@ int main()
     
     Set play;
     Set result;
+    int supl;
     
     Setclr(play);
     Setclr(result);
@@ -65,7 +66,52 @@ int main()
     }
     printf("\n");
     
-    int total = rand() % TOTOLOTO_MAX + 1;
-
+    for (int i = 0; i < CHAVE; i++)
+    {
+        do
+        {
+            input_number = rand() % TOTOLOTO_MAX;
+        } while (Setisin(input_number, result));
+        
+        Setadd(result, input_number);
+    }
+    
+    do
+    {
+        supl = rand() % TOTOLOTO_MAX;
+    } while (Setisin(supl, result));
+    
+    printf("Resultado do sorteio:");
+    for (int i = 0; i < TOTOLOTO_MAX; i++)
+    {
+        if (Setisin(i, result))
+            printf(" %d", i + 1);
+    }
+    printf(" - %d\n", supl + 1);
+    
+    Set match;
+    Setcpy(match, result);
+    Setinter(match, play);
+    
+    printf("Chave certa:");
+    if (Setcard(match) > 0)
+    {
+        for (int i = 0; i < TOTOLOTO_MAX; i++)
+        {
+            if (Setisin(i, match))
+                printf(" %d", i + 1);
+        }
+        if (Setisin(supl, play))
+            printf(" - %d", supl + 1);
+    }
+    else
+        printf(" -");
+    printf("\n");
+    
+    if (hasprize(result, play))
+        printf("Tem a receber o %dº prémio\n", prize(play, result, supl));
+    else
+        printf("Não tem prémio algum!\n");
+    
     return 0;
 }

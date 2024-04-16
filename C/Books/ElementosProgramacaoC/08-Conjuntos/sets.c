@@ -1,6 +1,6 @@
 #include "sets.h"
 
-int Setisin(Setelem x, Set s)           /* pertença */
+int Setisin(Setelem x, const Set s)     /* pertença */
 {
     // same as:
     //   ( s[x/CHAR_BIT] >> ( x % CHAR_BIT ) ) & 1
