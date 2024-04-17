@@ -84,13 +84,14 @@ BagPtr  Bagcpy(Bag b0, const Bag b1)
 
 BagPtr  Bagadd(Bag b, Bagelem x)
 {
-    b[x]++;
+    if (b[x] < b[x] + 1)    // avoids integer overflow (unsigned above MAX)
+        b[x]++;
     return b;
 }
 
 BagPtr  Bagrm(Bag b, Bagelem x)
 {
-    if (b[x])   // avoids integer overflow (unsigned bellow 0)
+    if (b[x] > 0)           // avoids integer overflow (unsigned bellow 0)
         b[x]--;
     return b;
 }
