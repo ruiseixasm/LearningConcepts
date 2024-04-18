@@ -18,7 +18,7 @@
 int positions   = MIN_POSITIONS;
 int colours     = MIN_COLOURS;
 
-                             // + 1 to allow '\0' at the end
+                             // + 1 to allow '\0' at the end (avoids memory leak!)
 typedef char Perm[MAX_POSITIONS + 1];   // global variable that by default all elements are 0
 
 long ipow(int x, int n)     // same as <math.h> pow() but for int/long instead of double
