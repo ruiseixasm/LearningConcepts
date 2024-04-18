@@ -92,9 +92,9 @@ char* strrand(char s[], int n, char c0, char c1,
                     char (*r) (char, char))  // function signature. (*) is the pointer to function r
 {
     char *s0 = s;   // s already a pointer, no need for &s
-    while (--n)     // --n instead of n-- avoids memory leak!
+    while (n--)
         *s++ = r(c0, c1);
-    *s = '\0';      // same as 0
+    *s = '\0';      // same as 0, the reason why Perm[MAX_POSITIONS + 1] (+ 1)
     return s0;
 }
 
@@ -108,10 +108,10 @@ char* Permfunc(Perm p, char (*f) (char, char))
     return strrand(p, positions, LOW_COLOUR, LOW_COLOUR + colours - 1, f);
 }
 
-char* scanPerm(Perm p)
+char* scanPerm(Perm p)  // Where the colours are given
 {
-    char s[81];
-    if (isPerm(fgets(s, 80, stdin)))
+    char s[16 + 1];
+    if (isPerm(fgets(s, 16, stdin)))
         return strcpy(p, s);
     else
         return NULL;
@@ -136,14 +136,23 @@ int main()
     //gets(line); // ???
     printf("Playing with %d positions and %d colours.\n", positions, colours);
     
-    eog = 1;    // false
+    eog = 0;    // false
     nplays = 0;
     Permfunc(secret, crandrng);
     
     do
     {
         printf("Your play #%d: ", ++nplays);
-        printf("eog: %d ", eog);
+        if (scanPerm(play))
+        {
+            eog = Permcmp(secret, play, &black, &white);
+            printf("black %d, white %d.\n", black, white);
+        }
+        else
+        {
+            printf("Invalid play. Please re-enter.\n");
+            --nplays;
+        }
         
     } while (!eog);
     printf("Right!\n");
