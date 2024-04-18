@@ -18,7 +18,8 @@
 int positions   = MIN_POSITIONS;
 int colours     = MIN_COLOURS;
 
-typedef char Perm[POSITIONS + 1];   // global variable that by default all elements are 0
+                             // + 1 to allow '\0' at the end
+typedef char Perm[MAX_POSITIONS + 1];   // global variable that by default all elements are 0
 
 long ipow(int x, int n)     // same as <math.h> pow() but for int/long instead of double
 {
@@ -90,10 +91,10 @@ int Permcmp(const Perm p1, const Perm p2, int *black, int *white)
 char* strrand(char s[], int n, char c0, char c1,
                     char (*r) (char, char))  // function signature. (*) is the pointer to function r
 {
-    char *s0 = s;    // s already a pointer, no need for &s
-    while (n--)
+    char *s0 = s;   // s already a pointer, no need for &s
+    while (--n)     // --n instead of n-- avoids memory leak!
         *s++ = r(c0, c1);
-    *s = '\0';
+    *s = '\0';      // same as 0
     return s0;
 }
 
