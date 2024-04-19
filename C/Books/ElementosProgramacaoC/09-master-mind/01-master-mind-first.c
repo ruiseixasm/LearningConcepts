@@ -1,9 +1,10 @@
-// Compile command: gcc 01-master-mind-first.c random.c bags.c -DBAG_MAX=16 -o 01-master-mind-first.out
+// Compile command: gcc 01-master-mind-first.c random.c bags.c input.c -o 01-master-mind-first.out
 
 #include <stdio.h>
 #include <string.h>
 #include "random.h"
 #include "bags.h"
+#include "input.h"
 
 #define POSITIONS       4               // Not used!    -
 #define COLOURS         6               // Not used!    -
@@ -50,7 +51,7 @@ int isPerm(const char *s)
     for ( ; s[i] > 0; i++)       // vs: HIGH_COLOUR
         if (s[i] < LOW_COLOUR || s[i] > LOW_COLOUR + colours)
             return 0;
-    return i == POSITIONS;
+    return i == positions;
 }
 
 int strmtch(const char *s, const char *t)
@@ -77,6 +78,9 @@ int strcmmn(const char *s, const char *t)
     }
     
     // returns the common amount of colours (inter: min of two bags)
+    // Baginter(bs, bt);
+    // int common = Bagcard(bs);
+    // return common;
     return Bagcard(Baginter(bs, bt));
 }
 
@@ -85,7 +89,7 @@ int Permcmp(const Perm p1, const Perm p2, int *black, int *white)
     // black: perfect match
     // white: colour match only
     *white = strcmmn(p1, p2) - (*black = strmtch(p1, p2));  // complementary that are just common
-    return *black == POSITIONS; // Check is all colours match that means won
+    return *black == positions; // Check is all colours match that means won
 }
 
 char* strrand(char s[], int n, char c0, char c1,
@@ -110,8 +114,9 @@ char* Permfunc(Perm p, char (*f) (char, char))
 
 char* scanPerm(Perm p)  // Where the colours are given
 {
-    char s[16 + 1];
-    if (isPerm(fgets(s, 16, stdin)))
+    char s[MAX_POSITIONS + 1];
+    fgets(s, MAX_POSITIONS + 1, stdin);
+    if (isPerm(strreplace(s, '\n', '\0')))  // needs to discard the '\n' char
         return strcpy(p, s);
     else
         return NULL;
@@ -133,6 +138,8 @@ int main()
     scanf("%d", &colours);
     positions = setpositions(positions);
     colours = setcolours(colours);
+    char dummy;
+    scanf("%c", &dummy);  // consumes last '\n'
     //gets(line); // ???
     printf("Playing with %d positions and %d colours.\n", positions, colours);
     

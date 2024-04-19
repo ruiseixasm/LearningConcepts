@@ -11,7 +11,7 @@
                 "${file}",
                 "bags.c",
                 "random.c",
-                "-DBAG_MAX=16",
+                "input.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
