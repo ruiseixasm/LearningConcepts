@@ -2,9 +2,8 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "random.h"
 #include "bags.h"
-#include "input.h"
+#include "utils.h"
 
 #define POSITIONS       4               // Not used!    -
 #define COLOURS         6               // Not used!    -
@@ -163,6 +162,8 @@ int main()
         
     } while (!eog);
     printf("Right!\n");
+    
+    press_any_key();
     
     return 0;
 }
