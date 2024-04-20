@@ -1,4 +1,4 @@
-// Compile command: gcc 02-master-mind-second.c random.c sets.c bags.c input.c -DSET_MAX=59048 -o 02-master-mind-second.out
+// Compile command: gcc 02-master-mind-second.c sets.c bags.c utils.c -DSET_MAX=59048 -o 02-master-mind-second.out
 
 #include <stdio.h>
 #include <string.h>

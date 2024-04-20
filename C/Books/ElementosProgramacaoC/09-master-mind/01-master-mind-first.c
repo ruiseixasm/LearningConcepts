@@ -1,4 +1,4 @@
-// Compile command: gcc 01-master-mind-first.c random.c bags.c input.c -o 01-master-mind-first.out
+// Compile command: gcc 01-master-mind-first.c bags.c utils.c -o 01-master-mind-first.out
 
 #include <stdio.h>
 #include <string.h>
@@ -164,6 +164,6 @@ int main()
     printf("Right!\n");
     
     press_any_key();
-    
+
     return 0;
 }
