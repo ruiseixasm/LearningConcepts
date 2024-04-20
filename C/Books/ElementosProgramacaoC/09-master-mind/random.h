@@ -10,8 +10,10 @@
 static bool seed_set = false;
 
 void setSeed();
-size_t getRandom(size_t module);
-size_t getRandomrng(size_t start, size_t end);
+int iRandom(int module);
+int iRandomrng(int start, int end);
+long lNormRandom(long module);
+long lNormRandomrng(long start, long end);
 
 
 #endif /* LIB_RAND */

@@ -13,13 +13,31 @@ void setSeed()
     }
 }
 
-size_t getRandom(size_t module)
+int iRandom(int module)
 {
     setSeed();
     return rand() % module;
 }
 
-size_t getRandomrng(size_t start, size_t end)
+int iRandomrng(int start, int end)
 {
-    return getRandom(end - start) + start;
+    int module = abs(end - start);
+    int rvalue = iRandom(module);
+    return (double)rvalue * (end - start) / module + start;
+}
+
+long lNormRandom(long module)
+{
+    int loops = sizeof(long) * 8 / RAND_MAX + 1;
+    long rvalue = 0;
+    for (int i = 0; i < loops; i++)
+        rvalue += iRandom(RAND_MAX);
+    return rvalue % module;
+}
+
+long lNormRandomrng(long start, long end)
+{
+    long module = abs(end - start);
+    long rvalue = lNormRandom(module);
+    return (double)rvalue * (end - start) / module + start;
 }

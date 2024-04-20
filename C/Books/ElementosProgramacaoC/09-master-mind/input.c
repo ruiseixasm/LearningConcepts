@@ -44,6 +44,11 @@ size_t lbofstr_b(const char *s, int b)
     return n;
 }
 
+size_t lbofstr(const char *s, int b)
+{
+    return lbofstr_b(s, b);
+}
+
 char *strofchr(char *s, char c, int n)
 {
     char *r = s;

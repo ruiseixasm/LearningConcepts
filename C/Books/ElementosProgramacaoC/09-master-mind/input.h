@@ -13,6 +13,7 @@ size_t decofstr_10(const char *s);
 int ichar(char c);
 char cint(int n);
 size_t lbofstr_b(const char *s, int b);
+size_t lbofstr(const char *s, int b);
 char *strofchr(char *s, char c, int n);
 int lblen(size_t n, int b);
 char *stroflbw(char *s, int b, int w, size_t n);

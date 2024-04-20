@@ -104,7 +104,7 @@ char* strrand(char s[], int n, char c0, char c1,
 
 char crandrng(char c0, char c1)
 {
-    return getRandomrng(c0, c1);
+    return iRandomrng(c0, c1);
 }
 
 char* Permfunc(Perm p, char (*f) (char, char))
