@@ -3,26 +3,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>     // for size_t
-#include "random.h"
 #include "sets.h"
 #include "bags.h"
-#include "input.h"
+#include "utils.h"
 
 #define POSITIONS       5               // Used         +
 #define COLOURS         9               // Used         +
 #define LOW_COLOUR      '1'             // Used         +
 #define HIGH_COLOUR     '0' + COLOURS   // Not used!    -
 
-#define MIN_POSITIONS   4
-#define MAX_POSITIONS   5
-#define MIN_COLOURS     6
-#define MAX_COLOURS     9
-
-int positions   = MIN_POSITIONS;
-int colours     = MIN_COLOURS;
+int positions   = POSITIONS;
+int colours     = COLOURS;
 
                              // + 1 to allow '\0' at the end (avoids memory leak!)
-typedef char Perm[MAX_POSITIONS + 1];   // global variable that by default all elements are 0
+typedef char Perm[POSITIONS + 1];   // global variable that by default all elements are 0
 
 // 1st PART of the master mind game (primeiro subproblema)
 
@@ -37,16 +31,6 @@ long ipow(int x, int n)     // same as <math.h> pow() but for int/long instead o
 int btwn(int x, int a, int b)
 {
     return x < a ? a : x > b ? b : x;    
-}
-
-int setpositions(int n)
-{
-    return positions = btwn(n, MIN_POSITIONS, MAX_POSITIONS);    
-}
-
-int setcolours(int n)
-{
-    return colours = btwn(n, MIN_COLOURS, MAX_COLOURS);    
 }
 
 int isPerm(const char *s)
@@ -102,7 +86,7 @@ char* strrand(char s[], int n, char c0, char c1,
     char *s0 = s;   // s already a pointer, no need for &s
     while (n--)
         *s++ = r(c0, c1);
-    *s = '\0';      // same as 0, the reason why Perm[MAX_POSITIONS + 1] (+ 1)
+    *s = '\0';      // same as 0, the reason why Perm[POSITIONS + 1] (+ 1)
     return s0;
 }
 
@@ -118,8 +102,8 @@ char* Permfunc(Perm p, char (*f) (char, char))
 
 char* scanPerm(Perm p)  // Where the colours are given
 {
-    char s[MAX_POSITIONS + 1];
-    fgets(s, MAX_POSITIONS + 1, stdin);
+    char s[POSITIONS + 1];
+    fgets(s, POSITIONS + 1, stdin);
     if (isPerm(strreplace(s, '\n', '\0')))  // needs to discard the '\n' char
         return strcpy(p, s);
     else
@@ -185,7 +169,7 @@ int main()
     
     Setaddrng(Setclr(sieve), 0, maxperms - 1);
     nplays = 0;
-    printf("Please choose a secret code and then type <return> to continue.");
+    printf("Please choose a secret code and then type <return> to continue: ");
     read_newline(); // consumes last '\n'
     
     for (;;)
@@ -194,6 +178,7 @@ int main()
         printf("My play #%d: %s\n", ++nplays, play);
         printf("blank: ");
         scanf("%d%*c", &black);    // "%*c" discards the '\n'
+        // read_newline(); // consumes last '\n'
         
         if (black >= positions)
         {
@@ -203,6 +188,7 @@ int main()
         
         printf("white: ");
         scanf("%d%*c", &white);     // "%*c" discards the '\n'
+        // read_newline(); // consumes last '\n'
         
         removePerms(play, black, white);
         if (!Setcard(sieve))
