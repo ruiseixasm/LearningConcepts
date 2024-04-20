@@ -8,8 +8,8 @@
 #include "bags.h"
 #include "input.h"
 
-#define POSITIONS       4               // Not used!    -
-#define COLOURS         6               // Not used!    -
+#define POSITIONS       5               // Used         +
+#define COLOURS         9               // Used         +
 #define LOW_COLOUR      '1'             // Used         +
 #define HIGH_COLOUR     '0' + COLOURS   // Not used!    -
 
@@ -186,9 +186,7 @@ int main()
     Setaddrng(Setclr(sieve), 0, maxperms - 1);
     nplays = 0;
     printf("Please choose a secret code and then type <return> to continue.");
-    char dummy;
-    scanf("%c", &dummy);  // consumes last '\n'
-    //gets(line); // ???
+    read_newline(); // consumes last '\n'
     
     for (;;)
     {
@@ -213,6 +211,8 @@ int main()
             break;
         }
     }
+
+    press_any_key();
     
     return 0;
 }

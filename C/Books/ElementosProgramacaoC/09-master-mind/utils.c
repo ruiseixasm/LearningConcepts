@@ -53,6 +53,22 @@ char *strreplace(char *s, char c0, char c1)
     return s;
 }
 
+// My own
+
+void read_newline()
+{
+    char dummy;
+    scanf("%c", &dummy);  // consumes last '\n'
+}
+
+void press_any_key()
+{
+    do 
+    {
+        printf("\nPress a key to continue...");
+    } while (getchar() != '\n');
+}
+
 // Directly from the book
 char *stradd(char *s, char c)
 {

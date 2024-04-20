@@ -22,6 +22,11 @@ long lNormRandomrng(long start, long end);
 
 char *strreplace(char *s, char c0, char c1);
 
+// My own
+
+void read_newline();
+void press_any_key();
+
 // Directly from the book
 char *stradd(char *s, char c);
 size_t decofstr_10(const char *s);
