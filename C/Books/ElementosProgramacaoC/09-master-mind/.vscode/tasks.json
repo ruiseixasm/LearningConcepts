@@ -11,8 +11,7 @@
                 "${file}",
                 "sets.c",
                 "bags.c",
-                "random.c",
-                "input.c",
+                "utils.c",
                 "-DSET_MAX=59048",  // 9 colours and 5 positions, 9^5 = 59049
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
