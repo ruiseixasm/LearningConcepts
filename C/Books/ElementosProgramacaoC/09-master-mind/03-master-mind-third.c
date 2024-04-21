@@ -1,4 +1,4 @@
-// Compile command: gcc 02-master-mind-second.c sets.c bags.c utils.c -DSET_MAX=59048 -o 02-master-mind-second.out
+// Compile command: gcc 03-master-mind-third.c sets.c bags.c utils.c -DSET_MAX=59048 -o 03-master-mind-third.out
 
 #include <stdio.h>
 #include <string.h>
@@ -140,61 +140,96 @@ Setelem Setrand(Set s)
     return Setpos(s, lNormRandomrng(1, Setcard(s)));
 }
 
-void choosePerm(Perm p)
+// 3th PART of the master mind game (outra estratégia)
+
+typedef struct
 {
-    Permlong(p, Setpos(sieve, lNormRandom(Setcard(sieve)) + 1));
+    Perm play;
+    int black;
+    int white;
+} Score;
+
+#define MAX_GAME 12
+Score game[MAX_GAME];
+int nplays;
+
+int ispossible(Perm p)
+{
+    int b;
+    int w;
+    int i;
+    Score *s;
+    for (i = 0, s = game; i < nplays; i++, s++)
+    {
+        Permcmp(p, s->play, &b, &w);
+        if (b != s->black || w != s->white)
+            return 0;
+    }
+    return 1;
+}
+
+int choosePerm(Perm p, size_t *next, size_t first)
+{
+    for (;;)
+    {
+        if (ispossible(Permlong(p, *next)))
+            return 1;
+        *next = ++*next % maxperms;
+        if (*next == first)
+            return 0;   // No possible solution has been found!!
+    }
 }
 
 int main()
 {
     Perm play;
     
-    int nplays;
     int black;  // perfect match
     int white;  // colour match only
-    size_t solutions;   // keeps tracking of possible solutions
     
+    size_t first;
+    size_t next;
+
     maxperms = ipow(colours, positions);
     printf("Playing with %d positions and %d colours.\n", positions, colours);
     printf("Number of permutations: %ld\n", maxperms);
     
-    Setaddrng(Setclr(sieve), 0, maxperms - 1);  // sets the entire sieve to 1s
+    first = lNormRandom(maxperms);
+    next = first;
     nplays = 0;
+
     printf("Please choose a secret code and then type <return> to continue."); // Computer never know the real secret
     getchar();  // awaits for key <return>
     
     for (;;)
     {
-        solutions = Setcard(sieve);
-        printf("\nPossible solutions: %ld\n", solutions);
-        choosePerm(play);
-        printf("My play #%d: %s\n", ++nplays, play);
-
-        if (solutions == 1)
+        if (!choosePerm(play, &next, first))
         {
-            printf("Solution Found!\n\n");
+            printf("Error: no plays are possible.\n\n");
             break;
         }
-        else
+
+        printf("My play #%d: %s\n", nplays + 1, play);
+
+        printf("Black: ");
+        scanf("%d%*c", &black);
+        if (black >= positions)
         {
-            printf("Black: ");
-            scanf("%d%*c", &black); // "%*c" consumes the last char '\n'
-            
-            if (black >= positions)
-            {
-                printf ("Right! Game over.\n\n");
-                break;
-            }
-            
-            printf("White: ");
-            scanf("%d%*c", &white); // "%*c" consumes the last char '\n'
-            
-            removePerms(play, black, white);
-            if (!Setcard(sieve))
-            {
-                printf("Error: no plays are possible.\n\n");
-                break;
-            }
+            printf ("Right! Game over.\n\n");
+            break;
+        }
+        
+        printf("White: ");
+        scanf("%d%*c", &white);
+
+        strcpy(game[nplays].play, play);
+        game[nplays].black = black;
+        game[nplays].white = white;
+
+        if (++nplays == MAX_GAME)
+        {
+            printf("Wrong! Too many plays in this game. Game over.\n\n");
+            break;
         }
     }
 
