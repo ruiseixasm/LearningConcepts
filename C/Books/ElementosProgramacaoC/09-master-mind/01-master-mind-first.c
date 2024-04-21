@@ -21,14 +21,6 @@ int colours     = MIN_COLOURS;
                              // + 1 to allow '\0' at the end (avoids memory leak!)
 typedef char Perm[MAX_POSITIONS + 1];   // global variable that by default all elements are 0
 
-long ipow(int x, int n)     // same as <math.h> pow() but for int/long instead of double
-{
-    long p = 1;     // for n = 0 it must return 1
-    while (n--)
-        p *= x;
-    return p;
-}
-
 int btwn(int x, int a, int b)
 {
     return x < a ? a : x > b ? b : x;    
@@ -115,6 +107,7 @@ char* scanPerm(Perm p)  // Where the colours are given
 {
     char s[MAX_POSITIONS + 1];
     fgets(s, MAX_POSITIONS + 1, stdin);
+    read_newline(); // consumes last '\n'
     if (isPerm(strreplace(s, '\n', '\0')))  // needs to discard the '\n' char
         return strcpy(p, s);
     else

@@ -20,14 +20,6 @@ typedef char Perm[POSITIONS + 1];   // global variable that by default all eleme
 
 // 1st PART of the master mind game (primeiro subproblema)
 
-long ipow(int x, int n)     // same as <math.h> pow() but for int/long instead of double
-{
-    long p = 1;     // for n = 0 it must return 1
-    while (n--)
-        p *= x;
-    return p;
-}
-
 int btwn(int x, int a, int b)
 {
     return x < a ? a : x > b ? b : x;    
@@ -169,16 +161,15 @@ int main()
     
     Setaddrng(Setclr(sieve), 0, maxperms - 1);
     nplays = 0;
-    printf("Please choose a secret code and then type <return> to continue: ");
-    read_newline(); // consumes last '\n'
+    printf("Please choose a secret code and then type <return> to continue."); // Computer never know the real secret
+    getchar();  // awaits for key <return>
     
     for (;;)
     {
         choosePerm(play);
         printf("My play #%d: %s\n", ++nplays, play);
-        printf("blank: ");
-        scanf("%d%*c", &black);    // "%*c" discards the '\n'
-        // read_newline(); // consumes last '\n'
+        printf("Black: ");
+        scanf("%d", &black);
         
         if (black >= positions)
         {
@@ -186,9 +177,8 @@ int main()
             break;
         }
         
-        printf("white: ");
-        scanf("%d%*c", &white);     // "%*c" discards the '\n'
-        // read_newline(); // consumes last '\n'
+        printf("White: ");
+        scanf("%d", &white);
         
         removePerms(play, black, white);
         if (!Setcard(sieve))

@@ -70,6 +70,15 @@ void press_any_key()
 }
 
 // Directly from the book
+
+long ipow(int b, int n)     // same as <math.h> pow() but for int/long instead of double
+{
+    long p = 1;     // for n = 0 it must return 1
+    while (n--)
+        p *= b;
+    return p;
+}
+
 char *stradd(char *s, char c)
 {
     char *r = s;
@@ -87,17 +96,17 @@ size_t decofstr_10(const char *s)
     return n;
 }
 
-int ichar(char c)
+int ichar(char c)   // [0 - 36]
 {
     return c <= '9' ? c - '0' : c - 'A' + 10;
 }
 
-char cint(int n)
+char cint(int n)    // ['0' - 'z'] (ASCII) (case sensitive)
 {
     return n < 10 ? n + '0' : n - 10 + 'A';
 }
 
-size_t lbofstr_b(const char *s, int b)
+size_t lbofstr_b(const char *s, int b)  // base b
 {
     size_t n = 0;
     while (*s)
@@ -105,7 +114,27 @@ size_t lbofstr_b(const char *s, int b)
     return n;
 }
 
-size_t lbofstr(const char *s, int b)
+size_t lbofstr_2(const char *s)         // base 2
+{
+    return lbofstr_b(s, 2);
+}
+
+size_t lbofstr_8(const char *s)         // base 8
+{
+    return lbofstr_b(s, 8);
+}
+
+size_t lbofstr_10(const char *s)        // base 10
+{
+    return lbofstr_b(s, 10);
+}
+
+size_t lbofstr_16(const char *s)        // base 16
+{
+    return lbofstr_b(s, 16);
+}
+
+size_t lbofstr(const char *s, int b)    // alias to lbofstr_b
 {
     return lbofstr_b(s, b);
 }
@@ -119,28 +148,34 @@ char *strofchr(char *s, char c, int n)
     return r;
 }
 
-int lblen(size_t n, int b)
+int lblen(size_t v10, int b)
 {
     int k = 1;
-    while (n /= b)
+    while (v10 /= b)
         k++;
     return k;
 }
 
-char *stroflbw(char *s, int b, int w, size_t n)
+char *stroflbw(char *s, int b, int w, size_t v10)
 {
+    // Fixed size of w (word), example, 9 chars (w=8)
+    // 12(10) -> "00001100'\0'" (b=2)
+    //  5(10) -> "00000101'\0'" (b=2)
     s += w;
-    *s = '\0';
-    while (w--)
+    *s = '\0';      // needs 1 extra char, w + 1
+    while (w--)     // writes from right to left
     {
-        *--s = cint(n % b);
-        n /= b;
+        *--s = cint(v10 % b);   // from [0 - 36] to ['0' to 'z'] (case sensitive)
+        v10 /= b;   // writes zeroes at the end of the cycle (beginning of the word)
     }
     return s;
 }
 
-char *stroflb(char *s, int b, size_t n)
+char *stroflb(char *s, int b, size_t v10)
 {
-    int w = lblen(n, b);
-    return stroflbw(s, b, w, n);
+    // Variable size (doesn't write extra zeroes)
+    // 12(10) ->    "1100'\0'" (b=2)
+    //  5(10) ->     "101'\0'" (b=2)
+    int w = lblen(v10, b);
+    return stroflbw(s, b, w, v10);
 }

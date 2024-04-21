@@ -28,16 +28,22 @@ void read_newline();
 void press_any_key();
 
 // Directly from the book
+
+long ipow(int b, int n);    // same as <math.h> pow() but for int/long instead of double
 char *stradd(char *s, char c);
 size_t decofstr_10(const char *s);
-int ichar(char c);
-char cint(int n);
+int ichar(char c);          // [0 - 36]
+char cint(int n);           // ['0' - 'z'] (ASCII) (case sensitive)
 size_t lbofstr_b(const char *s, int b);
+size_t lbofstr_2(const char *s);
+size_t lbofstr_8(const char *s);
+size_t lbofstr_10(const char *s);
+size_t lbofstr_16(const char *s);
 size_t lbofstr(const char *s, int b);
 char *strofchr(char *s, char c, int n);
-int lblen(size_t n, int b);
-char *stroflbw(char *s, int b, int w, size_t n);
-char *stroflb(char *s, int b, size_t n);
+int lblen(size_t n, int v10);
+char *stroflbw(char *s, int b, int w, size_t v10);
+char *stroflb(char *s, int b, size_t v10);
 
 
 #endif /* LIB_UTILS */
