@@ -172,11 +172,14 @@ int main()
         printf("My play #%d: %s\n", ++nplays, play);
 
         if (solutions == 1)
+        {
             printf("Solution Found!\n\n");
+            break;
+        }
         else
         {
             printf("Black: ");
-            scanf("%d", &black);
+            scanf("%d%*c", &black); // "%*c" consumes the last char '\n'
             
             if (black >= positions)
             {
@@ -185,7 +188,7 @@ int main()
             }
             
             printf("White: ");
-            scanf("%d", &white);
+            scanf("%d%*c", &white); // "%*c" consumes the last char '\n'
             
             removePerms(play, black, white);
             if (!Setcard(sieve))
@@ -196,7 +199,6 @@ int main()
         }
     }
 
-    read_newline();
     press_any_key();
     
     return 0;
