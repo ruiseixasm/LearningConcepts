@@ -141,7 +141,7 @@ int main()
     
     do
     {
-        printf("Your play #%d: ", ++nplays);
+        printf("\nYour play #%d: ", ++nplays);
         if (scanPerm(play))
         {
             eog = Permcmp(secret, play, &black, &white);

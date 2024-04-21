@@ -142,7 +142,7 @@ Setelem Setrand(Set s)
 
 void choosePerm(Perm p)
 {
-    Permlong(p, Setpos(sieve, lNormRandom(Setcard(sieve) - 1) + 1));
+    Permlong(p, Setpos(sieve, lNormRandom(Setcard(sieve)) + 1));
 }
 
 int main()
@@ -153,41 +153,50 @@ int main()
     int nplays;
     int black;  // perfect match
     int white;  // colour match only
-    int eog;    // bool for "end of game"
+    size_t solutions;   // keeps tracking of possible solutions
     
     maxperms = ipow(colours, positions);
     printf("Playing with %d positions and %d colours.\n", positions, colours);
     printf("Number of permutations: %ld\n", maxperms);
     
-    Setaddrng(Setclr(sieve), 0, maxperms - 1);
+    Setaddrng(Setclr(sieve), 0, maxperms - 1);  // sets the entire sieve to 1s
     nplays = 0;
     printf("Please choose a secret code and then type <return> to continue."); // Computer never know the real secret
     getchar();  // awaits for key <return>
     
     for (;;)
     {
+        solutions = Setcard(sieve);
+        printf("\nPossible solutions: %ld\n", solutions);
         choosePerm(play);
         printf("My play #%d: %s\n", ++nplays, play);
-        printf("Black: ");
-        scanf("%d", &black);
-        
-        if (black >= positions)
+
+        if (solutions == 1)
+            printf("Solution Found!\n\n");
+        else
         {
-            printf ("Right! Game over.\n");
-            break;
-        }
-        
-        printf("White: ");
-        scanf("%d", &white);
-        
-        removePerms(play, black, white);
-        if (!Setcard(sieve))
-        {
-            printf("Error: no plays are possible.\n");
-            break;
+            printf("Black: ");
+            scanf("%d", &black);
+            
+            if (black >= positions)
+            {
+                printf ("Right! Game over.\n\n");
+                break;
+            }
+            
+            printf("White: ");
+            scanf("%d", &white);
+            
+            removePerms(play, black, white);
+            if (!Setcard(sieve))
+            {
+                printf("Error: no plays are possible.\n\n");
+                break;
+            }
         }
     }
 
+    read_newline();
     press_any_key();
     
     return 0;
