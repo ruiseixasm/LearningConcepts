@@ -69,6 +69,12 @@ void press_any_key()
     } while (getchar() != '\n');
 }
 
+void read_input(char *input, size_t size)
+{
+    fgets(input, size, stdin);
+    input[strcspn(input, "\n")] = '\0';  // Remove trailing newline character
+}
+
 // Directly from the book
 
 long ipow(int b, int n)     // same as <math.h> pow() but for int/long instead of double

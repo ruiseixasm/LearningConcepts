@@ -26,6 +26,7 @@ char *strreplace(char *s, char c0, char c1);
 
 void read_newline();
 void press_any_key();
+void read_input(char *input, size_t size);
 
 // Directly from the book
 
