@@ -29,7 +29,11 @@ void SetYear(Disk *d, Year y);
 void SetStyle(Disk *d, Style s);
 void SetDisk(Disk *d, Artist a, Title t, Year y, Style s);
 void RemoveSong(Disk *d, short n);
+void InsertSong(Disk *d, Song s, short n);
 
+int LessThanByArtist(const Disk *d1, const Disk *d2);
+int LessThanByTitle(const Disk *d1, const Disk *d2);
+int LessThanByYear(const Disk *d1, const Disk *d2);
 
 
 #endif /* LIB_DISKS */
