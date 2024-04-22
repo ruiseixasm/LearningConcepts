@@ -65,7 +65,7 @@ void RemoveSong(Disk *d, short n)
 void InsertSong(Disk *d, Song s, short n)
 {
     // Songs are enumerated from 1 and not from 0 (n > 0)!
-    for (size_t i = n_songs; i >= n; i--)
+    for (size_t i = d->n_songs; i >= n; i--)
         d->songs[i] = d->songs[i - 1];
     d->songs[n - 1] = s;
     d->n_songs++;

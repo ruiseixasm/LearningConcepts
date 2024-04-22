@@ -10,10 +10,10 @@ void BuildItem(Item *x, int b, int t, const Disk *d)
 
 void MarkDeleted(Item *t)
 {
-    t->deleted  = true;
+    t->deleted  = 1;    // true
 }
 
 void MarkUndeleted(Item *t)
 {
-    t->deleted  = false;
+    t->deleted  = 0;    // false
 }

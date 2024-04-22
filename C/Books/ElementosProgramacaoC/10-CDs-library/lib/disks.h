@@ -1,6 +1,8 @@
 #ifndef LIB_DISKS
 #define LIB_DISKS
 
+#include <stddef.h>
+#include <string.h>
 #include "songs.h"
 
 typedef char *Artist;
