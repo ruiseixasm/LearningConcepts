@@ -1,0 +1,19 @@
+xfce4
+startxfce4
+startx
+sudo journalctl --boot --priority=3
+
+systemctl enable lightdm.service
+systemctl start lightdm.service
+
+systemctl enable xdce4-notifyd.service
+systemctl start xdce4-notifyd.service
+
+sudo apt install xdce4-notifyd.service
+
+# in Whisker Menu:
+# Settings->Session and Startup->Application Autostart->Add
+xcfe4-session-settings
+locate xfce4-notifyd
+/usr/lib/i386-linux-gnu/xfce4/notifyd/xfce4-notifyd
+
