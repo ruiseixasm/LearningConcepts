@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.0)
+project(MusicPlayer)
+
+# Add executable
+add_executable(music music.c)
+
+# Include directories
+target_include_directories(music PRIVATE lib)
+
+# Add source files from lib directory
+add_library(buttons STATIC lib/buttons.c)
+add_library(data_base STATIC lib/data_base.c)
+add_library(data_base_io STATIC lib/data_base_io.c)
+add_library(dialogs STATIC lib/dialogs.c)
+add_library(disks STATIC lib/disks.c)
+add_library(int_util STATIC lib/int_util.c)
+add_library(items STATIC lib/items.c)
+add_library(menus STATIC lib/menus.c)
+add_library(ppvoid STATIC lib/ppvoid.c)
+add_library(songs STATIC lib/songs.c)
+add_library(string_util STATIC lib/string_util.c)
+add_library(utils STATIC lib/utils.c)
+
+# Link libraries to the executable
+target_link_libraries(music PRIVATE buttons data_base data_base_io dialogs disks int_util items menus ppvoid songs string_util utils)
