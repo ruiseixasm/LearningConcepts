@@ -120,3 +120,124 @@ void DoBuildSong(Song *s, Name n, Duration x)
     BuildSong(s, n, x);
     n_modifs++;
 }
+
+// SELECTIONS
+
+void SortSelected(int (*f)(const Item *, const Item *))
+{
+    
+}
+
+void RestrictSelected(int (*f)(const Item *))
+{
+    
+}
+
+void SortByTitle(void)
+{
+    SortSelected(ItemLessThanByTitle);
+}
+
+void SortByArtist(void)
+{
+    SortSelected(ItemLessThanByArtist);
+}
+
+void SortByYear(void)
+{
+    SortSelected(ItemLessThanByYear);
+}
+
+static int ItemLessThanByTitle(const Item *t1, const Item *t2)
+{
+    return LessThanByTitle(&t1->disk, &t2->disk);
+}
+
+static int ItemLessThanByArtist(const Item *t1, const Item *t2)
+{
+    return LessThanByArtist(&t1->disk, &t2->disk);
+}
+
+static int ItemLessThanByYear(const Item *t1, const Item *t2)
+{
+    return LessThanByYear(&t1->disk, &t2->disk);
+}
+
+// RESTRICTIONS
+
+void RestrictByArtistFull(Artist a)
+{
+    thisArtist = a;
+    RestrictSelected(HasThisArtist);
+}
+
+void RestrictByTitleFull(Title t)
+{
+    thisTitle = t;
+    RestrictSelected(HasThisTitle);
+}
+
+void RestrictByYear(Year y0, Year y1)
+{
+    thisYear0 = y0;
+    thisYear1 = y1;
+    RestrictSelected(IsInTheseYears);
+}
+
+void RestrictByStyle(Style s)
+{
+    thisStyle = s;
+    RestrictSelected(HasThisStyle);
+}
+
+void RestrictBySongFull(const char *s)
+{
+    //thisSong = s;
+    strcpy(thisSong, s);    // Has to make a copy because '*s' is a constant
+    RestrictSelected(HasThisSong);
+}
+
+void RestrictByTitleApprox(Title t)
+{
+    
+}
+
+void RestrictByArtistApprox(Artist a)
+{
+    
+}
+
+void RestrictBySongApprox(const char *s)
+{
+    
+}
+
+static int HasThisArtist(const Item *t)
+{
+    return !strcmp(t->disk.artist, thisArtist);
+}
+
+static int HasThisTitle(const Item *t)
+{
+    return !strcmp(t->disk.title, thisTitle);
+}
+
+static int IsInTheseYears(const Item *t)
+{
+    return !(t->disk.year < thisYear0 || t->disk.year > thisYear1);
+}
+
+static int HasThisStyle(const Item *t)
+{
+    return t->disk.style == thisStyle;
+}
+
+static int HasThisSong(const Item *t)
+{
+    const Disk *d = &t->disk;
+    for (size_t i = 0; i < d->n_songs; i++)
+        if (strstr(d->songs[i].name, thisSong) != NULL)
+            return 1;   // true
+    return 0;           // false
+}
+
