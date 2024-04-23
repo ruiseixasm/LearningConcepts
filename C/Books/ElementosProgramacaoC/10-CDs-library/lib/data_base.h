@@ -73,6 +73,8 @@ static int HasThisStyle(const Item *t);
 static char *thisSong;
 static int HasThisSong(const Item *t);
 
-
+static int HasThisArtistStndrd(const Item *t);
+static int HasThisTitleStndrd(const Item *t);
+static int HasThisSongStndrd(const Item *t);
 
 #endif /* LIB_DATA_BASE */

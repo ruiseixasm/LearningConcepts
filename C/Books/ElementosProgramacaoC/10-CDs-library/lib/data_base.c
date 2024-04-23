@@ -199,17 +199,22 @@ void RestrictBySongFull(const char *s)
 
 void RestrictByTitleApprox(Title t)
 {
-    
+    thisTitle = strstndrd(t);
+    RestrictSelected(HasThisTitleStndrd);
 }
 
 void RestrictByArtistApprox(Artist a)
 {
-    
+    thisArtist = strstndrd(a);
+    RestrictSelected(HasThisArtistStndrd);
 }
 
 void RestrictBySongApprox(const char *s)
 {
-    
+    thisSong = strstndrd(strcpy(thisSong, s));
+    if (strchr("aeiou", *thisSong) != NULL)
+        strcpy(thisSong, thisSong + 1);
+    RestrictSelected(HasThisSongStndrd);
 }
 
 static int HasThisArtist(const Item *t)
@@ -241,3 +246,25 @@ static int HasThisSong(const Item *t)
     return 0;           // false
 }
 
+static int HasThisArtistStndrd(const Item *t)
+{
+    char s[256];
+    return !strcmp(strstndrd(strcpy(s, t->disk.artist)), thisArtist);
+}
+
+static int HasThisTitleStndrd(const Item *t)
+{
+    char s[256];
+    return !strcmp(strstndrd(strcpy(s, t->disk.title)), thisTitle);
+}
+
+static int HasThisSongStndrd(const Item *t)
+{
+    char s[256];
+    const Disk *d = &t->disk;
+    const Song *g = d->songs;
+    for (int n = d->n_songs; n; n--, g++)
+        if (strstr(strstndrd(strcpy(s, g->name)), thisSong) != NULL);
+            return 1;   // true
+    return 0;           // false
+}
