@@ -25,7 +25,7 @@ void SortPointersQuick(void **v, size_t n, int(*f)(const void *, const void *))
 {
     void **i = v;
     void **j = v + (n - 1);
-    void *a = *(i + (j - i)/2); // middle position
+    void *a = *(i + (j - i)/2); // middle position and (j - i)/2 must be an integer
     void *m;
     
     do
@@ -50,27 +50,38 @@ void SortPointersQuick(void **v, size_t n, int(*f)(const void *, const void *))
 
 int RestrictPointers(void **v, size_t n, int(*f)(const void *))
 {
-    
+    void **p = v;
+    void **q = v;
+    for (; n--; v++)
+        if (f(*v))
+            *q++ = *v;
+    return q - p;
 }
 
 void *FirstPointer(void **v, size_t n, int(*f)(const void *))     // returns void* pointer
 {
-    
+    for (; n--; v++)
+        if (f(*v))
+            return *v;
+    return NULL;
 }
 
 // Enabling functions that convert multiple sized pointers to void pointers
 
 void BuildPointers(void **v, const void *p, size_t n, size_t s)
 {
-    
+    for (char *i = (char *)p; n; n--, i += s)
+        *v++ = (void *)i;
 }
 
 void ClearPointers(void **v, size_t n)
 {
-    
+    while (n--)
+        *v++ = NULL;
 }
 
 void IteratePointers(void **v, size_t n, void(*f)(void *))
 {
-    
+    while (n--)
+        f(*v++);
 }

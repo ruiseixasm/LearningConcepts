@@ -125,12 +125,14 @@ void DoBuildSong(Song *s, Name n, Duration x)
 
 void SortSelected(int (*f)(const Item *, const Item *))
 {
-    
+    SortPointers((void **)selected, n_selected,
+                    (int(*)(const void *, const void *))f);
 }
 
 void RestrictSelected(int (*f)(const Item *))
 {
-    
+    n_selected = RestrictPointers((void **)selected, n_selected,
+                    (int(*)(const void *))f);
 }
 
 void SortByTitle(void)
