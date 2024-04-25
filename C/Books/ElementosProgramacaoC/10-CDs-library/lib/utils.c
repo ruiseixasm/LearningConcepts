@@ -71,6 +71,11 @@ void press_any_key()
 
 void read_input(char *input, size_t size)
 {
+    gets_string(input, size);
+}
+
+void gets_string(char *input, size_t size)  // equivalent to gets()
+{
     fgets(input, size, stdin);
     input[strcspn(input, "\n")] = '\0';  // Remove trailing newline character
 }

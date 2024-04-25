@@ -6,8 +6,8 @@
 #include <stdlib.h>     // needed for malloc and calloc
 #include <ctype.h>      // needed for tolower
 
-char *strnew(char *s);
-char *strnewn(char *s, size_t n);
+char *strnew(const char *s);
+char *strnewn(const char *s, size_t n);
 
 char *strtolower(char *s);
 char *strchrclr(char *s, const char *t);
