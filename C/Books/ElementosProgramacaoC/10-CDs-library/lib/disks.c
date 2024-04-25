@@ -1,5 +1,9 @@
 #include "disks.h"
 
+char *StyleNameOf(char *style_name, const Style s)
+{
+    return strcpy(style_name, style_names[s - 1]);
+}
 
 Disk MakeDisk(Artist a, Title t, Year y, Style s)
 {

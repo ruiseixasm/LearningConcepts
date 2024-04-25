@@ -22,6 +22,13 @@ typedef struct {
     Song    songs[MAX_SONGS];
 } Disk;
 
+static const char *style_names[] = {
+                "rock", "classic", "opera",
+                "jazz", "portuguese", "other"
+            };
+
+char *StyleNameOf(char *style_name, const Style s);
+
 Disk MakeDisk(Artist a, Title t, Year y, Style s);
 void BuildDisk(Disk *d, Artist a, Title t, Year y, Style s);
 void AddSong(Disk *d, Song s);
