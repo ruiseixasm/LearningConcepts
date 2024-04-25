@@ -1,30 +1,29 @@
 #include "data_base.h"
 
+// void ClearDataBase(void)
+// {
+//     n_items     = 0;
+//     n_deleted   = 0;
+//     next_label  = 1;
+//     n_modifs    = 0;
+// }
 
-void ClearDataBase(void)
-{
-    n_items     = 0;
-    n_deleted   = 0;
-    next_label  = 1;
-    n_modifs    = 0;
-}
+// Item *AddItem(Artist a, Title t, Year y, Style s)
+// {
+//     Item *p = items + n_items++;
+//     p->label = next_label++;
+//     p->deleted = 0; // false
+//     BuildDisk(&p->disk, a, t, y, s);
+//     n_modifs;
+//     return p;
+// }
 
-Item *AddItem(Artist a, Title t, Year y, Style s)
-{
-    Item *p = items + n_items++;
-    p->label = next_label++;
-    p->deleted = 0; // false
-    BuildDisk(&p->disk, a, t, y, s);
-    n_modifs;
-    return p;
-}
-
-void DeletedItem(Item *t)
-{
-    MarkDeleted(t);
-    n_modifs++;
-    n_deleted++;
-}
+// void DeletedItem(Item *t)
+// {
+//     MarkDeleted(t);
+//     n_modifs++;
+//     n_deleted++;
+// }
 
 int NumberOfElements(void)
 {
@@ -269,4 +268,51 @@ static int HasThisSongStndrd(const Item *t)
         if (strstr(strstndrd(strcpy(s, g->name)), thisSong) != NULL);
             return 1;   // true
     return 0;           // false
+}
+
+// CONTINUATION
+
+static int NotDeleted(const Item *t)
+{
+    return !t->deleted;    
+}
+
+void ResetSelection(void)
+{
+    BuildPointers((void **)selected, items, n_items, sizeof(Item));
+    n_selected = n_items;   // starts by assuming that all are selected, no restriction
+    RestrictSelected(NotDeleted);   // Restricts selection to the NOT deleted ones
+}
+
+void ClearDataBase(void)
+{
+    n_items     = 0;
+    n_deleted   = 0;
+    next_label  = 1;
+    n_modifs    = 0;
+    n_selected  = 0;
+}
+
+Item *AddItem(Artist a, Title t, Year y, Style s)
+{
+    Item *p = items + n_items++;
+    p->label = next_label++;
+    p->deleted = 0; // false
+    BuildDisk(&p->disk, a, t, y, s);
+    ResetSelection();
+    n_modifs++;
+    return p;
+}
+
+void DeleteItem(Item *t)
+{
+    MarkDeleted(t);
+    ResetSelection();
+    n_modifs++;
+    n_deleted++;
+}
+
+void IterateSelection(void (*f)(Item *))
+{
+    IteratePointers((void **)selected, n_selected, (void(*)(void *))f);
 }

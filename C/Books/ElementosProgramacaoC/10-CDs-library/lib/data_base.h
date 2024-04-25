@@ -14,9 +14,9 @@ static int n_deleted;
 static int n_modifs;
 static int next_label;
 
-void ClearDataBase(void);
-Item *AddItem(Artist a, Title t, Year y, Style s);
-void DeletedItem(Item *t);
+// void ClearDataBase(void);
+// Item *AddItem(Artist a, Title t, Year y, Style s);
+// void DeletedItem(Item *t);
 int NumberOfElements(void);
 int NumberOfModifs(void);
 int DataBaseFull(void);
@@ -76,5 +76,14 @@ static int HasThisSong(const Item *t);
 static int HasThisArtistStndrd(const Item *t);
 static int HasThisTitleStndrd(const Item *t);
 static int HasThisSongStndrd(const Item *t);
+
+// CONTINUATION
+
+static int NotDeleted(const Item *t);
+void ResetSelection(void);
+void ClearDataBase(void);
+Item *AddItem(Artist a, Title t, Year y, Style s);
+void DeleteItem(Item *t);
+void IterateSelection(void (*f)(Item *));
 
 #endif /* LIB_DATA_BASE */
