@@ -51,14 +51,16 @@ static int ItemLessThanByYear(const Item *t1, const Item *t2);
 
 // RESTRICTIONS
 
-void RestrictByArtistFull(Artist a);
-void RestrictByTitleFull(Title t);
+// @Johannes Yes; Add that to your arsenal of reasons not to hide pointers in typedefs.
+//     It's almost-never a good idea, and plenty of reasons it's a bad one. – WhozCraig May 11, 2018 at 15:22 
+void RestrictByArtistFull(const char *a);
+void RestrictByTitleFull(const char *t);
 void RestrictByYear(Year y0, Year y1);
 void RestrictByStyle(Style s);
 void RestrictBySongFull(const char *s);
 
-void RestrictByTitleApprox(Title t);
-void RestrictByArtistApprox(Artist a);
+void RestrictByTitleApprox(const char *t);
+void RestrictByArtistApprox(const char *t);
 void RestrictBySongApprox(const char *s);
 
 static Artist thisArtist;

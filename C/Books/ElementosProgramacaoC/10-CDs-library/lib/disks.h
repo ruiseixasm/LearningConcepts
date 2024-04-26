@@ -7,11 +7,12 @@
 
 typedef char *Artist;
 typedef char *Title;
-typedef short Year;
+typedef short Year; // 16bits, [−32767, +32767] range
 typedef short Style;
 
 #define NUMBER_OF_STYLES    6
 #define MAX_SONGS           24
+#define MAX_YEAR            2077
 
 typedef struct {
     Artist  artist;
@@ -26,6 +27,8 @@ static const char *style_names[] = {
                 "rock", "classic", "opera",
                 "jazz", "portuguese", "other"
             };
+
+int IsYear(int n);
 
 char *StyleNameOf(char *style_name, const Style s);
 

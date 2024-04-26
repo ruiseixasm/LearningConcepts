@@ -166,15 +166,17 @@ static int ItemLessThanByYear(const Item *t1, const Item *t2)
 
 // RESTRICTIONS
 
-void RestrictByArtistFull(Artist a)
+void RestrictByArtistFull(const char *a)
 {
-    thisArtist = a;
+    // thisArtist = a;
+    strcpy(thisArtist, a);  // Has to make a copy because '*a' is a constant
     RestrictSelected(HasThisArtist);
 }
 
-void RestrictByTitleFull(Title t)
+void RestrictByTitleFull(const char *t)
 {
-    thisTitle = t;
+    // thisTitle = t;
+    strcpy(thisTitle, t);   // Has to make a copy because '*t' is a constant
     RestrictSelected(HasThisTitle);
 }
 
@@ -198,15 +200,15 @@ void RestrictBySongFull(const char *s)
     RestrictSelected(HasThisSong);
 }
 
-void RestrictByTitleApprox(Title t)
+void RestrictByTitleApprox(const char *t)
 {
-    thisTitle = strstndrd(t);
+    thisTitle = strstndrd(strcpy(thisSong, t));
     RestrictSelected(HasThisTitleStndrd);
 }
 
-void RestrictByArtistApprox(Artist a)
+void RestrictByArtistApprox(const char *a)
 {
-    thisArtist = strstndrd(a);
+    thisArtist = strstndrd(strcpy(thisSong, a));
     RestrictSelected(HasThisArtistStndrd);
 }
 

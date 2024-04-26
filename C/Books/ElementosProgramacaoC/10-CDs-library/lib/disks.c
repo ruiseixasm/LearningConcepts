@@ -1,5 +1,10 @@
 #include "disks.h"
 
+int IsYear(int n)
+{
+    return 1877 <= n && n <= MAX_YEAR;
+}
+
 char *StyleNameOf(char *style_name, const Style s)
 {
     return strcpy(style_name, style_names[s - 1]);
