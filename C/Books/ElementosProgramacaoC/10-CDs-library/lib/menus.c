@@ -106,7 +106,10 @@ void CheckItemCond(Menu *m, int x, int b)
 
 void RenameItem(Menu *m, int x, const char *s)
 {
-    char **p = &(m->items[x - 1].name);
-    free(*p);
-    *p = strnew(s);
+    //char **p = &(m->items[x - 1].name);
+    //free(*p);
+    //*p = strnew(s);
+    
+    free(m->items[x - 1].name);
+    m->items[x - 1].name = strnew(s);
 }
