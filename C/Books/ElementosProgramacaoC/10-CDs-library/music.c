@@ -3,6 +3,7 @@
 #include "lib/data_base.h"
 #include "lib/data_base_io.h"
 #include "lib/dialogs.h"
+#include "lib/int_util.h"
 
 
 int main(int argc, char *argv[])
