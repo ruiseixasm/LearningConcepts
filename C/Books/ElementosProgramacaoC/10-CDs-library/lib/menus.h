@@ -30,7 +30,7 @@ void EnableItem(Menu *m, int x);
 void DisableItem(Menu *m, int x);
 void EnableItemCond(Menu *m, int x, int b);
 void CheckItem(Menu *m, int x);
-void UnchecItem(Menu *m, int x);
+void UncheckItem(Menu *m, int x);
 void CheckItemCond(Menu *m, int x, int b);
 void RenameItem(Menu *m, int x, const char *s);
 

@@ -91,7 +91,7 @@ void CheckItem(Menu *m, int x)
     m->items[x - 1].checked = 1;    // true
 }
 
-void UnchecItem(Menu *m, int x)
+void UncheckItem(Menu *m, int x)
 {
     m->items[x - 1].checked = 0;    // false
 }
@@ -101,7 +101,7 @@ void CheckItemCond(Menu *m, int x, int b)
     if (b)
         CheckItem(m, x);
     else
-        UnchecItem(m, x);
+        UncheckItem(m, x);
 }
 
 void RenameItem(Menu *m, int x, const char *s)

@@ -1,6 +1,7 @@
 #ifndef LIB_DIALOGS
 #define LIB_DIALOGS
 
+#include <stdarg.h>     // needed for va_start(), va_arg() and va_end()
 #include "menus.h"
 #include "buttons.h"
 #include "string_util.h"
@@ -12,13 +13,13 @@
 typedef int (*Fstring)(const char *);   // Validation functions (read only)
 typedef int (*Fint)(int);
 
-int ReadString(char *s, const char *prompt, Fstring f, const char *error);
-int EditString(char *s, const char *prompt, Fstring f, const char *error);
+int ReadString(char **s, const char *prompt, Fstring f, const char *error);
+int EditString(char **s, const char *prompt, Fstring f, const char *error);
 int ReadInt(int *n, const char *prompt, Fint f, const char *error);
 int EditInt(int *n, const char *prompt, Fint f, const char *error);
 
 int DialogBox(const char *fmt, ...);
-int OpenFileBox(char *fname, FILE *f,
+int OpenFileBox(char *fname, FILE **f,
                          const char *prompt, const char *mode, const char *error);
 
 #endif /* LIB_DIALOGS */
