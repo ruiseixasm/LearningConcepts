@@ -16,4 +16,8 @@ char *strchruniq(char *s);
 char *strchrins1(char *s, char c);
 char *strstndrd(char *s);
 
+char *strtrmr(char *s);
+// const char *strtrml(const char *s); // Doesn't allow any future changes!!
+char *strtrml(char *s); // Allows future changes!!
+
 #endif /* LIB_STRING_UTIL */

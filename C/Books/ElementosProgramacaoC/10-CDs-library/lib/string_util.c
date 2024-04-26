@@ -75,3 +75,21 @@ char *strstndrd(char *s)
     strchruniq(s);
     return s;
 }
+
+char *strtrmr(char *s)
+{
+    char *s0 = s;
+    while (*s)
+        s++;
+    while (s > s0 && isspace(*--s))
+        *s = '\0';
+    return s0;
+}
+
+// const char *strtrml(const char *s)   // Doesn't allow any future changes!!
+char *strtrml(char *s)                  // Allows future changes!
+{
+    while (isspace(*s))
+        s++;
+    return s;
+}
