@@ -19,7 +19,6 @@ Menu selectMenu;    // G
 int dbOpen;     // boolean
 char dbName[64];
 int searchApprox = 0;
-char style_name[64];    // needed for safe StyleNameOf(char *style_name, const Style s)
 
 typedef void (*fRestrict)(const char *);
 fRestrict RestrictByArtist[2]   = {RestrictByArtistFull, RestrictByArtistApprox};
