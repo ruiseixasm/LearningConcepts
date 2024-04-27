@@ -138,7 +138,7 @@ void DisplayDiskMainInfo(FILE *f, const Disk *d)
     fprintf(f, "Artista: %s\nTítulo:  %s\n"
                "Ano de edição: %d\nEstilo: %s\n",
                d->artist, d->title, d->year,
-               StyleNameOf(style, d->style));
+               StyleNameOf(d->style));
 }
 
 void DisplaySongInDisk(FILE *f, const Disk *d)

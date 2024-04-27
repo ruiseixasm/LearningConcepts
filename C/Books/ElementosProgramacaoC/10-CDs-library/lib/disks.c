@@ -5,9 +5,9 @@ int IsYear(int n)
     return 1877 <= n && n <= MAX_YEAR;
 }
 
-char *StyleNameOf(char *style_name, const Style s)
+const char *StyleNameOf(Style s)
 {
-    return strcpy(style_name, style_names[s - 1]);
+    return style_names[s - 1];
 }
 
 Disk MakeDisk(Artist a, Title t, Year y, Style s)

@@ -30,7 +30,7 @@ static const char *style_names[] = {
 
 int IsYear(int n);
 
-char *StyleNameOf(char *style_name, const Style s);
+const char *StyleNameOf(Style s);
 
 Disk MakeDisk(Artist a, Title t, Year y, Style s);
 void BuildDisk(Disk *d, Artist a, Title t, Year y, Style s);

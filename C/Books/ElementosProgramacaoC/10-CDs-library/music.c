@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     // Styles Menu  (D)
     CreateMenu(&styleMenu, "Style: ", "");
     for (int i = 1; i <= NUMBER_OF_STYLES; i++)
-        AppendItem(&styleMenu, StyleNameOf(style_name, i));
+        AppendItem(&styleMenu, StyleNameOf(i));
     // Search Menu  (E)
     CreateMenu(&searchMenu, "SEARCH", "restart;use aproximations;select>>;"
                                       "sort>>;display;print...;;"); // Last element is the 7th
