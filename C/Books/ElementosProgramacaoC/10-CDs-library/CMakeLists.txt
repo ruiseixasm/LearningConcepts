@@ -1,3 +1,5 @@
+# List all available generators command: cmake --help
+# Run cmake with a specific generated selected: cmake -g "MinGW Makefiles" ..
 cmake_minimum_required(VERSION 3.10)
 project(MusicDataBase)
 
