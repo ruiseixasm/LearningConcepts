@@ -141,7 +141,7 @@ void DisplayDiskMainInfo(FILE *f, const Disk *d)
                StyleNameOf(d->style));
 }
 
-void DisplaySongInDisk(FILE *f, const Disk *d)
+void DisplaySongsInDisk(FILE *f, const Disk *d)
 {
     DisplaySongs(f, d->songs, d->n_songs);
 }
@@ -149,7 +149,7 @@ void DisplaySongInDisk(FILE *f, const Disk *d)
 void DisplayDisk(FILE *f, const Disk *d)
 {
     DisplayDiskMainInfo(f, d);
-    DisplaySongInDisk(f, d);
+    DisplaySongsInDisk(f, d);
 }
 
 void DisplaySong(FILE *f, const Song *s, int i)

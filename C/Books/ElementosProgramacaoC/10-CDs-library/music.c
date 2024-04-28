@@ -33,8 +33,8 @@ int DoMainMenu(void);
 void DoFileMenu(void);
 void DoDisksMenu(void);
 void DoSearchMenu(void);
-void DoSortMenu(void);
-void DoSelectMenu(void);
+int DoSortMenu(void);
+int DoSelectMenu(void);
 void DoDisplaySelection(void);
 
 // ITEMS
@@ -43,6 +43,7 @@ int SelectItem(Item **x);
 void DoDisplayItems(void);
 void DoEditItems(void);
 void DoDeleteItems(void);
+int NumberOfSelectedItems();    // Missing function, consideres check as same as selected!
 
 // DISKS
 void DoEditDisk(Disk *d);
@@ -235,22 +236,161 @@ void DoDisksMenu(void)
 
 void DoSearchMenu(void)
 {
+    FILE *listFile;
+    char listFileName[256];
+    char name[64];
+    int n_sel;
     
+    sprintf(name, "(#selected = %d)", n_sel = NumberOfSelectedItems());
+    RenameItem(&searchMenu, 7, name);
+    CheckItemCond(&searchMenu, 2, searchApprox);
+    EnableItemCond(&searchMenu, 3, n_sel);
+    EnableItemCond(&searchMenu, 4, n_sel);
+    EnableItemCond(&searchMenu, 5, n_sel);
+    EnableItemCond(&searchMenu, 6, n_sel);
+    
+    switch(MenuSelect(&searchMenu))
+    {
+        case 0: return;
+        case 1:
+            ResetSelection();
+            return;
+        case 2:
+            searchApprox = !searchApprox;
+            return;
+        case 3:
+            if (DoSelectMenu())
+                DoDisplaySelection();
+            return;
+        case 4:
+            if (DoSortMenu())
+                DoDisplaySelection();
+            return;
+        case 5:
+            DisplaySelection(stdout);
+            return;
+        case 6:
+            if (OpenFileBox(listFileName, &listFile,
+                            "Print in which file? ", "w",
+                            UNABLE_TO_WRITE))
+            {
+                DisplaySelection(listFile);
+                fclose(listFile);
+            }
+            return;
+            
+        default: break;
+    }
 }
 
-void DoSortMenu(void)
+int DoSortMenu(void)
 {
-    
+    switch(MenuSelect(&sortMenu))
+    {
+        case 0: return 0;
+        case 1:
+            SortByArtist();
+            return 1;
+        case 2:
+            SortByTitle();
+            return 1;
+        case 3:
+            SortByYear();
+            return 1;
+            
+        default: return 0;
+    }
 }
 
-void DoSelectMenu(void)
+int DoSelectMenu(void)
 {
-    
+    switch(MenuSelect(&selectMenu))
+    {
+        case 0: return 0;
+        case 1:
+        {
+            Artist a;
+            if (ReadString(&a, "Artist: ", NULL, ""))
+            {
+                RestrictByArtist[searchApprox](a);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        case 2:
+        {
+            Title t;
+            if (ReadString(&t, "Title: ", NULL, ""))
+            {
+                RestrictByTitle[searchApprox](t);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        case 3:
+        {
+            int y0_int, y1_int;
+            if (ReadInt(&y0_int, "First year: ", NULL, "") &&
+                ReadInt(&y1_int, "Last year:  ", NULL, ""))
+            {
+                RestrictByYear((Year)y0_int, (Year)y1_int);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        case 4:
+        {
+            Style s;
+            if (s = MenuSelect(&styleMenu))
+            {
+                RestrictByStyle(s);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        case 5:
+        {
+            char *s;
+            if (ReadString(&s, "Name of song (or part of it): ", NULL, ""))
+            {
+                RestrictBySong[searchApprox](s);
+                return 1;
+            }
+            else
+                return 0;
+        }
+        
+        default: break;
+    }
 }
 
 void DoDisplaySelection(void)
 {
+    char message[64];
+    char buttons[32];
     
+    for (;;)
+    {
+        sprintf(message, "Number of selected items = %d\n", NumberOfSelectedItems());
+        strcpy(buttons, NumberOfSelectedItems() ?
+                        "OK;Display;Restart;" :"OK;;Restart;");
+                        
+        switch (ButtonSelect(message, buttons))
+        {
+            case 1: return;
+            case 2:
+                DisplaySelection(stdout);
+                break;
+            case 3:
+                ResetSelection();
+                strcpy(buttons, "OK;Display;");
+                break;
+        }
+    }
 }
 
 // ITEMS
@@ -321,6 +461,16 @@ void DoDeleteItems(void)
         }
 }
 
+int NumberOfSelectedItems()     // Missing function, consideres check as same as selected!
+{
+    int total_selected = 0;
+    MenuItem *menu_items = searchMenu.items;
+    for (int i = 0; i < searchMenu.n_Items; i++)
+        total_selected += menu_items[i].checked;
+    
+    return total_selected;
+}
+
 // DISKS
 
 void DoEditDisk(Disk *d)
@@ -360,7 +510,31 @@ int DoEditMainInfo(Disk *d)
 
 void DoEditSongs(Disk *d)
 {
-    
+    int s_number;
+    for (;;)
+        switch (ButtonSelect ("Songs? ", d->n_songs ?
+                "OK;See;Edit;Delete;Insert;Add;" :
+                "OK;;;;Insert;Add;"))
+        {
+            case 1: return;
+            case 2:
+                DisplaySongsInDisk(stdout, d);
+                break;
+            case 3:
+                DoEditOneSong(d);
+                break;
+            case 4:
+                DoDeleteOneSong(d);
+                break;
+            case 5:
+                DoInsertOneSong(d);
+                break;
+            case 6:
+                DoAddOneSong(d);
+                break;
+                
+            default: break;
+        }
 }
 
 // SONGS

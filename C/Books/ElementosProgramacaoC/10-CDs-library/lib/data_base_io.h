@@ -30,7 +30,7 @@ static void DisplayItemOnThisFile(Item *t); // To be passed to IterateSelection
 void DisplaySelection(FILE *f);
 void DisplayItem(FILE *f, const Item *t);
 void DisplayDiskMainInfo(FILE *f, const Disk *d);
-void DisplaySongInDisk(FILE *f, const Disk *d);
+void DisplaySongsInDisk(FILE *f, const Disk *d);
 void DisplayDisk(FILE *f, const Disk *d);
 void DisplaySong(FILE *f, const Song *s, int i);
 void DisplaySongs(FILE *f, const Song *s, int n);
