@@ -1,3 +1,4 @@
+// Compiling command: gcc 02-stdargs-dialog-box.c -o 02-stdargs-dialog-box.out
 #include <stdio.h>
 #include <stdarg.h>
 
