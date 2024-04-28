@@ -39,6 +39,7 @@ void DoDisplaySelection(void);
 
 // ITEMS
 void DoAddItems(void);
+int SelectItem(Item **x);
 void DoDisplayItems(void);
 void DoEditItems(void);
 void DoDeleteItems(void);
@@ -102,17 +103,134 @@ int istrlen(const char *s)
 
 int DoMainMenu(void)
 {
-    return 0;
+    EnableItemCond(&mainMenu, 2, dbOpen);
+    EnableItemCond(&mainMenu, 3, dbOpen && NumberOfElements());
+
+    switch (MenuSelect(&mainMenu))
+    {
+        case 0: return 1;
+        case 1:
+            DoFileMenu();
+            return 1;
+        case 2:
+            DoDisksMenu();
+            return 1;
+        case 3:
+            DoSearchMenu();
+            return 1;
+        case 4:
+            if (NumberOfModifs())
+                switch (ButtonSelect("Quit without saving? ", "No;Yes;Save;"))
+                {
+                    case 1: return 1;
+                    case 2: return 0;
+                    case 3:
+                    {
+                        FILE *db;
+                        if ((db = fopen(dbName , "w")) != NULL ||
+                            (OpenFileBox(dbName, &db, "Save in which file? ", "w", UNABLE_TO_WRITE)))
+                        {
+                            SaveDataBase(db);
+                            fclose(db);
+                            return 0;
+                        }
+                    }
+                    
+                    default: return 1;
+                }
+    
+        default: return 0;
+    }
 }
 
 void DoFileMenu(void)
 {
-    
+    int i_sel;
+    FILE *db;
+    EnableItemCond(&fileMenu, 1, !dbOpen);
+    EnableItemCond(&fileMenu, 2, !dbOpen);
+    EnableItemCond(&fileMenu, 3, dbOpen && *dbName != '\0');
+    EnableItemCond(&fileMenu, 4, dbOpen && *dbName != '\0' && NumberOfModifs());
+    EnableItemCond(&fileMenu, 5, dbOpen);
+    EnableItemCond(&fileMenu, 6, dbOpen);
+
+    switch (i_sel = MenuSelect(&fileMenu))
+    {
+        case 0: return;
+        case 1:
+            ClearDataBase();
+            dbOpen = 1; // true
+            *dbName = '\0';
+            return;
+        case 2:
+            if (OpenFileBox(dbName, &db, "Open which file? ", "r", UNABLE_TO_READ))
+            {
+                OpenDataBase(db);
+                fclose(db);
+                dbOpen = 1; // true
+            }
+            return;
+        case 3:
+        case 4:
+            if (NumberOfModifs())
+                if ((db = fopen(dbName, "w")) == NULL)
+                {
+                    ErrorBox("Unable to close file. ");
+                }
+                else
+                {
+                    SaveDataBase(db);
+                    fclose(db);
+                }
+            if (i_sel == 3)
+                dbOpen = 0;
+            return;
+        case 5:
+            if (OpenFileBox(dbName, &db, "save in which file? ", "w", UNABLE_TO_WRITE))
+            {
+                SaveDataBase(db);
+                fclose(db);
+            }
+            return;
+        case 6:
+            if (!NumberOfModifs() || NoYesBox("Discard edits in this data base? "))
+                dbOpen = 0; // false
+            return;
+
+        default:
+            break;
+    }
 }
 
 void DoDisksMenu(void)
 {
-    
+    int n_elems = NumberOfElements();
+    EnableItemCond(&diskMenu, 2, n_elems);
+    EnableItemCond(&diskMenu, 3, n_elems);
+    EnableItemCond(&diskMenu, 4, n_elems);
+
+    switch (MenuSelect(&diskMenu))
+    {
+        case 0: return;
+        case 1:
+            if (DataBaseFull())
+                ErrorBox("Data base is full.\nUnable to add disks. ");
+            else
+                DoAddItems();
+            return;
+        case 2:
+            DoDisplayItems();
+            return;
+        case 3:
+            DoEditItems();
+            return;
+        case 4:
+            DoDeleteItems();
+            return;
+
+        default:
+            break;
+    }
 }
 
 void DoSearchMenu(void)
@@ -139,17 +257,50 @@ void DoDisplaySelection(void)
 
 void DoAddItems(void)
 {
-    
+    Artist a;
+    Title t;
+    Year y;
+    Style s;
+    Item *x;
+    char message[32];
+
+    while (DialogBox("Add a new disk\n%s%s%d%m",
+            &a, "Artist: ", istrlen, "This field must be non-empty. ",
+            &t, "Title:  ", NULL, "",
+            &y, "Year: ", IsYear, "Invalid year. ",
+            &s, &styleMenu))
+    {
+        printf("Lable = %d\n", (x = AddItem(a, t, y, s))->label);
+        DoEditDisk(&x->disk);
+    }
+}
+
+int SelectItem(Item **x)
+{
+    int n;
+    while (ReadInt(&n, "Label number: ", NULL, ""))
+        if ((*x = ItemWithLabel(n)) == NULL)
+            ErrorBox("No such label. ");
+        else
+        {
+            DisplayItem(stdout, *x);
+            return 1;
+        }
+    return 0;
 }
 
 void DoDisplayItems(void)
 {
-    
+    Item *x;
+    //                               Only the last operand is considered for the while evaluation
+    while (printf("Inspect disk\n"), SelectItem(&x)) {}
 }
 
 void DoEditItems(void)
 {
-    
+    Item *x;
+    while (printf("Edit disk\n"), SelectItem(&x))
+        DoEditDisk(&x->disk);
 }
 
 void DoDeleteItems(void)
