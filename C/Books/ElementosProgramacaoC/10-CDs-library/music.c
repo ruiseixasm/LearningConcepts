@@ -305,19 +305,57 @@ void DoEditItems(void)
 
 void DoDeleteItems(void)
 {
-    
+    Item *x;
+    while (printf("Delete disk\n"), SelectItem(&x))
+        switch (ButtonSelect("Delete this disk? ", "No;Yes;Cancel;"))
+        {
+            case 1: break;
+            case 2:
+                DeleteItem(x);
+                if (!NumberOfElements())
+                    return;
+                break;
+            case 3: return;
+            
+            default: break;
+        }
 }
 
 // DISKS
 
 void DoEditDisk(Disk *d)
 {
-    
+    switch (ButtonSelect("Edit this disk? ", "No;Yes;Songs;"))
+    {
+        case 1: break;
+        case 2:
+            if (DoEditMainInfo(d))
+                DoEditSongs(d);
+            return;
+        case 3:
+            DoEditSongs(d);
+            return;
+    }
 }
 
 int DoEditMainInfo(Disk *d)
 {
-    return 0;
+    Artist  a = d->artist;
+    Title   t = d->title;
+    Year    y = d->year;
+    Style   s = d->style;
+    
+    if (DialogBox("Edit a disk\n%S%S%D%M",
+                  &a, "Artist [%s]: ", istrlen, "This field must be non-empty. ",
+                  &t, "Title [%s]: ", NULL, "",
+                  &y, "Year [%d]: ", IsYear, "Invalid year. ",
+                  &s, &styleMenu))
+    {
+        DoSetDisk(d, a, t, y, s);
+        return 1;   // true
+    }
+    else
+        return 0;   // false
 }
 
 void DoEditSongs(Disk *d)
@@ -329,20 +367,69 @@ void DoEditSongs(Disk *d)
 
 void DoEditOneSong(Disk *d)
 {
+    int s_number;
+    Song *s_ref;
+    Name name;
+    int duration;
     
+    if (ReadInt(&s_number, "song number ",
+                ispos, "Invalid song number. "))
+    {
+        s_number = min(s_number, d->n_songs);
+        s_ref = d->songs + s_number - 1;
+        name = s_ref->name;
+        duration = s_ref->duration;
+        DisplaySong(stdout, s_ref, s_number);
+        if (DialogBox("Edit a song\n%S%D",
+                      &name, "Name[%s]: ", NULL, "",
+                      &duration, "Duration[%d]: ", IsDuration, "Invalid value. "))
+            DoBuildSong(s_ref, name, duration);
+        DisplaySong(stdout, s_ref, s_number);
+    }
 }
 
 void DoDeleteOneSong(Disk *d)
 {
-    
+    int s_number;
+    Song *s_ref;
+    if (ReadInt(&s_number, "song number ", ispos, "Invalid song number. "))
+    {
+        s_number = min(s_number, d->n_songs);
+        s_ref = d->songs + s_number - 1;
+        DisplaySong(stdout, s_ref, s_number);
+        if (NoYesBox("Delete this song? "))
+            DoRemoveSong(d, s_number);
+    }
 }
 
 void DoInsertOneSong(Disk *d)
 {
-    
+    int s_number;
+    Name name;
+    int duration;
+    if (d->n_songs == MAX_SONGS)
+    {
+        ErrorBox("Disk is full. Cannot insert. ");
+        return;
+    }
+    if (ReadInt(&s_number, "song number ", ispos, "Invalid song number. "))
+        if (DialogBox("Insert a song\n%s%d",
+                      &name, "Name: ", NULL, "",
+                      &duration, "Duration: ", IsDuration, "Invalid value. "))
+            DoInsertSong(d, MakeSong(name, duration), min(s_number, d->n_songs + 1));
 }
 
 void DoAddOneSong(Disk *d)
 {
-
+    Name name;
+    int duration;
+    if (d->n_songs == MAX_SONGS)
+    {
+        ErrorBox("Disk is full. Cannot add. ");
+        return;
+    }
+    if (DialogBox("Add a song\n%s%d",
+                  &name, "Name: ", NULL, "",
+                  &duration, "Duration: ", IsDuration, "Invalid value. "))
+        DoAddSong(d, MakeSong(name, duration));
 }
