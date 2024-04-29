@@ -53,3 +53,4 @@ build/
 # Extras
 *.opendb
 x64/
+.vs/
