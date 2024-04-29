@@ -1,0 +1,15 @@
+# Check for installed packages:
+apt list --installed | grep -i arduino
+apt list --installed | grep -i BRLTTY
+
+# Check if your user is in the "dialout" group
+groups rui
+
+# Check logs while connection the Arduino board
+sudo dmesg -w
+
+# Install needed troubleshooting tools
+sudo apt install util-linux
+
+# Remove software found to be in conflict, like
+sudo apt remove brltty
