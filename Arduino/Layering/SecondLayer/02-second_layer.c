@@ -3,17 +3,20 @@
 #include "03-third_layer.c"
 	
 #if ENVIRONMENT == LOCAL
-    #include "01-local_reader.c"
-    #include "01-local_sender.c"
-    #include "01-local_actor.c"
+    #define REST_READ_SECONDS   0
+    #include "01-hooks_local/local_reader.c"
+    #include "01-hooks_local/local_sender.c"
+    #include "01-hooks_local/local_actor.c"
 #elif ENVIRONMENT == REMOTE
-    #include "01-remote_reader.c"
-    #include "01-remote_sender.c"
-    #include "01-remote_actor.c"
+    #define REST_READ_SECONDS   60 * 60 * 24 / 3
+    #include "01-hooks_remote/remote_reader.c"
+    #include "01-hooks_remote/remote_sender.c"
+    #include "01-hooks_remote/remote_actor.c"
 #else             // DUMMY
-    #include "01-dummy_reader.c"
-    #include "01-dummy_sender.c"
-    #include "01-dummy_actor.c"
+    #define REST_READ_SECONDS   3
+    #include "01-hooks_dummy/dummy_reader.c"
+    #include "01-hooks_dummy/dummy_sender.c"
+    #include "01-hooks_dummy/dummy_actor.c"
 #endif
 
 static long long int last_time_seconds = 0, this_time_seconds;
@@ -23,7 +26,7 @@ char message[64];
 void loop()
 {
     this_time_seconds = time(NULL);
-    if (this_time_seconds - last_time_seconds > 3)
+    if (this_time_seconds - last_time_seconds > REST_READ_SECONDS)
     {
         reading = getReading();
         sprintf(message, "%d \t- %ld", reading, this_time_seconds);

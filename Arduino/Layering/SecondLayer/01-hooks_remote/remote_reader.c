@@ -1,0 +1,18 @@
+// These constants won't change. They're used to give names to the pins used:
+int sensorValue = 0;        // value read from the pot
+const int lightPin = 8;     // LED pint
+const int analogInPin = A0;  // (14) Analog input pin that the potentiometer is attached to
+
+int getReading()
+{
+    digitalWrite(lightPin, HIGH);
+    delay(20);  // allows liht warm up
+    // read the analog in value:
+    sensorValue = analogRead(analogInPin);
+    // Turn off the light
+    digitalWrite(lightPin, LOW);
+    // print the results to the Serial Monitor:
+    Serial.print("sensor = ");
+    Serial.print(sensorValue);
+    return sensorValue; // Returns final reading
+}

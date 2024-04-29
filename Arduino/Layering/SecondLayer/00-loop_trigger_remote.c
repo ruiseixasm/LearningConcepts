@@ -1,12 +1,20 @@
 #include "02-second_layer.c"
 
+void setup() {
+    pinMode(lightPin, OUTPUT);           // set pin to input
+    digitalWrite(lightPin, LOW);
+    // initialize serial communications at 9600 bps:
+    Serial.begin(9600);
+    // print the results to the Serial Monitor:
+    Serial.print("STARTED");
+}
+
 static long long int my_last_time_seconds = 0, my_this_time_seconds;
 static int my_value;
 int total_triggers = 0;
 
-int main()
+int loop()
 {
-    printf("STARTED\n");
     my_last_time_seconds = time(NULL);
     do
     {
@@ -24,6 +32,4 @@ int main()
         my_this_time_seconds = time(NULL);
     } while (total_triggers < 20);
     printf("FINISHED\n");
-    
-    return 0;
 }
