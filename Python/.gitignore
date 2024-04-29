@@ -9,7 +9,7 @@ __pycache__/
 *.xlsm
 *.xml
 *.html
-
+data/
 
 # C extensions
 *.so
