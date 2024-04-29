@@ -1,9 +1,9 @@
 // ENVIRONMENTAL LAYER (PHYSICAL)
 #pragma once
 
-#define DUMMY           1
-#define LOCAL           2
-#define REMOTE          3
+#define DUMMY           0
+#define LOCAL           1
+#define REMOTE          2
 
 #define ENVIRONMENT     DUMMY
 
