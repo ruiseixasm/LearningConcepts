@@ -11,3 +11,9 @@ git add .						# stage all files
 git status						# confirm files were staged
 git commit -m "new changes"
 git push origin main			# or simple git push
+
+# Third party authentication if NOT automatically done or if problematic
+gh auth status
+sudo apt install gh
+gh auth login
+
