@@ -5,6 +5,7 @@
 #if     ENVIRONMENT == LOCAL
     #define REST_READ_SECONDS           60 * 60 * 24 / 3    // (three times a day)
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 120
+    #define YGM_THRESHOLD               700
     #include <SPI.h>
     #include <LoRa.h>
     #define now_seconds() (millis()/1000)
@@ -38,6 +39,7 @@
 #elif   ENVIRONMENT == REMOTE
     #define REST_READ_SECONDS           60 * 60 * 24 / 3    // (three times a day)
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 120
+    #define YGM_THRESHOLD               700
     #include <SPI.h>
     #include <LoRa.h>
     #define now_seconds() (millis()/1000)
@@ -71,6 +73,7 @@
 #else //ENVIRONMENT == DUMMY
     #define REST_READ_SECONDS           3
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 2
+    #define YGM_THRESHOLD               1250
     #include <stdlib.h>     // needed for rand() and srand()
     #include <time.h>       // needed for time() and clock()
     #include <stddef.h>     // needed for size_t
@@ -121,7 +124,7 @@ void second_loop()
     {
         redLightOff();
         greenLightOn();
-        if (local_reading > 680)
+        if (local_reading > YGM_THRESHOLD)
             blueLightOn();
         else
             blueLightOff();

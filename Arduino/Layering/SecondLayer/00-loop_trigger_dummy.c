@@ -14,11 +14,11 @@ void setup() {
 int main()
 {
     setup();
-    do
+    while (true)
     {
         receiveReading();
         second_loop();
-    } while (true);
+    }
     
     return 0;
 }
