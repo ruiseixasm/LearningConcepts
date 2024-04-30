@@ -1,3 +1,0 @@
-/home/rui/GitHub/LearningConcepts/Arduino/Layering/SecondLayer_try2/build/CMakeFiles/00-main_loop_dummy.out.dir
-/home/rui/GitHub/LearningConcepts/Arduino/Layering/SecondLayer_try2/build/CMakeFiles/edit_cache.dir
-/home/rui/GitHub/LearningConcepts/Arduino/Layering/SecondLayer_try2/build/CMakeFiles/rebuild_cache.dir

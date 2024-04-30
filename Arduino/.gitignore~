@@ -36,5 +36,3 @@
 # Extras
 *.opendb
 x64/
-build/
-
