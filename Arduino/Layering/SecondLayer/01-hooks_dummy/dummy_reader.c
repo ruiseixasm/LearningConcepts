@@ -1,4 +1,29 @@
 #pragma once
+#include <stdio.h>      // to enable debugging messages
+
+static bool seed_set = false;
+
+void setSeed()
+{
+    if (!seed_set)
+    {
+        srand(time(NULL));  // Needed to make it trully random!
+        seed_set = true;
+    }
+}
+
+int iRandom(int module)
+{
+    setSeed();
+    return rand() % module;
+}
+
+int iRandomrng(int start, int end)
+{
+    int module = abs(end - start);
+    int rvalue = iRandom(module);
+    return (double)rvalue * (end - start) / module + start;
+}
 
 int getReading()
 {

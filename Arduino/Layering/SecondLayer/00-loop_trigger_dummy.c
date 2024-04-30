@@ -1,28 +1,24 @@
 #include "02-second_layer.c"
 
-static long long int my_last_time_seconds = 0;
-static int my_value;
-int total_triggers = 0;
+void setup() {
+    *transmited_message.content = '\0';
+    transmited_message.position = -1;
+    redLightOn();
+    greenLightOn();
+    blueLightOn();
+    greenLightOff();
+    blueLightOff();
+    printf("STARTED\n");
+}
 
 int main()
 {
-    printf("STARTED\n");
-    my_last_time_seconds = now_seconds();
+    setup();
     do
     {
-        if ((time(NULL) - my_last_time_seconds) > 3)
-        {
-            my_value = iRandomrng(200, 400);
-            if (my_value < 205)
-            {
-                triggerValue(my_value);
-                total_triggers++;
-            }
-            my_last_time_seconds = time(NULL);
-        }
+        receiveReading();
         second_loop();
-    } while (total_triggers < 20);
-    printf("FINISHED\n");
+    } while (true);
     
     return 0;
 }
