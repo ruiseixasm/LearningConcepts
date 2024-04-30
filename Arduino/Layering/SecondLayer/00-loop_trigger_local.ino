@@ -4,9 +4,8 @@ static long long int my_last_time_seconds = 0, my_this_time_seconds;
 static int my_value;
 int total_triggers = 0;
 
-int main()
+int loop()
 {
-    printf("STARTED\n");
     my_last_time_seconds = time(NULL);
     do
     {
@@ -23,7 +22,4 @@ int main()
         loop();
         my_this_time_seconds = time(NULL);
     } while (total_triggers < 20);
-    printf("FINISHED\n");
-    
-    return 0;
 }

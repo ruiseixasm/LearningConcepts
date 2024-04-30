@@ -4,10 +4,9 @@ static long long int my_last_time_seconds = 0;
 static int my_value;
 int total_triggers = 0;
 
-int main()
+int loop()
 {
-    printf("STARTED\n");
-    my_last_time_seconds = now_seconds();
+    my_last_time_seconds = time(NULL);
     do
     {
         if ((time(NULL) - my_last_time_seconds) > 3)
@@ -22,7 +21,4 @@ int main()
         }
         second_loop();
     } while (total_triggers < 20);
-    printf("FINISHED\n");
-    
-    return 0;
 }

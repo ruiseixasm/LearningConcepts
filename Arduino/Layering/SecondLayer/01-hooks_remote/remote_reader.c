@@ -9,6 +9,8 @@ int getReading()
     delay(20);  // allows liht warm up
     // read the analog in value:
     sensorValue = analogRead(analogInPin);
+    // map it to be correlated to light intensity, from 0 to 1023:
+    sensorValue = map(sensorValue, 0, 1023, 1023, 0);
     // Turn off the light
     digitalWrite(lightPin, LOW);
     // print the results to the Serial Monitor:
