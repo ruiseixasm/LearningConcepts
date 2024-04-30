@@ -1,6 +1,4 @@
 #pragma once
-#include <SPI.h>
-#include <LoRa.h>
 
 // These constants won't change. They're used to give names to the pins used:
 const int redPin = 7;       // RED LED pint

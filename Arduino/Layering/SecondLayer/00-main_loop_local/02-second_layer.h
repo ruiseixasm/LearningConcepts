@@ -1,6 +1,7 @@
 // LOGIC LAYER (LOGICAL)
 #pragma once
 #include "03-third_layer.h"
+#include <Arduino.h>
 
 #if     ENVIRONMENT == LOCAL
     #define REST_READ_SECONDS           (unsigned long)60 * 60 * 24 / 3    // (three times a day)

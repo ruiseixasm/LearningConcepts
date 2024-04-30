@@ -1,5 +1,6 @@
 #include "02-second_layer.h"
-#include "01-hooks_local/local_receiver.h"
+#include <SPI.h>
+#include <LoRa.h>
 
 void setup() {
     Serial.begin(9600);
