@@ -1,14 +1,6 @@
-#pragma once
-#include <stdio.h>
+#include "dummy_sender.h"
 
 // For the REMOTE device (Sender)
-
-// TransmittedMessage used as a channel of communication!! (intended for the receiver though)
-typedef struct {
-    char content[64];
-    int position;
-} TransmitedMessage;
-
 TransmitedMessage transmited_message;
 
 void LoRa_print(const char *message_string)

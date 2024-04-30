@@ -1,8 +1,9 @@
 // These constants won't change. They're used to give names to the pins used:
 int sensorValue = 0;        // value read from the pot
 const int lightPin = 8;     // LED pint
-const int analogInPin = A0;  // (14) Analog input pin that the potentiometer is attached to
+const int analogInPin = A0; // (14) Analog input pin that the potentiometer is attached to
 
+// Common function to be implemented in all reader hooks!
 int getReading()
 {
     digitalWrite(lightPin, HIGH);

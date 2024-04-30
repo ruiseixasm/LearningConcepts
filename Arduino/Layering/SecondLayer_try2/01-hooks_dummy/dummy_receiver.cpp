@@ -1,5 +1,4 @@
-#pragma once
-#include <stdio.h>
+#include "dummy_receiver.h"
 
 int LoRa_available()
 {
@@ -17,23 +16,15 @@ char LoRa_read()
 
 // Bellow are all common functions that need to be implemented in all "receiver" hooks!
 
-void receiveReading()
+void receiveReading(char *message)
 {
     for (int i = 0; LoRa_available(); i++)
     {
-        message_received[i] = LoRa_read();
+        message[i] = LoRa_read();
     }
-    if (*message_received)
-        printf("Message received:\t%s\n\n", message_received);
+    if (*message)
+        printf("Message received:\t%s\n\n", message);
 }
-
-static int total_reds = 0;
-static int total_greens = 0;
-static int total_blues = 0;
-
-static char red_state = 0;
-static char green_state = 0;
-static char blue_state = 0;
 
 void redLightOn()
 {

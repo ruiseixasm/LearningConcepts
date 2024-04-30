@@ -1,13 +1,13 @@
-#pragma once
-#include <stdio.h>      // to enable debugging messages
-
-static bool seed_set = false;
+#include "dummy_reader.h"
 
 void setSeed()
 {
     if (!seed_set)
     {
-        srand(time(NULL));  // Needed to make it trully random!
+        // Seed the random number generator with the current time
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+        //srand(time(NULL));  // Needed to make it trully random!
         seed_set = true;
     }
 }
@@ -15,7 +15,7 @@ void setSeed()
 int iRandom(int module)
 {
     setSeed();
-    return rand() % module;
+    return std::rand() % module;
 }
 
 int iRandomrng(int start, int end)
