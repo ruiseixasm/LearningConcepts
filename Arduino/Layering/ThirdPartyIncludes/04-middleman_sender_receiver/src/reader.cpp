@@ -31,7 +31,7 @@ int getReading()
     digitalWrite(lightPin, LOW);
     // print the results to the Serial Monitor:
     Serial.print("sensor = ");
-    Serial.print(sensorValue);
+    Serial.println(sensorValue);
     return sensorValue; // Returns final reading
     
 #endif

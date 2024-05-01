@@ -26,7 +26,7 @@
 
     void serialPrintln(const char *text)
     {
-        Serial.println(text);
+        // Does nothing!
     }
 
 #else //ENVIRONMENT == DUMMY

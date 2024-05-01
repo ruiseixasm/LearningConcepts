@@ -1,4 +1,5 @@
 #pragma once
+#include "../environment_set.h"
 #include <Arduino.h>
 #include <SPI.h>
 #include <LoRa.h>

@@ -5,7 +5,7 @@
 #define LOCAL           1
 #define REMOTE          2
 
-#define ENVIRONMENT     LOCAL
+#define ENVIRONMENT     REMOTE
 
 
 

@@ -4,6 +4,7 @@
 void receiverSetup(unsigned long frequency)
 {
 #if     ENVIRONMENT == LOCAL
+    Serial.println("Configured as RECEIVER! (LOCAL)");
     if (!LoRa.begin(frequency)) {
         Serial.println("Starting LoRa failed!");
         while (1);
@@ -11,7 +12,7 @@ void receiverSetup(unsigned long frequency)
     Serial.println("LoRa connected!");
     
 #else //ENVIRONMENT == REMOTE
-    // sets nothing
+    Serial.println("Configured as SENDER! (REMOTE)");
     
 #endif
 }

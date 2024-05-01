@@ -1,4 +1,5 @@
 #pragma once
+#include "../environment_set.h"
 #include <Arduino.h>
 
 static int sensorValue = 0; // value read from the pot

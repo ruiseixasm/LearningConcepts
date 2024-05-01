@@ -2,7 +2,7 @@
 #pragma once
 #include "environment_set.h"
 
-#define TESTING   TRUE
+#define TESTING   true
 
 #if     ENVIRONMENT == LOCAL
     #if TESTING
