@@ -50,19 +50,55 @@
 
 void middlemanLoop()
 {
-    receiveReading(message_received);
+    // FOR SERIAL
     
-    // For the REMOTE device (Sender)
+    if (readSerial(serial_read))
+    {
+        int read_size = strlen(serial_read);
+        
+        if (read_size == 7)
+        {
+            // Tries to extract a reading in the LOCAL device (Reader)
+            local_reading = extract_reading(serial_read);
+        }
+        else if (read_size < 5)
+        {
+            char message_to_send[16] = {0};
+            if (read_size == 3)
+                addPrefix(message_to_send, "0");
+            
+            addPrefix(message_to_send, "YGM");
+        
+            sendMessage(message_to_send);
+        }
+    }
+    
+    // FOR SENDER
+    
     if (now_seconds() - last_read_seconds > REST_READ_SECONDS)
     {
         remote_reading = getReading();
-        sendMessage(remote_reading);
+    
+        char message_to_send[16] = {0};
+        numberToText(message_to_send, remote_reading);
+        if (remote_reading < 1000)
+            addPrefix(message_to_send, "0");
+        
+        addPrefix(message_to_send, "YGM");
+    
+        sendMessage(message_to_send);
+            
         last_read_seconds = now_seconds();
     }
 
-    // Tries to extract a reading in the LOCAL device (Reader)
-    local_reading = extract_reading();
-
+    // FOR RECEIVER
+    
+    if (receiveReading(message_received))
+    {
+        // Tries to extract a reading in the LOCAL device (Reader)
+        local_reading = extract_reading(message_received);
+    }
+    
     if (local_reading != -1)  // valid reading
     {
         redLightOff();
@@ -89,12 +125,36 @@ void middlemanLoop()
 }
 
 
-int extract_reading() {
-    int message_size = strlen(message_received);
-    if (message_size == 7 && strcspn(message_received, "YGM") == 0)
-    {
-        *message_received = '\0';           // marks message as empty for other str methods.
-        return atoi(message_received + 3);  // jumps to the beginning of the numeric value
-    }
+int extract_reading(const char *message) {
+    int message_size = strlen(message);
+    if (message_size == 7 && strcspn(message, "YGM") == 0)
+        return atoi(message + 3);  // jumps to the beginning of the numeric value
     return -1;  // invalid reading
 }
+
+void addPrefix(char *text, const char *prefix)
+{
+    int prefix_size = strlen(prefix);
+    int text_size = strlen(text);
+    
+    for (int i = text_size + prefix_size; i >= prefix_size; i--)
+    {
+        text[i] = text[i - prefix_size];
+    }
+    for (int i = 0; i < prefix_size; i++)
+    {
+        text[i] = prefix[i];
+    }
+}
+
+void removePrefix(char *text, const char *prefix)
+{
+    int prefix_size = strlen(prefix);
+    int text_size = strlen(text);
+    int i;
+    for (i = prefix_size; i <= text_size; i++)
+    {
+        text[i - prefix_size] = text[i];
+    }
+}
+

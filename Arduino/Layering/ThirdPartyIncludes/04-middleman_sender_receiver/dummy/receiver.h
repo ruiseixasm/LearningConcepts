@@ -9,7 +9,7 @@ char LoRa_read();
 
 // Bellow are all common functions that need to be implemented in all "receiver" hooks!
 
-void receiveReading(char *message);
+int receiveReading(char *message);
 
 static int total_reds = 0;
 static int total_greens = 0;

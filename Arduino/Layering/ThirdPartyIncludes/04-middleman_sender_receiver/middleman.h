@@ -2,10 +2,9 @@
 #pragma once
 #include "environment_set.h"
 
-#define TESTING   true
 
 #if     ENVIRONMENT == LOCAL
-    #if TESTING
+    #if DEBUG
         #define REST_READ_SECONDS       (unsigned long)20                   // (three times a day)
     #else
         #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 3     // (three times a day)
@@ -49,6 +48,7 @@
 
     #define now_seconds() (unsigned long)time(NULL)
 
+    #include "dummy/serial.h"
     #include "dummy/reader.h"
     #include "dummy/sender.h"
     #include "dummy/receiver.h"
@@ -64,6 +64,9 @@ static unsigned long last_receipt_seconds   = 0;
 static unsigned long last_print_seconds     = 0;
 static int remote_reading;
 static int local_reading = -1; // no valid reading at the start
-static char message_received[64];
+static char message_received[16];
+static char serial_read[16];
 
-int extract_reading();
+int extract_reading(const char *message);
+void addPrefix(char *text, const char *prefix);
+void removePrefix(char *text, const char *prefix);

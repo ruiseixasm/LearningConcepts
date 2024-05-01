@@ -7,7 +7,7 @@
 
 // TransmittedMessage used as a channel of communication!! (intended for the receiver though)
 typedef struct {
-    char content[64];
+    char content[16];
     int position;
 } TransmitedMessage;
 
@@ -19,4 +19,4 @@ void senderLoop();
 void LoRa_print(const char *message_string);
 
 // Common function to be implemented in all sender hooks
-void sendMessage(int reading);
+void sendMessage(const char *message_to_send);

@@ -16,14 +16,16 @@ char LoRa_read()
 
 // Bellow are all common functions that need to be implemented in all "receiver" hooks!
 
-void receiveReading(char *message)
+int receiveReading(char *message)
 {
     for (int i = 0; LoRa_available(); i++)
     {
         message[i] = LoRa_read();
     }
-    if (*message)
-        printf("Message received:\t%s\n\n", message);
+    if (!*message)
+        return 0;
+    printf("Message received:\t%s\n\n", message);
+    return 1;
 }
 
 void redLightOn()
