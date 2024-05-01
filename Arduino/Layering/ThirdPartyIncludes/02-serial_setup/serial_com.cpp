@@ -1,6 +1,6 @@
 #include "serial_com.h"
 
-void setupSerial(int baud_rate)
+void setupSerial(unsigned long baud_rate)
 {
     Serial.begin(9600);
     while (!Serial);

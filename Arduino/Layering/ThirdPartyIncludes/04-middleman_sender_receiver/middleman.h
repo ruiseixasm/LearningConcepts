@@ -57,9 +57,11 @@
 
 void middlemanSetup();
 void middlemanLoop();
+void serialPrintln(const char *text);   // add hoc function
 
 static unsigned long last_read_seconds      = 0;
 static unsigned long last_receipt_seconds   = 0;
+static unsigned long last_print_seconds     = 0;
 static int remote_reading;
 static int local_reading = -1; // no valid reading at the start
 static char message_received[64];

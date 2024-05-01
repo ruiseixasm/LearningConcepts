@@ -10,6 +10,11 @@
         receiverSetup(433E6);
     }
 
+    void serialPrintln(const char *text)
+    {
+        Serial.println(text);
+    }
+
 #elif   ENVIRONMENT == REMOTE
     void middlemanSetup()
     {
@@ -17,6 +22,11 @@
         readerSetup();
         senderSetup(433E6);
         receiverSetup(433E6);
+    }
+
+    void serialPrintln(const char *text)
+    {
+        Serial.println(text);
     }
 
 #else //ENVIRONMENT == DUMMY
@@ -31,6 +41,11 @@
         printf("STARTED\n");
     }
     
+    void serialPrintln(const char *text)
+    {
+        printf("%s\n", text);
+    }
+
 #endif
 
 void middlemanLoop()
@@ -58,11 +73,18 @@ void middlemanLoop()
             blueLightOff();
         local_reading = -1;
         last_receipt_seconds = now_seconds();
+        last_print_seconds = now_seconds();
     }
     else if (now_seconds() - last_receipt_seconds > TIMEOUT_RECEIVE_SECONDS)
     {
         greenLightOff();
         redLightOn();
+    }
+
+    if (now_seconds() - last_print_seconds > 10)
+    {
+        serialPrintln("Nothing received!");
+        last_print_seconds = now_seconds();
     }
 }
 

@@ -2,11 +2,12 @@
 
 void setup()
 {
-    int baud = 9600;
-    Serial.begin(baud);
+    unsigned long baud = 9600;
+    setupSerial(baud);
 }
 
 void loop()
 {
-    // Do nothing
+    Serial.println("Serial port working correctly!");
+    delay(10000);
 }

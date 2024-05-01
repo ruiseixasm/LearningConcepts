@@ -5,7 +5,7 @@
 #define LOCAL           1
 #define REMOTE          2
 
-#define ENVIRONMENT     REMOTE
+#define ENVIRONMENT     DUMMY
 
 
 
