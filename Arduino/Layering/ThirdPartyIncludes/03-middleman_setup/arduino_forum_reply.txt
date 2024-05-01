@@ -1,0 +1,66 @@
+Ok, thanks for your reply and sorry for not seeing it earlier.
+
+I'm trying to go a step forward by adding a `middleman.h` `include` between both files above and also I'm again in trouble with the compiler.
+
+The files serial_com.h and `serial_com.cpp` are the same, now with the `Arduino.h` included like suggested.
+
+These are the new files:
+
+The `middleman.h` file:
+
+```
+#pragma once
+#include "serial_com.h"
+
+void middlemanSetup();
+void middlemanLoop();
+```
+
+The `middleman.cpp` file:
+
+```
+#include "middleman.h"
+
+void middlemanSetup()
+{
+    serialSetup(9600);
+}
+
+void middlemanLoop()
+{
+    // Intended to be implemented later
+}
+```
+
+
+And now the final `middleman_serial.ino` file:
+
+```
+#include "middleman.h"
+
+void setup()
+{
+    middlemanSetup();
+}
+
+void loop()
+{
+    middlemanLoop();
+}
+```
+
+
+After your previous solution I was truly expecting this to work, but some how the compiler is still refusing to cooperate and now returns this:
+
+```
+Arduino: 1.8.19 (Linux), Board: "Arduino Uno"
+
+sketch/middleman.cpp: In function ‘void middlemanSetup()’:
+middleman.cpp:5:21: error: ‘serialSetup’ was not declared in this scope
+     serialSetup(9600);
+                     ^
+exit status 1
+‘serialSetup’ was not declared in this scope
+```
+
+Can you help me with this one, do I need to include Arduino.h all over the place, I did just that and still throws the same error!
