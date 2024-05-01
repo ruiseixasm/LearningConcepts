@@ -2,8 +2,14 @@
 #pragma once
 #include "environment_set.h"
 
+#define TESTING   TRUE
+
 #if     ENVIRONMENT == LOCAL
-    #define REST_READ_SECONDS           60 * 60 * 24 / 3    // (three times a day)
+    #if TESTING
+        #define REST_READ_SECONDS       (unsigned long)20                   // (three times a day)
+    #else
+        #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 3     // (three times a day)
+    #endif
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 120
     #define YGM_THRESHOLD               700
     
@@ -15,7 +21,11 @@
     #include "src/receiver.h"
 
 #elif   ENVIRONMENT == REMOTE
-    #define REST_READ_SECONDS           60 * 60 * 24 / 3    // (three times a day)
+    #if TESTING
+        #define REST_READ_SECONDS       (unsigned long)20                   // (three times a day)
+    #else
+        #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 3     // (three times a day)
+    #endif
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 120
     #define YGM_THRESHOLD               700
     
@@ -27,7 +37,7 @@
     #include "src/receiver.h"
 
 #else //ENVIRONMENT == DUMMY
-    #define REST_READ_SECONDS           3
+    #define REST_READ_SECONDS           (unsigned long)3
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 2
     #define YGM_THRESHOLD               1250
     #include <stdlib.h>     // needed for rand() and srand()
