@@ -2,7 +2,7 @@
 
 void serialSetup(unsigned long baud_rate)
 {
-    Serial.begin(9600);
+    Serial.begin(baud_rate);
     while (!Serial);
 
     Serial.print("Serial com connected at: ");
