@@ -1,5 +1,7 @@
 #include "middleman.h"
 
+// Can't be preset for Arduino compilation!! main() conflict
+#if ENVIRONMENT == DUMMY
 int main()
 {
     middlemanSetup();
@@ -10,3 +12,4 @@ int main()
     
     return 0;
 }
+#endif
