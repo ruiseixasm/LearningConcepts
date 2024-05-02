@@ -176,45 +176,52 @@ void blueLightOff()
 
 #else   // Arduino specifics
 
-int serialRead(char *serial_read)
-{    
-    
-    return 0;
+int serialRead(char *text)
+{
+    int i = 0;
+    for (; i < 16 && Serial.available() > 0; i++) {
+        text[i] = (char)Serial.read();
+    }
+    text[i] = '\0';
+    return i;
 }
 
 void numberToText(char *text, int number)
 {
-      
+    itoa(number, text, 10);
 }
 
 int textToNumber(const char *text)
 {
-    return 0;
+    return atoi(text);
 }
 
-int serialRead(char *message)
+void serialPrint(const char *text)
 {
-    return 0;
+    Serial.print(text);
 }
 
-void serialPrint(const char *message)
+void serialPrintln(const char *text)
 {
-    
-}
-
-void serialPrintln(const char *message)
-{
-    
+    Serial.println(text);
 }
 
 int loraRead(char *message)
 {
-    
+    int i = 0;
+    for (; i < 16 && LoRa.available(); i++)
+    {
+        message[i] = (char)LoRa.read();
+    }
+    message[i] = '\0';
+    return i;
 }
 
 void loraPrint(const char *message)
 {
-    
+    LoRa.beginPacket();
+    LoRa.print(message);
+    LoRa.endPacket();
 }
 
 
@@ -225,52 +232,154 @@ void loraPrint(const char *message)
 
 #if     SETUP == LOCAL
 
+// These constants won't change. They're used to give names to the pins used:
+const int redPin    = 7;    // RED LED pin
+const int greenPin  = 6;    // GREEN LED pin
+const int bluePin   = 5;    // BLUE LED pin     (You've Got Mail)
+const int buzzerPin = 4;    // Buzzer pin       (You've Got Mail)
 
 void setupSetup()
 {
+    Serial.println("Configured as RECEIVER! (LOCAL)");
     
+    pinMode(redPin, OUTPUT);
+    digitalWrite(redPin, LOW);
+    pinMode(greenPin, OUTPUT);
+    digitalWrite(greenPin, LOW);
+    pinMode(bluePin, OUTPUT);
+    digitalWrite(bluePin, LOW);
+    pinMode(buzzerPin, OUTPUT);
+    digitalWrite(buzzerPin, LOW);
     
+    Serial.begin(COM_BAUD);
+    while (!Serial);
+    Serial.print("Serial com connected at: ");
+    Serial.println(COM_BAUD);
+    
+    if (!LoRa.begin(LORA_HZ)) {
+        Serial.println("Starting LoRa failed!");
+        while (1);
+    }
+    Serial.println("LoRa connected!");
+}
+
+int ledLightIntensity()
+{
+    return -1;  // Local receiver reads no light
+}
+
+int localLoraRead(char *message)
+{
+    return loraRead(message);
+}
+
+void localLoraPrint(const char *message)
+{
+    loraPrint(message);
+}
+
+int remoteLoraRead(char *message)
+{
+    // Does nothing because it's local
+}
+
+void remoteLoraPrint(const char *message)
+{
+    // Does nothing because it's local
 }
 
 
 void redLightOn()
 {
-    
+    digitalWrite(redPin, HIGH);
 }
 
 void redLightOff()
 {
-    
+    digitalWrite(redPin, LOW);
 }
 
 void greenLightOn()
 {
-    
+    digitalWrite(greenPin, HIGH);
 }
 
 void greenLightOff()
 {
-    
+    digitalWrite(greenPin, LOW);
 }
 
 void blueLightOn()
 {
-    
+    digitalWrite(bluePin, HIGH);
+    triggerBuzzer();
 }
 
 void blueLightOff()
 {
-    
+    digitalWrite(bluePin, LOW);
+}
+
+void triggerBuzzer()
+{
+    digitalWrite(buzzerPin, HIGH);
+    delay(500);
+    digitalWrite(buzzerPin, LOW);
 }
 
 
 
 #elif   SETUP == REMOTE
 
+static int sensorValue = 0; // value read from the pot
+const int lightPin = 8;     // LED pint
+const int analogInPin = A0; // (14) Analog input pin that the potentiometer is attached to
+
 void setupSetup()
 {
+    Serial.println("Configured as SENDER! (REMOTE)");
+    
+    pinMode(lightPin, OUTPUT);          // set pin to the light
+    digitalWrite(lightPin, LOW);        // Turn off the light
+    
+    Serial.begin(COM_BAUD);
+    while (!Serial);
+    Serial.print("Serial com connected at: ");
+    Serial.println(COM_BAUD);
+    
+    if (!LoRa.begin(LORA_HZ)) {
+        Serial.println("Starting LoRa failed!");
+        while (1);
+    }
+    Serial.println("LoRa connected!");
     
 }
+
+int ledLightIntensity()
+{
+    return 0;
+}
+
+int localLoraRead(char *message)
+{
+    // Does nothing because it's remote
+}
+
+void localLoraPrint(const char *message)
+{
+    // Does nothing because it's remote
+}
+
+int remoteLoraRead(char *message)
+{
+    return loraRead(message);
+}
+
+void remoteLoraPrint(const char *message)
+{
+    loraPrint(message);
+}
+
 
 void redLightOn() {}
 void redLightOff() {}
@@ -278,7 +387,7 @@ void greenLightOn() {}
 void greenLightOff() {}
 void blueLightOn() {}
 void blueLightOff() {}
-
+void triggerBuzzer() {}
 
 #endif
 

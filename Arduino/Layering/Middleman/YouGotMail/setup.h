@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       DUMMY
+#define SETUP       LOCAL
 #define DEBUG       true
 
 #define COM_BAUD    (unsigned long)9600
@@ -50,6 +50,8 @@
     #include <LoRa.h>
 
     #define now_seconds() (millis()/1000)
+    
+    void triggerBuzzer();
 
 #endif
 
