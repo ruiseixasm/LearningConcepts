@@ -233,10 +233,11 @@ void loraPrint(const char *message)
 #if     SETUP == LOCAL
 
 // These constants won't change. They're used to give names to the pins used:
-const int redPin    = 7;    // RED LED pin
-const int greenPin  = 6;    // GREEN LED pin
-const int bluePin   = 5;    // BLUE LED pin     (You've Got Mail)
-const int buzzerPin = 4;    // Buzzer pin       (You've Got Mail)
+const int redPin    = 3;    // RED LED pin
+const int greenPin  = 4;    // GREEN LED pin
+const int powerPin  = 5;    // Pin that turns on LoRa power
+const int bluePin   = 6;    // BLUE LED pin     (You've Got Mail)
+const int buzzerPin = 7;    // Buzzer pin       (You've Got Mail)
 
 void setupSetup()
 {
@@ -250,6 +251,10 @@ void setupSetup()
     digitalWrite(bluePin, LOW);
     pinMode(buzzerPin, OUTPUT);
     digitalWrite(buzzerPin, LOW);
+    pinMode(powerPin, OUTPUT);
+    digitalWrite(powerPin, HIGH);
+
+    delay(5000); // Small delay to let lora module start
     
     Serial.begin(COM_BAUD);
     while (!Serial);
@@ -386,6 +391,8 @@ void setupSetup()
     
     pinMode(lightPin, OUTPUT);          // set pin to the light
     digitalWrite(lightPin, LOW);        // Turn off the light
+    
+    delay(5000); // Small delay to let lora module start
     
     Serial.begin(COM_BAUD);
     while (!Serial);
