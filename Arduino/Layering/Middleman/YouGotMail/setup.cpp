@@ -270,7 +270,14 @@ int ledLightIntensity()
 
 int localLoraRead(char *message)
 {
-    return loraRead(message);
+    if (!loraRead(message))
+        return 0;
+    // Received a packet, print RSSI of packet
+    Serial.print("Received packet '");
+    Serial.print(message);
+    Serial.print("' with RSSI ");
+    Serial.println(LoRa.packetRssi());
+    return 1;
 }
 
 void localLoraPrint(const char *message)
@@ -291,39 +298,77 @@ void remoteLoraPrint(const char *message)
 
 void redLightOn()
 {
-    digitalWrite(redPin, HIGH);
+    if (!red_state && !red_state++)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(++total_reds);
+        Serial.println(" times");
+        digitalWrite(redPin, HIGH);
+    }
 }
 
 void redLightOff()
 {
-    digitalWrite(redPin, LOW);
+    if (red_state && red_state--)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(total_reds);
+        Serial.println(" times");
+        digitalWrite(redPin, LOW);
+    }
 }
 
 void greenLightOn()
 {
-    digitalWrite(greenPin, HIGH);
+    if (!red_state && !red_state++)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(++total_reds);
+        Serial.println(" times");
+        digitalWrite(greenPin, HIGH);
+    }
 }
 
 void greenLightOff()
 {
-    digitalWrite(greenPin, LOW);
+    if (red_state && red_state--)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(total_reds);
+        Serial.println(" times");
+        digitalWrite(greenPin, LOW);
+    }
 }
 
 void blueLightOn()
 {
-    digitalWrite(bluePin, HIGH);
-    triggerBuzzer();
+    if (!red_state && !red_state++)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(++total_reds);
+        Serial.println(" times");
+        digitalWrite(bluePin, HIGH);
+        triggerBuzzer();
+    }
 }
 
 void blueLightOff()
 {
-    digitalWrite(bluePin, LOW);
+    if (red_state && red_state--)
+    {
+        Serial.print("Red ON      - ");
+        Serial.print(total_reds);
+        Serial.println(" times");
+        digitalWrite(bluePin, LOW);
+    }
 }
 
 void triggerBuzzer()
 {
+    Serial.println("Buzzer ON");
     digitalWrite(buzzerPin, HIGH);
     delay(500);
+    Serial.println("Buzzer OFF");
     digitalWrite(buzzerPin, LOW);
 }
 
@@ -390,6 +435,3 @@ void blueLightOff() {}
 void triggerBuzzer() {}
 
 #endif
-
-
-
