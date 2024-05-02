@@ -12,6 +12,9 @@ void setupSetup()
     blueLightOn();
     greenLightOff();
     blueLightOff();
+    
+    localLoraTurnOn();
+    remoteLoraTurnOn();
     printf("STARTED\n");    
 }
 
@@ -63,12 +66,18 @@ int textToNumber(const char *text)
 
 int serialRead(char *text)
 {
-    if (time(NULL) - last_serial_seconds > 5)
+    if (time(NULL) - last_serial_seconds > 10)
     {
-        if (iRandom(2))
-            strcpy(text, "YGM4444");
+        if (iRandom(4))
+            if (iRandom(2))
+                strcpy(text, "YGM4444");
+            else
+                strcpy(text, "3333");
         else
-            strcpy(text, "3333");
+            if (iRandom(4))
+                strcpy(text, "ON");
+            else
+                strcpy(text, "OFF");
             
         last_serial_seconds = time(NULL);
         return 1;
@@ -99,7 +108,7 @@ int ledLightIntensity()
 
 int loraRead(char *message)
 {
-    if (transmited_message.position != -1)
+    if (local_lora_power > 0 && transmited_message.position != -1)
     {
         strcpy(message, transmited_message.content);
         transmited_message.position = -1;
@@ -120,7 +129,7 @@ int remoteLoraRead(char *message)
 
 void loraPrint(const char *message)
 {
-    if (iRandom(4)) // 1 in 4 chances of the message being lost in transmission!
+    if (remote_lora_power > 0 && iRandom(4)) // 1 in 4 chances of the message being lost in transmission!
     {
         strcpy(transmited_message.content, message);
         transmited_message.position = 0;
@@ -136,6 +145,54 @@ void remoteLoraPrint(const char *message)
 {
     loraPrint(message);
 }
+
+void loraTurnOn()
+{
+    delay(5000); // Small delay to let lora module start
+    printf("LoRa connected!\n");
+}
+
+void loraTurnOff()
+{
+    // Doesn't nothing else than turning pin LOW
+}
+
+void localLoraTurnOn()
+{
+    if (!local_lora_power && !local_lora_power++)
+    {
+        printf("Turning ON LOCAL LoRa...\n");
+        loraTurnOn();
+    }
+}
+
+void remoteLoraTurnOn()
+{
+    if (!remote_lora_power && !remote_lora_power++)
+    {
+        printf("Turning ON REMOTE LoRa...\n");
+        loraTurnOn();
+    }
+}
+
+void localLoraTurnOff()
+{
+    if (local_lora_power && local_lora_power--)
+    {
+        loraTurnOff();
+        printf("LOCAL LoRa turned OFF!\n");
+    }
+}
+
+void remoteLoraTurnOff()
+{
+    if (remote_lora_power && remote_lora_power--)
+    {
+        loraTurnOff();
+        printf("REMOTE LoRa turned OFF!\n");
+    }
+}
+
 
 void redLightOn()
 {
@@ -224,6 +281,21 @@ void loraPrint(const char *message)
     LoRa.endPacket();
 }
 
+void loraTurnOn()
+{
+    digitalWrite(powerPin, HIGH);
+    delay(5000); // Small delay to let lora module start
+    if (!LoRa.begin(LORA_HZ)) {
+        Serial.println("Starting LoRa failed!");
+        while (1);
+    }
+    Serial.println("LoRa connected!");
+}
+
+void loraTurnOff()
+{
+    digitalWrite(powerPin, LOW);
+}
 
 #endif
 
@@ -252,20 +324,14 @@ void setupSetup()
     pinMode(buzzerPin, OUTPUT);
     digitalWrite(buzzerPin, LOW);
     pinMode(powerPin, OUTPUT);
-    digitalWrite(powerPin, HIGH);
+    digitalWrite(powerPin, LOW);
 
-    delay(5000); // Small delay to let lora module start
-    
     Serial.begin(COM_BAUD);
     while (!Serial);
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
     
-    if (!LoRa.begin(LORA_HZ)) {
-        Serial.println("Starting LoRa failed!");
-        while (1);
-    }
-    Serial.println("LoRa connected!");
+    localLoraTurnOn();
 }
 
 int ledLightIntensity()
@@ -296,6 +362,34 @@ int remoteLoraRead(char *message)
 }
 
 void remoteLoraPrint(const char *message)
+{
+    // Does nothing because it's local
+}
+
+void localLoraTurnOn()
+{
+    if (!local_lora_power && !local_lora_power++)
+    {
+        Serial.println("Turning ON LOCAL LoRa...");
+        loraTurnOn();
+    }
+}
+
+void remoteLoraTurnOn()
+{
+    // Does nothing because it's local
+}
+
+void localLoraTurnOff()
+{
+    if (local_lora_power && local_lora_power--)
+    {
+        loraTurnOff();
+        Serial.println("LOCAL LoRa turned OFF!");
+    }
+}
+
+void remoteLoraTurnOff()
 {
     // Does nothing because it's local
 }
@@ -381,9 +475,10 @@ void triggerBuzzer()
 
 #elif   SETUP == REMOTE
 
-static int sensorValue = 0; // value read from the pot
-const int lightPin = 8;     // LED pint
-const int analogInPin = A0; // (14) Analog input pin that the potentiometer is attached to
+static int sensorValue  = 0;    // value read from the pot
+const int lightPin      = 8;    // LED pint
+const int analogInPin   = A0;   // (14) Analog input pin that the potentiometer is attached to
+const int powerPin      = 5;    // Pin that turns on LoRa power
 
 void setupSetup()
 {
@@ -391,20 +486,15 @@ void setupSetup()
     
     pinMode(lightPin, OUTPUT);          // set pin to the light
     digitalWrite(lightPin, LOW);        // Turn off the light
-    
-    delay(5000); // Small delay to let lora module start
+    pinMode(powerPin, OUTPUT);
+    digitalWrite(powerPin, LOW);
     
     Serial.begin(COM_BAUD);
     while (!Serial);
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
     
-    if (!LoRa.begin(LORA_HZ)) {
-        Serial.println("Starting LoRa failed!");
-        while (1);
-    }
-    Serial.println("LoRa connected!");
-    
+    remoteLoraTurnOn();
 }
 
 int ledLightIntensity()
@@ -432,6 +522,33 @@ void remoteLoraPrint(const char *message)
     loraPrint(message);
 }
 
+void localLoraTurnOn()
+{
+    // Does nothing because it's remote
+}
+
+void remoteLoraTurnOn()
+{
+    if (!remote_lora_power && !remote_lora_power++)
+    {
+        Serial.println("Turning ON REMOTE LoRa...");
+        loraTurnOn();
+    }
+}
+
+void localLoraTurnOff()
+{
+    // Does nothing because it's remote
+}
+
+void remoteLoraTurnOff()
+{
+    if (remote_lora_power && remote_lora_power--)
+    {
+        loraTurnOff();
+        Serial.println("REMOTE LoRa turned OFF!");
+    }
+}
 
 void redLightOn() {}
 void redLightOff() {}

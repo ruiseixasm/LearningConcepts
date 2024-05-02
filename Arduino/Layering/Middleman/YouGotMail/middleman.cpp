@@ -5,6 +5,8 @@
 void middlemanSetup()
 {
     setupSetup();
+    last_receipt_seconds = now_seconds();
+    last_print_seconds = now_seconds();
 }
 
 void middlemanLoop()
@@ -14,22 +16,34 @@ void middlemanLoop()
     if (serialRead(serial_read))
     {
         int read_size = strlen(serial_read);
+        printf("\tREAD from SERIAL:\t%s\n\n", serial_read);
         
         if (read_size == 7)
         {
-            printf("\tREAD from SERIAL:\t%s\n\n", serial_read);
             // Tries to extract a reading in the LOCAL device (Reader)
             local_light_reading = extractLedLightIntensity(serial_read);
         }
         else if (read_size < 5)
         {
-            printf("\tSERIAL to SENDER:\t%s\n", serial_read);
-            if (read_size == 3)
-                addPrefix(serial_read, "0");
-            addPrefix(serial_read, "YGM");
-        
-            remoteLoraPrint(serial_read);
-            printf("SENDER to RECEIVER:\t%s\n", serial_read);
+            if (!strcmp(serial_read, "ON"))
+            {
+                localLoraTurnOn();
+                remoteLoraTurnOn();
+            }
+            else if (!strcmp(serial_read, "OFF"))
+            {
+                localLoraTurnOff();
+                remoteLoraTurnOff();
+            }
+            else
+            {
+                if (read_size == 3)
+                    addPrefix(serial_read, "0");
+                addPrefix(serial_read, "YGM");
+            
+                remoteLoraPrint(serial_read);
+                printf("SENDER to RECEIVER:\t%s\n", serial_read);
+            }
         }
     }
     else
@@ -65,7 +79,6 @@ void middlemanLoop()
     
     if (local_light_reading != -1)  // valid reading
     {
-        
         printf("EXTRACTED VALUE:\t%d\n\n", local_light_reading);
         redLightOff();
         greenLightOn();

@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       LOCAL
+#define SETUP       DUMMY
 #define DEBUG       true
 
 #define COM_BAUD    (unsigned long)9600
@@ -74,6 +74,12 @@ int remoteLoraRead(char *message);
 void loraPrint(const char *message);
 void localLoraPrint(const char *message);
 void remoteLoraPrint(const char *message);
+void loraTurnOn();
+void localLoraTurnOn();
+void remoteLoraTurnOn();
+void loraTurnOff();
+void localLoraTurnOff();
+void remoteLoraTurnOff();
 
 void redLightOn();
 void redLightOff();
@@ -87,10 +93,12 @@ void blueLightOff();
 // SETUP VARIABLES
 static unsigned long last_serial_seconds      = 0;
 
-static int total_reds = 0;
-static int total_greens = 0;
-static int total_blues = 0;
+static int total_reds           = 0;
+static int total_greens         = 0;
+static int total_blues          = 0;
 
-static char red_state = 0;
-static char green_state = 0;
-static char blue_state = 0;
+static char red_state           = 0;
+static char green_state         = 0;
+static char blue_state          = 0;
+static char local_lora_power    = 0;
+static char remote_lora_power   = 0;

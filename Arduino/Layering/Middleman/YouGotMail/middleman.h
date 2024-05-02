@@ -4,7 +4,7 @@
 #if     SETUP == DUMMY
 
     #define REST_READ_SECONDS           (unsigned long)3                    // (each 3 seconds)
-    #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + 2
+    #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*5 + 2
     #define YGM_THRESHOLD               1250
 
 #else
