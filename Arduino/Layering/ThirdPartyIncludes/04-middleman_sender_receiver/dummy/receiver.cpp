@@ -18,13 +18,14 @@ char LoRa_read()
 
 int receiveReading(char *message)
 {
+    int got_message = 0;
     for (int i = 0; LoRa_available(); i++)
     {
         message[i] = LoRa_read();
+        got_message = 1;
     }
-    if (!*message)
+    if (!got_message)
         return 0;
-    printf("Message received:\t%s\n\n", message);
     return 1;
 }
 

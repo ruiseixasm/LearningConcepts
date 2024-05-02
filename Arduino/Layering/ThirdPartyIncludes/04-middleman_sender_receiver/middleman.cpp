@@ -58,49 +58,56 @@ void middlemanLoop()
         
         if (read_size == 7)
         {
+            printf("\tREAD from SERIAL:\t%s\n\n", serial_read);
             // Tries to extract a reading in the LOCAL device (Reader)
             local_reading = extract_reading(serial_read);
         }
         else if (read_size < 5)
         {
-            char message_to_send[16] = {0};
+            printf("\tSERIAL to SENDER:\t%s\n", serial_read);
             if (read_size == 3)
+                addPrefix(serial_read, "0");
+            addPrefix(serial_read, "YGM");
+        
+            sendMessage(serial_read);
+            printf("SENDER to RECEIVER:\t%s\n", serial_read);
+        }
+    }
+    else
+    {
+        // FOR SENDER
+        
+        if (now_seconds() - last_read_seconds > REST_READ_SECONDS)
+        {
+            remote_reading = getReading();
+        
+            char message_to_send[16] = {0};
+            numberToText(message_to_send, remote_reading);
+            if (remote_reading < 1000)
                 addPrefix(message_to_send, "0");
             
             addPrefix(message_to_send, "YGM");
         
             sendMessage(message_to_send);
+            printf("SENDER to RECEIVER:\t%s\n", message_to_send);
+                
+            last_read_seconds = now_seconds();
         }
-    }
-    
-    // FOR SENDER
-    
-    if (now_seconds() - last_read_seconds > REST_READ_SECONDS)
-    {
-        remote_reading = getReading();
-    
-        char message_to_send[16] = {0};
-        numberToText(message_to_send, remote_reading);
-        if (remote_reading < 1000)
-            addPrefix(message_to_send, "0");
-        
-        addPrefix(message_to_send, "YGM");
-    
-        sendMessage(message_to_send);
-            
-        last_read_seconds = now_seconds();
-    }
 
-    // FOR RECEIVER
-    
-    if (receiveReading(message_received))
-    {
-        // Tries to extract a reading in the LOCAL device (Reader)
-        local_reading = extract_reading(message_received);
+        // FOR RECEIVER
+        
+        if (receiveReading(message_received))
+        {
+            printf("READ from SENDER:\t%s\n\n", message_received);
+            // Tries to extract a reading in the LOCAL device (Reader)
+            local_reading = extract_reading(message_received);
+        }
     }
     
     if (local_reading != -1)  // valid reading
     {
+        
+        printf("EXTRACTED VALUE:\t%d\n\n", local_reading);
         redLightOff();
         greenLightOn();
         if (local_reading > YGM_THRESHOLD)

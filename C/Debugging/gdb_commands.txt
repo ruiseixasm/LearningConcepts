@@ -10,6 +10,12 @@ gdb --args a.out arg1 arg2
 # See the code:
 layout next
 
+# See the source code:
+layout src      # Or press Ctrl-x-a
+
+# See the assembly code:
+layout asm
+
 # Run the program:
 run
 
@@ -30,7 +36,7 @@ nexti
 step
 
 # Continue to the next break point:
-continue
+continue        # (c for short)
 
 # Print a variable value:
 print VARIABLE

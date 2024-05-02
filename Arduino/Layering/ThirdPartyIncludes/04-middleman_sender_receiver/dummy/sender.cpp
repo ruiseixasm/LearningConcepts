@@ -22,7 +22,6 @@ void LoRa_print(const char *message_string)
 
 // Common function to be implemented in all sender hooks
 void sendMessage(const char *message) {
-    printf("Message sent:\t%s\n", message);
     if (iRandom(4)) // 1 in 4 chances of the message being lost in transmission!
         LoRa_print(message);
 }
