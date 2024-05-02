@@ -1,0 +1,54 @@
+# Compile for debugging:
+gcc -Wall -g program.c      # -Wall not required
+
+# Start GDB:
+gdb a.out
+
+# Start GDB with CLAs:
+gdb --args a.out arg1 arg2
+
+# See the code:
+layout next
+
+# Run the program:
+run
+
+# Set a break point:
+break POINT     # Where POINT can be a line number,
+                #   function name, etc.
+                
+# Delete a break point:
+clear POINT
+
+# Step one line of code forward:
+next            # (n for short)
+
+# Step one line of assembly code forward:
+nexti
+
+# Step in into a fuction being called:
+step
+
+# Continue to the next break point:
+continue
+
+# Print a variable value:
+print VARIABLE
+
+# Print an array values:
+print *arr@len  # With 'len' as the length of array to print
+
+# Watch a variable for changes:
+watch VARIABLE  # Also works similarly for arrays like print
+
+# Refresh the display:
+refresh         # (or Ctrl+L)
+
+# Exit the debugging:
+exit
+
+# Moves back into the last line called before a crash after run:
+backtrace full
+
+# WolframAlpha website Computational inteligence:
+https://www.wolframalpha.com/
