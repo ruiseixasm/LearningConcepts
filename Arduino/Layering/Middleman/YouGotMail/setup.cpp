@@ -14,8 +14,9 @@ void setupSetup()
     blueLightOff();
     
     localLoraTurnOn();
-    remoteLoraTurnOn();
-    printf("STARTED\n");    
+    transmited_message.position = -1;
+    last_serial_seconds = now_seconds();
+    printf("\n\tSTARTED\n\n");
 }
 
 void setSeed()
@@ -54,9 +55,10 @@ void delay(unsigned long milliseconds)
     while(timeSinceEpochMilliseconds() - refe_time < milliseconds) {}
 }
 
-void numberToText(char *text, int number)
+char *numberToText(char *text, int number)
 {
-    sprintf(text, "%d", number);    
+    sprintf(text, "%d", number);
+    return text;
 }
 
 int textToNumber(const char *text)
@@ -66,7 +68,7 @@ int textToNumber(const char *text)
 
 int serialRead(char *text)
 {
-    if (time(NULL) - last_serial_seconds > 10)
+    if (time(NULL) - last_serial_seconds > 200)
     {
         if (iRandom(4))
             if (iRandom(2))
@@ -148,7 +150,7 @@ void remoteLoraPrint(const char *message)
 
 void loraTurnOn()
 {
-    delay(5000); // Small delay to let lora module start
+    delay(LORA_DELAY);  // Small delay to let lora module start
     printf("LoRa connected!\n");
 }
 
@@ -243,9 +245,10 @@ int serialRead(char *text)
     return i;
 }
 
-void numberToText(char *text, int number)
+char *numberToText(char *text, int number)
 {
     itoa(number, text, 10);
+    return text;
 }
 
 int textToNumber(const char *text)
@@ -284,7 +287,7 @@ void loraPrint(const char *message)
 void loraTurnOn()
 {
     digitalWrite(powerPin, HIGH);
-    delay(5000); // Small delay to let lora module start
+    delay(LORA_DELAY);  // Small delay to let lora module start
     if (!LoRa.begin(LORA_HZ)) {
         Serial.println("Starting LoRa failed!");
         while (1);

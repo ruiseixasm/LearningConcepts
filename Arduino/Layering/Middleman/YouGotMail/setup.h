@@ -9,6 +9,7 @@
 
 #define COM_BAUD    (unsigned long)9600
 #define LORA_HZ     (unsigned long)433E6
+#define LORA_DELAY  (unsigned long)3000
 
 // LIBRARY INCLUDES
 
@@ -60,7 +61,7 @@
 void setupSetup();
 
 // SETUP FUNCTIONS
-void numberToText(char *text, int number);
+char *numberToText(char *text, int number);
 int textToNumber(const char *text);
 
 int serialRead(char *text);

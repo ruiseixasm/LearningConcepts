@@ -5,6 +5,7 @@
 void middlemanSetup()
 {
     setupSetup();
+    last_read_seconds = now_seconds();
     last_receipt_seconds = now_seconds();
     last_print_seconds = now_seconds();
 }
@@ -16,7 +17,9 @@ void middlemanLoop()
     if (serialRead(serial_read))
     {
         int read_size = strlen(serial_read);
-        printf("\tREAD from SERIAL:\t%s\n\n", serial_read);
+        serialPrint("\n\tREAD from SERIAL:\t");
+        serialPrintln(serial_read);
+        serialPrintln("");
         
         if (read_size == 7)
         {
@@ -42,7 +45,8 @@ void middlemanLoop()
                 addPrefix(serial_read, "YGM");
             
                 remoteLoraPrint(serial_read);
-                printf("SENDER to RECEIVER:\t%s\n", serial_read);
+                serialPrint("SENDER to RECEIVER:\t");
+                serialPrintln(serial_read);
             }
         }
     }
@@ -61,9 +65,11 @@ void middlemanLoop()
             
             addPrefix(message_to_send, "YGM");
         
+            remoteLoraTurnOn();
             remoteLoraPrint(message_to_send);
-            printf("SENDER to RECEIVER:\t%s\n", message_to_send);
-                
+            serialPrint("SENDER to RECEIVER:\t");
+            serialPrintln(message_to_send);
+            remoteLoraTurnOff();
             last_read_seconds = now_seconds();
         }
 
@@ -71,7 +77,9 @@ void middlemanLoop()
         
         if (localLoraRead(message_received))
         {
-            printf("READ from SENDER:\t%s\n\n", message_received);
+            serialPrint("READ from SENDER:\t");
+            serialPrintln(message_received);
+            serialPrintln("");
             // Tries to extract a reading in the LOCAL device (Reader)
             local_light_reading = extractLedLightIntensity(message_received);
         }
@@ -79,7 +87,11 @@ void middlemanLoop()
     
     if (local_light_reading != -1)  // valid reading
     {
-        printf("EXTRACTED VALUE:\t%d\n\n", local_light_reading);
+        localLoraTurnOff();
+        serialPrint("\tEXTRACTED VALUE:\t");
+        char text[16] = {0};
+        serialPrintln(numberToText(text, local_light_reading));
+        serialPrintln("");
         redLightOff();
         greenLightOn();
         if (local_light_reading > YGM_THRESHOLD)
@@ -89,6 +101,7 @@ void middlemanLoop()
         local_light_reading = -1;
         last_receipt_seconds = now_seconds();
         last_print_seconds = now_seconds();
+        expecting_to_receive = 0;
     }
     else if (now_seconds() - last_receipt_seconds > TIMEOUT_RECEIVE_SECONDS)
     {
@@ -96,11 +109,23 @@ void middlemanLoop()
         redLightOn();
     }
 
-    if (now_seconds() - last_print_seconds > 10)
+    if (now_seconds() - last_print_seconds > REST_READ_SECONDS - 2*REST_SLACK_SECONDS)
     {
-        serialPrintln("Nothing received!");
-        last_print_seconds = now_seconds();
+        
+        if (!expecting_to_receive)
+        {
+            localLoraTurnOn();
+            serialPrintln("\nExpecting to receive...\n");
+            expecting_to_receive = 1;
+        }
+        
+        if (now_seconds() - last_print_seconds > REST_READ_SECONDS + REST_SLACK_SECONDS)
+        {
+            serialPrintln("\nNothing received!\n");
+            last_print_seconds = now_seconds() - REST_SLACK_SECONDS;
+        }
     }
+    
 }
 
 
