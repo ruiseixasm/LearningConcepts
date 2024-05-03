@@ -288,9 +288,14 @@ void loraTurnOn()
 {
     digitalWrite(powerPin, HIGH);
     delay(LORA_DELAY);  // Small delay to let lora module start
-    if (!LoRa.begin(LORA_HZ)) {
+    while (!LoRa.begin(LORA_HZ))
+    {
         Serial.println("Starting LoRa failed!");
-        while (1);
+        Serial.println("Trying again latter...");
+        digitalWrite(powerPin, LOW);
+        delay((unsigned long)5 * 60 * 1000);
+        digitalWrite(powerPin, HIGH);
+        delay(LORA_DELAY);  // Small delay to let lora module start
     }
     Serial.println("LoRa connected!");
 }
