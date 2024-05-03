@@ -307,13 +307,6 @@ void loraTurnOff()
 
 #if     SETUP == LOCAL
 
-// These constants won't change. They're used to give names to the pins used:
-const int redPin    = 3;    // RED LED pin
-const int greenPin  = 4;    // GREEN LED pin
-const int powerPin  = 5;    // Pin that turns on LoRa power
-const int bluePin   = 6;    // BLUE LED pin     (You've Got Mail)
-const int buzzerPin = 7;    // Buzzer pin       (You've Got Mail)
-
 void setupSetup()
 {
     Serial.println("Configured as RECEIVER! (LOCAL)");
@@ -333,6 +326,12 @@ void setupSetup()
     while (!Serial);
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
+    
+    redLightOn();
+    greenLightOn();
+    blueLightOn();
+    greenLightOff();
+    blueLightOff();
     
     localLoraTurnOn();
 }
@@ -422,10 +421,10 @@ void redLightOff()
 
 void greenLightOn()
 {
-    if (!red_state && !red_state++)
+    if (!green_state && !green_state++)
     {
-        Serial.print("Red ON      - ");
-        Serial.print(++total_reds);
+        Serial.print("Green ON      - ");
+        Serial.print(++total_greens);
         Serial.println(" times");
         digitalWrite(greenPin, HIGH);
     }
@@ -433,10 +432,10 @@ void greenLightOn()
 
 void greenLightOff()
 {
-    if (red_state && red_state--)
+    if (green_state && green_state--)
     {
-        Serial.print("Red ON      - ");
-        Serial.print(total_reds);
+        Serial.print("Green OFF      - ");
+        Serial.print(total_greens);
         Serial.println(" times");
         digitalWrite(greenPin, LOW);
     }
@@ -444,10 +443,10 @@ void greenLightOff()
 
 void blueLightOn()
 {
-    if (!red_state && !red_state++)
+    if (!blue_state && !blue_state++)
     {
-        Serial.print("Red ON      - ");
-        Serial.print(++total_reds);
+        Serial.print("Blue ON      - ");
+        Serial.print(++total_blues);
         Serial.println(" times");
         digitalWrite(bluePin, HIGH);
         triggerBuzzer();
@@ -456,10 +455,10 @@ void blueLightOn()
 
 void blueLightOff()
 {
-    if (red_state && red_state--)
+    if (blue_state && blue_state--)
     {
-        Serial.print("Red ON      - ");
-        Serial.print(total_reds);
+        Serial.print("Blue OFF      - ");
+        Serial.print(total_blues);
         Serial.println(" times");
         digitalWrite(bluePin, LOW);
     }
@@ -477,11 +476,6 @@ void triggerBuzzer()
 
 
 #elif   SETUP == REMOTE
-
-static int sensorValue  = 0;    // value read from the pot
-const int lightPin      = 8;    // LED pint
-const int analogInPin   = A0;   // (14) Analog input pin that the potentiometer is attached to
-const int powerPin      = 5;    // Pin that turns on LoRa power
 
 void setupSetup()
 {

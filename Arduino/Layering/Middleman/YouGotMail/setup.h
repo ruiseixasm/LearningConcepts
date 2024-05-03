@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       DUMMY
+#define SETUP       LOCAL
 #define DEBUG       true
 
 #define COM_BAUD    (unsigned long)9600
@@ -52,6 +52,17 @@
 
     #define now_seconds() (millis()/1000)
     
+    // These constants won't change. They're used to give names to the pins used:
+    const int redPin    = 3;    // RED LED pin
+    const int greenPin  = 4;    // GREEN LED pin
+    const int powerPin  = 5;    // Pin that turns on LoRa power
+    const int bluePin   = 6;    // BLUE LED pin     (You've Got Mail)
+    const int buzzerPin = 7;    // Buzzer pin       (You've Got Mail)
+
+    static int sensorValue  = 0;    // value read from the pot
+    const int lightPin      = 8;    // LED pint
+    const int analogInPin   = A0;   // (14) Analog input pin that the potentiometer is attached to
+
     void triggerBuzzer();
 
 #endif
