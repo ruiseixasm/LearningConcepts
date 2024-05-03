@@ -233,6 +233,12 @@ void blueLightOff()
 }
 
 
+
+
+
+
+
+
 #else   // Arduino specifics
 
 int serialRead(char *text)
@@ -286,6 +292,8 @@ void loraPrint(const char *message)
 
 void loraTurnOn()
 {
+    char red_on = red_state;
+    char green_on = green_state;
     digitalWrite(powerPin, HIGH);
     delay(LORA_DELAY);  // Small delay to let lora module start
     while (!LoRa.begin(LORA_HZ))
@@ -293,11 +301,17 @@ void loraTurnOn()
         Serial.println("Starting LoRa failed!");
         Serial.println("Trying again latter...");
         digitalWrite(powerPin, LOW);
+        redLightOn();
+        greenLightOn();
         delay((unsigned long)5 * 60 * 1000);
         digitalWrite(powerPin, HIGH);
         delay(LORA_DELAY);  // Small delay to let lora module start
     }
     Serial.println("LoRa connected!");
+    if (!red_on)
+        redLightOff();
+    if (!green_on)
+        greenLightOff();
 }
 
 void loraTurnOff()
@@ -335,7 +349,6 @@ void setupSetup()
     redLightOn();
     greenLightOn();
     blueLightOn();
-    greenLightOff();
     blueLightOff();
     
     localLoraTurnOn();
