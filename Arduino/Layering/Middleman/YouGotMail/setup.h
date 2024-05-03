@@ -68,8 +68,8 @@
     const int lightPin      = 8;    // LED pint
     const int analogInPin   = A0;   // (14) Analog input pin that the potentiometer is attached to
 
-    const int blueButton    = 6;
-    const int greenButton   = 7;
+    const int blueButton    = 7;
+    const int greenButton   = 6;
 
     void triggerBuzzer();
 
