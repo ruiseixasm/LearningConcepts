@@ -349,6 +349,7 @@ void setupSetup()
     redLightOn();
     greenLightOn();
     blueLightOn();
+    greenLightOff();
     blueLightOff();
     
     localLoraTurnOn();
