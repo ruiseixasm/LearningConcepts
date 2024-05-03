@@ -4,12 +4,17 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       REMOTE
+#define SETUP       DUMMY   // For dummy DEBUG is always true
 #define DEBUG       false
 
 #define COM_BAUD    (unsigned long)9600
 #define LORA_HZ     (unsigned long)433E6
-#define LORA_DELAY  (unsigned long)3000
+
+#if     DEBUG || SETUP == DUMMY
+    #define LORA_DELAY  (unsigned long)1000
+#else
+    #define LORA_DELAY  (unsigned long)3000
+#endif
 
 // LIBRARY INCLUDES
 
@@ -100,7 +105,7 @@ void greenLightOff();
 void blueLightOn();
 void blueLightOff();
 
-
+int buttonsRead();
 
 // SETUP VARIABLES
 static unsigned long last_serial_seconds      = 0;

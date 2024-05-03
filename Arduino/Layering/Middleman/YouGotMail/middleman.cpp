@@ -12,9 +12,50 @@ void middlemanSetup()
 
 void middlemanLoop()
 {
-    // FOR SERIAL
+    static int buttons_read;
     
-    if (serialRead(serial_read))
+    // FOR BUTTONS
+    if ((buttons_read = buttonsRead()) > 0)
+    {
+        serialPrint("\n\tBUTTON PRESSED:\t");
+        if (buttons_read == 0b01)       // Blue button
+        {
+                serialPrintln("BLUE\n");
+                remoteLoraTurnOn();
+                
+                char message_to_send[16] = {0};
+                numberToText(message_to_send, YGM_THRESHOLD + 1);
+                while (strlen(message_to_send) < 4)
+                    addPrefix(message_to_send, "0");
+                addPrefix(message_to_send, "YGM");
+            
+                remoteLoraPrint(message_to_send);
+                serialPrint("SENDER to RECEIVER:\t");
+                serialPrintln(message_to_send);
+                remoteLoraTurnOff();
+        }
+        else if (buttons_read == 0b10)  // Green button
+        {
+                serialPrintln("GREEN\n");
+                remoteLoraTurnOn();
+                
+                char message_to_send[16] = {0};
+                numberToText(message_to_send, YGM_THRESHOLD - 1);
+                while (strlen(message_to_send) < 4)
+                    addPrefix(message_to_send, "0");
+                addPrefix(message_to_send, "YGM");
+            
+                remoteLoraPrint(message_to_send);
+                serialPrint("SENDER to RECEIVER:\t");
+                serialPrintln(message_to_send);
+                remoteLoraTurnOff();
+        }
+        else
+            serialPrintln("?\n");
+    }
+    
+    // FOR SERIAL
+    else if (serialRead(serial_read))
     {
         int read_size = strlen(serial_read);
         serialPrint("\n\tREAD from SERIAL:\t");
@@ -44,23 +85,24 @@ void middlemanLoop()
                     addPrefix(serial_read, "0");
                 addPrefix(serial_read, "YGM");
             
+                remoteLoraTurnOn();
                 remoteLoraPrint(serial_read);
                 serialPrint("SENDER to RECEIVER:\t");
                 serialPrintln(serial_read);
+                remoteLoraTurnOff();
             }
         }
     }
     else
     {
         // FOR SENDER
-        
         if (now_seconds() - last_read_seconds > REST_READ_SECONDS)
         {
             int light_intensity = ledLightIntensity();
         
             char message_to_send[16] = {0};
             numberToText(message_to_send, light_intensity);
-            if (light_intensity < 1000)
+            while (strlen(message_to_send) < 4)
                 addPrefix(message_to_send, "0");
             
             addPrefix(message_to_send, "YGM");
@@ -74,7 +116,6 @@ void middlemanLoop()
         }
 
         // FOR RECEIVER
-        
         if (localLoraRead(message_received))
         {
             serialPrint("READ from SENDER:\t");
@@ -88,7 +129,7 @@ void middlemanLoop()
     if (local_light_reading != -1)  // valid reading
     {
         localLoraTurnOff();
-        serialPrint("\tEXTRACTED VALUE:\t");
+        serialPrint("\n\tEXTRACTED VALUE:\t");
         char text[16] = {0};
         serialPrintln(numberToText(text, local_light_reading));
         serialPrintln("");

@@ -12,10 +12,10 @@
 
     #if DEBUG
         #define REST_READ_SECONDS       (unsigned long)60                   // (each 20 seconds)
-        #define REST_SLACK_SECONDS      (unsigned long)3                    // (each 3 seconds)
+        #define REST_SLACK_SECONDS      (unsigned long)5                    // (slack of 5 seconds)
     #else
         #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 3     // (three times a day)
-        #define REST_SLACK_SECONDS      (unsigned long)120                  // (each 3 seconds)
+        #define REST_SLACK_SECONDS      (unsigned long)120                  // (slack of 120 seconds)
     #endif
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + REST_SLACK_SECONDS
     #define YGM_THRESHOLD               700

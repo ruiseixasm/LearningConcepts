@@ -81,7 +81,7 @@ int textToNumber(const char *text)
 
 int serialRead(char *text)
 {
-    if (time(NULL) - last_serial_seconds > 200)
+    if (time(NULL) - last_serial_seconds > 50 && !iRandom(4))
     {
         if (iRandom(4))
             if (iRandom(2))
@@ -96,7 +96,7 @@ int serialRead(char *text)
             
         last_serial_seconds = time(NULL);
         return 1;
-    }    
+    }
     return 0;
 }
 
@@ -129,6 +129,8 @@ int loraRead(char *message)
         transmited_message.position = -1;
         return 1;
     }
+    else
+        transmited_message.position = -1;
     return 0;
 }
 
@@ -149,6 +151,8 @@ void loraPrint(const char *message)
         strcpy(transmited_message.content, message);
         transmited_message.position = 0;
     }
+    else
+        transmited_message.position = -1;
 }
 
 void localLoraPrint(const char *message)
@@ -208,7 +212,6 @@ void remoteLoraTurnOff()
     }
 }
 
-
 void redLightOn()
 {
     if (!red_state && !red_state++)
@@ -218,7 +221,7 @@ void redLightOn()
 void redLightOff()
 {
     if (red_state && red_state--)
-        printf("Red Off     - %d times\n", total_reds);
+        printf("Red OFF     - %d times\n", total_reds);
 }
 
 void greenLightOn()
@@ -230,7 +233,7 @@ void greenLightOn()
 void greenLightOff()
 {
     if (green_state && green_state--)
-        printf("Green Off   - %d times\n", total_greens);
+        printf("Green OFF   - %d times\n", total_greens);
 }
 
 void blueLightOn()
@@ -242,7 +245,29 @@ void blueLightOn()
 void blueLightOff()
 {
     if (blue_state && blue_state--)
-        printf("Blue Off    - %d times\n", total_blues);
+        printf("Blue OFF    - %d times\n", total_blues);
+}
+
+int buttonsRead()
+{
+    static unsigned long last_button_seconds = now_seconds() - 20;
+    static int pressed_buttons;
+    
+    if (time(NULL) - last_button_seconds > 50 && !iRandom(4))
+    {
+        if (iRandom(4))
+            if (iRandom(2))
+                pressed_buttons = 0b01;
+            else
+                pressed_buttons = 0b10;
+        else
+            pressed_buttons = 0b11;
+            
+        last_button_seconds = time(NULL);
+        return pressed_buttons;
+    }
+    
+    return 0;
 }
 
 // ARDUINO
@@ -266,7 +291,7 @@ int serialRead(char *text)
         text[i] = (char)Serial.read();
         if (text[i] == '\n' || text[i] == '\t' || text[i] == '\r')
             break;
-        delay(5); // Waits for next byte to fill the buffer. 1 baud = 1 byte per second.
+        delay(2); // Waits for next byte to fill the buffer. 1 baud = 1 byte per second.
     }
     text[i] = '\0';
     return i;
@@ -447,7 +472,6 @@ void remoteLoraTurnOff()
     // Does nothing because it's local
 }
 
-
 void redLightOn()
 {
     if (!red_state && !red_state++)
@@ -522,6 +546,11 @@ void triggerBuzzer()
     delay(500);
     Serial.println("Buzzer OFF");
     digitalWrite(buzzerPin, LOW);
+}
+
+int buttonsRead()
+{
+    return 0;
 }
 
 // REMOTE
@@ -617,5 +646,10 @@ void greenLightOff() {}
 void blueLightOn() {}
 void blueLightOff() {}
 void triggerBuzzer() {}
+
+int buttonsRead()
+{
+    return 0;
+}
 
 #endif
