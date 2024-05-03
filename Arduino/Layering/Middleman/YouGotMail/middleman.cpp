@@ -20,7 +20,7 @@ void middlemanLoop()
         serialPrint("\n\tREAD from SERIAL:\t");
         serialPrintln(serial_read);
         serialPrintln("");
-        
+
         if (read_size == 7)
         {
             // Tries to extract a reading in the LOCAL device (Reader)
@@ -40,7 +40,7 @@ void middlemanLoop()
             }
             else
             {
-                if (read_size == 3)
+                while (strlen(serial_read) < 4)
                     addPrefix(serial_read, "0");
                 addPrefix(serial_read, "YGM");
             

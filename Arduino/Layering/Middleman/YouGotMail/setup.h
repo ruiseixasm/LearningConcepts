@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       LOCAL
+#define SETUP       REMOTE
 #define DEBUG       false
 
 #define COM_BAUD    (unsigned long)9600

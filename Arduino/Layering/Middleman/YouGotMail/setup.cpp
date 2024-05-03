@@ -1,5 +1,18 @@
 #include "setup.h"
 
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+// DUMMY
+
 #if     SETUP == DUMMY
 
 // For the REMOTE device (Sender)
@@ -232,20 +245,28 @@ void blueLightOff()
         printf("Blue Off    - %d times\n", total_blues);
 }
 
-
-
-
-
-
-
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
+// ARDUINO
 
 #else   // Arduino specifics
 
 int serialRead(char *text)
 {
     int i = 0;
-    for (; i < 16 && Serial.available() > 0; i++) {
+    for (; i < 15 && Serial.available() > 0; i++) {
         text[i] = (char)Serial.read();
+        if (text[i] == '\n' || text[i] == '\t' || text[i] == '\r')
+            break;
+        delay(5); // Waits for next byte to fill the buffer. 1 baud = 1 byte per second.
     }
     text[i] = '\0';
     return i;
@@ -321,8 +342,17 @@ void loraTurnOff()
 
 #endif
 
-
-
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
+// LOCAL
 
 #if     SETUP == LOCAL
 
@@ -353,6 +383,8 @@ void setupSetup()
     blueLightOff();
     
     localLoraTurnOn();
+
+    Serial.println("STARTED");
 }
 
 int ledLightIntensity()
@@ -492,7 +524,19 @@ void triggerBuzzer()
     digitalWrite(buzzerPin, LOW);
 }
 
-
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
+// REMOTE
 
 #elif   SETUP == REMOTE
 
@@ -510,7 +554,7 @@ void setupSetup()
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
     
-    remoteLoraTurnOn();
+    Serial.println("STARTED");
 }
 
 int ledLightIntensity()
