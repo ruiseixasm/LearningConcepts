@@ -550,7 +550,7 @@ void triggerBuzzer()
 
 int buttonsRead()
 {
-    return 0;
+    return 0;   // Local has no buttons
 }
 
 // REMOTE
@@ -577,6 +577,9 @@ void setupSetup()
     digitalWrite(lightPin, LOW);        // Turn off the light
     pinMode(powerPin, OUTPUT);
     digitalWrite(powerPin, LOW);
+    
+    pinMode(blueButton, INPUT);
+    pinMode(greenButton, INPUT);
     
     Serial.begin(COM_BAUD);
     while (!Serial);
@@ -649,6 +652,25 @@ void triggerBuzzer() {}
 
 int buttonsRead()
 {
+    int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
+    
+    if (pressed_buttons)
+    {
+        unsigned long last_pressed_millis = millis();
+        for (int still_pressed_buttons = pressed_buttons;
+                still_pressed_buttons;
+                still_pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
+        {
+            if (still_pressed_buttons != pressed_buttons)
+            {
+                last_pressed_millis = millis();
+                pressed_buttons = still_pressed_buttons;
+            }
+            if (millis() - last_pressed_millis > 50)
+                return pressed_buttons;
+        }
+    }
+    
     return 0;
 }
 

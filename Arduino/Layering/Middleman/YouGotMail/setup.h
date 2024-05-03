@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       DUMMY   // For dummy DEBUG is always true
+#define SETUP       REMOTE   // For DUMMY DEBUG is always true
 #define DEBUG       false
 
 #define COM_BAUD    (unsigned long)9600
@@ -67,6 +67,9 @@
     static int sensorValue  = 0;    // value read from the pot
     const int lightPin      = 8;    // LED pint
     const int analogInPin   = A0;   // (14) Analog input pin that the potentiometer is attached to
+
+    const int blueButton    = 6;
+    const int greenButton   = 7;
 
     void triggerBuzzer();
 
