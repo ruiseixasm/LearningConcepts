@@ -688,23 +688,31 @@ void triggerBuzzer() {}
 
 int buttonsRead()
 {
+    static int last_pressed_buttons = 0;
+    unsigned long last_pressed_millis = millis();
     int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
-    if (pressed_buttons)
+    if (!last_pressed_buttons)
     {
-        unsigned long last_pressed_millis = millis();
-        for (int still_pressed_buttons = pressed_buttons;
-                still_pressed_buttons;
-                still_pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
+        if (pressed_buttons)
         {
-            if (still_pressed_buttons != pressed_buttons)
+            for (int still_pressed_buttons = pressed_buttons;
+                    still_pressed_buttons;
+                    still_pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
             {
-                last_pressed_millis = millis();
-                pressed_buttons = still_pressed_buttons;
+                if (still_pressed_buttons != pressed_buttons)
+                {
+                    last_pressed_millis = millis();
+                    pressed_buttons = still_pressed_buttons;
+                }
+                if (millis() - last_pressed_millis > 50)
+                    return last_pressed_buttons = pressed_buttons;
             }
-            if (millis() - last_pressed_millis > 50)
-                return pressed_buttons;
         }
     }
+    else
+        for (; last_pressed_buttons && !pressed_buttons; pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
+            if (millis() - last_pressed_millis > 50)
+                last_pressed_buttons = 0;
     
     return 0;
 }

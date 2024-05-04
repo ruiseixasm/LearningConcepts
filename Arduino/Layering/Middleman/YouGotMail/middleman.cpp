@@ -32,12 +32,10 @@ void middlemanLoop()
                 remoteLoraPrint(message_to_send);
                 serialPrint("SENDER to RECEIVER:\t");
                 serialPrintln(message_to_send);
-                remoteLoraTurnOff();
         }
         else if (buttons_read == 0b10)  // Green button
         {
                 serialPrintln("GREEN\n");
-                remoteLoraTurnOn();
                 
                 char message_to_send[16] = {0};
                 numberToText(message_to_send, YGM_THRESHOLD - 1);
