@@ -719,7 +719,7 @@ int buttonsRead()
     for (int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
             pressed_buttons != last_pressed_buttons;
             pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
-        if (millis() - last_pressed_millis > 50)
+        if (millis() - last_pressed_millis > 100)
             return last_pressed_buttons = pressed_buttons;
     
     return 0;

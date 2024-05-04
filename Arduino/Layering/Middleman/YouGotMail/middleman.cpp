@@ -48,6 +48,11 @@ void middlemanLoop()
                 remoteLoraPrint(message_to_send);
                 remoteLoraTurnOff();
         }
+        else if (buttons_read == 0b11)  // Both buttons
+        {
+                serialPrintln("BOTH\n");
+                int light_intensity = ledLightIntensity();
+        }
         else
             serialPrintln("?\n");
     }
