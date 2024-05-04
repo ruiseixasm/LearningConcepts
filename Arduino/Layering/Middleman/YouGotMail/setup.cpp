@@ -321,9 +321,10 @@ void serialPrintln(const char *text)
 int loraRead(char *message)
 {
     int i = 0;
-    for (; i < 16 && LoRa.available(); i++)
-    {
+    for (; i < 15 && LoRa.available(); i++) {
         message[i] = (char)LoRa.read();
+        if (message[i] == '\n' || message[i] == '\t' || message[i] == '\r')
+            break;
     }
     message[i] = '\0';
     return i;
@@ -408,6 +409,9 @@ void setupSetup()
     blueLightOn();
     greenLightOff();
     blueLightOff();
+    
+    // Set pint 2 concerning DIO0 as floating (like disconnected)
+    pinMode(lora_dio0, INPUT);    
     
     localLoraTurnOn();
 
@@ -597,6 +601,9 @@ void setupSetup()
     while (!Serial);
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
+    
+    // Set pint 2 concerning DIO0 as floating (like disconnected)
+    pinMode(lora_dio0, INPUT);    
     
     Serial.println("STARTED");
 }

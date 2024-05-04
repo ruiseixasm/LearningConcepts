@@ -57,10 +57,13 @@
 
     #define now_seconds() (millis()/1000)
     
+    // Common pins
+    const int powerPin  = 5;    // Pin that turns on LoRa power
+    const int lora_dio0 = 2;    // Wired pin not needed to connect
+    
     // These constants won't change. They're used to give names to the pins used:
     const int redPin    = 3;    // RED LED pin
     const int greenPin  = 4;    // GREEN LED pin
-    const int powerPin  = 5;    // Pin that turns on LoRa power
     const int bluePin   = 6;    // BLUE LED pin     (You've Got Mail)
     const int buzzerPin = 7;    // Buzzer pin       (You've Got Mail)
 
