@@ -13,7 +13,7 @@
 #if     DEBUG || SETUP == DUMMY
     #define LORA_DELAY  (unsigned long)1000
 #else
-    #define LORA_DELAY  (unsigned long)3000
+    #define LORA_DELAY  (unsigned long)2000
 #endif
 
 // LIBRARY INCLUDES

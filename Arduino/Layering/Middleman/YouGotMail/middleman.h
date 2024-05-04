@@ -18,7 +18,7 @@
         #define REST_SLACK_SECONDS      (unsigned long)120                  // (slack of 120 seconds)
     #endif
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + REST_SLACK_SECONDS
-    #define YGM_THRESHOLD               700
+    #define YGM_THRESHOLD               650
     
 #endif
 
@@ -41,5 +41,3 @@ static int expecting_to_receive             = 0;
 static int local_light_reading = -1;        // no valid reading at the start
 static char message_received[16];
 static char serial_read[16];
-
-

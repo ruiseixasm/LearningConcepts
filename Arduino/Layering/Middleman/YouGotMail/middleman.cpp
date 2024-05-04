@@ -79,17 +79,19 @@ void middlemanLoop()
                 localLoraTurnOff();
                 remoteLoraTurnOff();
             }
+            else if (!strcmp(serial_read, "READ"))
+            {
+                int light_intensity = ledLightIntensity();
+            }
             else
             {
                 while (strlen(serial_read) < 4)
                     addPrefix(serial_read, "0");
                 addPrefix(serial_read, "YGM");
             
-                remoteLoraTurnOn();
-                remoteLoraPrint(serial_read);
                 serialPrint("SENDER to RECEIVER:\t");
                 serialPrintln(serial_read);
-                remoteLoraTurnOff();
+                remoteLoraPrint(serial_read);
             }
         }
     }
@@ -107,10 +109,10 @@ void middlemanLoop()
             
             addPrefix(message_to_send, "YGM");
         
-            remoteLoraTurnOn();
-            remoteLoraPrint(message_to_send);
             serialPrint("SENDER to RECEIVER:\t");
             serialPrintln(message_to_send);
+            remoteLoraTurnOn();
+            remoteLoraPrint(message_to_send);
             remoteLoraTurnOff();
             last_read_seconds = now_seconds();
         }

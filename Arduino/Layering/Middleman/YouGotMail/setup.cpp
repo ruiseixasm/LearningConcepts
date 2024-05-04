@@ -362,7 +362,9 @@ void loraTurnOn()
 
 void loraTurnOff()
 {
+    delay(LORA_DELAY);  // Small delay to let lora module start
     digitalWrite(powerPin, LOW);
+    Serial.println("LoRa turned OFF!");
 }
 
 #endif
@@ -419,24 +421,34 @@ int ledLightIntensity()
 
 int localLoraRead(char *message)
 {
-    if (!loraRead(message))
-        return 0;
-    // Received a packet, print RSSI of packet
-    Serial.print("Received packet '");
-    Serial.print(message);
-    Serial.print("' with RSSI ");
-    Serial.println(LoRa.packetRssi());
-    return 1;
+    if (local_lora_power)
+    {
+        if (!loraRead(message))
+            return 0;
+        // Received a packet, print RSSI of packet
+        Serial.print("Received packet '");
+        Serial.print(message);
+        Serial.print("' with RSSI ");
+        Serial.println(LoRa.packetRssi());
+        return 1;
+    }
+    return 0;
 }
 
 void localLoraPrint(const char *message)
 {
-    loraPrint(message);
+    if (local_lora_power)
+    {
+        loraPrint(message);
+        Serial.print("Sent packet '");
+        Serial.print(message);
+        Serial.println("'");
+    }
 }
 
 int remoteLoraRead(char *message)
 {
-    // Does nothing because it's local
+    return 0;   // Does nothing because it's local
 }
 
 void remoteLoraPrint(const char *message)
@@ -462,8 +474,8 @@ void localLoraTurnOff()
 {
     if (local_lora_power && local_lora_power--)
     {
+        Serial.println("Turning OFF LOCAL LoRa...");
         loraTurnOff();
-        Serial.println("LOCAL LoRa turned OFF!");
     }
 }
 
@@ -578,7 +590,7 @@ void setupSetup()
     pinMode(powerPin, OUTPUT);
     digitalWrite(powerPin, LOW);
     
-    pinMode(blueButton, INPUT);
+    pinMode(blueButton, INPUT);     // INPUT_PULLDOWN doesn't exist, only INPUT_PULLUP!
     pinMode(greenButton, INPUT);
     
     Serial.begin(COM_BAUD);
@@ -591,12 +603,21 @@ void setupSetup()
 
 int ledLightIntensity()
 {
-    return 0;
+    digitalWrite(lightPin, HIGH);
+    delay(10);  // allows liht warm up
+    // read the analog in value:
+    int sensorValue = analogRead(analogInPin);
+    // Turn off the light
+    digitalWrite(lightPin, LOW);
+    // print the results to the Serial Monitor:
+    Serial.print("Sensor value = ");
+    Serial.println(sensorValue);
+    return sensorValue; // Returns final reading
 }
 
 int localLoraRead(char *message)
 {
-    // Does nothing because it's remote
+    return 0;   // Does nothing because it's remote
 }
 
 void localLoraPrint(const char *message)
@@ -606,12 +627,20 @@ void localLoraPrint(const char *message)
 
 int remoteLoraRead(char *message)
 {
-    return loraRead(message);
+    if (remote_lora_power)
+        return loraRead(message);
+    return 0;
 }
 
 void remoteLoraPrint(const char *message)
 {
-    loraPrint(message);
+    if (remote_lora_power)
+    {
+        loraPrint(message);
+        Serial.print("Sent packet '");
+        Serial.print(message);
+        Serial.println("'");
+    }
 }
 
 void localLoraTurnOn()
@@ -637,8 +666,8 @@ void remoteLoraTurnOff()
 {
     if (remote_lora_power && remote_lora_power--)
     {
+        Serial.println("Turning OFF REMOTE LoRa...");
         loraTurnOff();
-        Serial.println("REMOTE LoRa turned OFF!");
     }
 }
 
@@ -653,7 +682,6 @@ void triggerBuzzer() {}
 int buttonsRead()
 {
     int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
-    
     if (pressed_buttons)
     {
         unsigned long last_pressed_millis = millis();
