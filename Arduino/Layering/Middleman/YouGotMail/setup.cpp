@@ -503,10 +503,8 @@ void remoteLoraTurnOn()
 void localLoraTurnOff()
 {
     if (local_lora_power && local_lora_power--)
-    {
         Serial.println("Turning OFF LOCAL LoRa...");
-        loraTurnOff();
-    }
+    loraTurnOff();
 }
 
 void remoteLoraTurnOff()
@@ -698,10 +696,8 @@ void localLoraTurnOff()
 void remoteLoraTurnOff()
 {
     if (remote_lora_power && remote_lora_power--)
-    {
         Serial.println("Turning OFF REMOTE LoRa...");
-        loraTurnOff();
-    }
+    loraTurnOff();
 }
 
 void redLightOn() {}
