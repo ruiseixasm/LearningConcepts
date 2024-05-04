@@ -29,9 +29,9 @@ void middlemanLoop()
                     addPrefix(message_to_send, "0");
                 addPrefix(message_to_send, "YGM");
             
-                remoteLoraPrint(message_to_send);
                 serialPrint("SENDER to RECEIVER:\t");
                 serialPrintln(message_to_send);
+                remoteLoraPrint(message_to_send);
         }
         else if (buttons_read == 0b10)  // Green button
         {
@@ -43,9 +43,9 @@ void middlemanLoop()
                     addPrefix(message_to_send, "0");
                 addPrefix(message_to_send, "YGM");
             
-                remoteLoraPrint(message_to_send);
                 serialPrint("SENDER to RECEIVER:\t");
                 serialPrintln(message_to_send);
+                remoteLoraPrint(message_to_send);
                 remoteLoraTurnOff();
         }
         else

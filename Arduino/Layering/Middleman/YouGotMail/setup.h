@@ -97,7 +97,7 @@ int remoteLoraRead(char *message);
 void loraPrint(const char *message);
 void localLoraPrint(const char *message);
 void remoteLoraPrint(const char *message);
-void loraTurnOn();
+int loraTurnOn();
 void localLoraTurnOn();
 void remoteLoraTurnOn();
 void loraTurnOff();

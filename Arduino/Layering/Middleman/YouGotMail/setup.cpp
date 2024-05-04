@@ -287,11 +287,21 @@ int buttonsRead()
 int serialRead(char *text)
 {
     int i = 0;
-    for (; i < 15 && Serial.available() > 0; i++) {
-        text[i] = (char)Serial.read();
-        if (text[i] == '\n' || text[i] == '\t' || text[i] == '\r')
-            break;
-        delay(2); // Waits for next byte to fill the buffer. 1 baud = 1 byte per second.
+    if (Serial.available() > 0)
+    {
+        unsigned long last_read_millis = millis();
+        
+        while (millis() - last_read_millis < 3 && i < 15)
+        {
+            if (Serial.available() > 0)
+            {
+                text[i] = (char)Serial.read();
+                if (text[i] == '\n' || text[i] == '\t' || text[i] == '\r')
+                    break;
+                last_read_millis = millis();
+                i++;
+            }
+        }
     }
     text[i] = '\0';
     return i;
@@ -337,28 +347,44 @@ void loraPrint(const char *message)
     LoRa.endPacket();
 }
 
-void loraTurnOn()
+int loraTurnOn()
 {
-    char red_on = red_state;
-    char green_on = green_state;
+    static char red_on = red_state;
+    static char green_on = green_state;
     digitalWrite(powerPin, HIGH);
     delay(LORA_DELAY);  // Small delay to let lora module start
-    while (!LoRa.begin(LORA_HZ))
+    int connections_tries = 5;
+    while (!LoRa.begin(LORA_HZ) && connections_tries-- > 0)
     {
-        Serial.println("Starting LoRa failed!");
-        Serial.println("Trying again latter...");
-        digitalWrite(powerPin, LOW);
+        Serial.print("Starting LoRa failed! (");
+        Serial.print(connections_tries + 1);
+        Serial.println(")");
+        Serial.println("Trying again shortly...");
+        if (red_state != 1 && green_state != 1)
+        {
+            red_on = red_state;
+            green_on = green_state;
+        }
         redLightOn();
         greenLightOn();
-        delay((unsigned long)5 * 60 * 1000);
-        digitalWrite(powerPin, HIGH);
-        delay(LORA_DELAY);  // Small delay to let lora module start
+        delay(LORA_DELAY*4);  // Small delay to let lora module start
     }
-    Serial.println("LoRa connected!");
-    if (!red_on)
-        redLightOff();
-    if (!green_on)
-        greenLightOff();
+    if (connections_tries > 0)
+    {
+        Serial.println("LoRa connected!");
+        if (!red_on)
+            redLightOff();
+        if (!green_on)
+            greenLightOff();
+        return 1;
+    }
+    else
+    {
+        delay(LORA_DELAY);  // Small delay to let lora module start
+        digitalWrite(powerPin, LOW);
+        Serial.println("LoRa failled to connect!");
+        return 0;
+    }
 }
 
 void loraTurnOff()
@@ -462,10 +488,10 @@ void remoteLoraPrint(const char *message)
 
 void localLoraTurnOn()
 {
-    if (!local_lora_power && !local_lora_power++)
+    if (!local_lora_power)
     {
         Serial.println("Turning ON LOCAL LoRa...");
-        loraTurnOn();
+        local_lora_power = (char)loraTurnOn();
     }
 }
 
@@ -492,7 +518,7 @@ void redLightOn()
 {
     if (!red_state && !red_state++)
     {
-        Serial.print("Red ON      - ");
+        Serial.print("Red ON        - ");
         Serial.print(++total_reds);
         Serial.println(" times");
         digitalWrite(redPin, HIGH);
@@ -503,7 +529,7 @@ void redLightOff()
 {
     if (red_state && red_state--)
     {
-        Serial.print("Red ON      - ");
+        Serial.print("Red ON        - ");
         Serial.print(total_reds);
         Serial.println(" times");
         digitalWrite(redPin, LOW);
@@ -525,7 +551,7 @@ void greenLightOff()
 {
     if (green_state && green_state--)
     {
-        Serial.print("Green OFF      - ");
+        Serial.print("Green OFF     - ");
         Serial.print(total_greens);
         Serial.println(" times");
         digitalWrite(greenPin, LOW);
@@ -657,10 +683,10 @@ void localLoraTurnOn()
 
 void remoteLoraTurnOn()
 {
-    if (!remote_lora_power && !remote_lora_power++)
+    if (!remote_lora_power)
     {
         Serial.println("Turning ON REMOTE LoRa...");
-        loraTurnOn();
+        remote_lora_power = (char)loraTurnOn();
     }
 }
 
@@ -690,29 +716,11 @@ int buttonsRead()
 {
     static int last_pressed_buttons = 0;
     unsigned long last_pressed_millis = millis();
-    int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
-    if (!last_pressed_buttons)
-    {
-        if (pressed_buttons)
-        {
-            for (int still_pressed_buttons = pressed_buttons;
-                    still_pressed_buttons;
-                    still_pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
-            {
-                if (still_pressed_buttons != pressed_buttons)
-                {
-                    last_pressed_millis = millis();
-                    pressed_buttons = still_pressed_buttons;
-                }
-                if (millis() - last_pressed_millis > 50)
-                    return last_pressed_buttons = pressed_buttons;
-            }
-        }
-    }
-    else
-        for (; last_pressed_buttons && !pressed_buttons; pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
-            if (millis() - last_pressed_millis > 50)
-                last_pressed_buttons = 0;
+    for (int pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton);
+            pressed_buttons != last_pressed_buttons;
+            pressed_buttons = digitalRead(greenButton) << 1 | digitalRead(blueButton))
+        if (millis() - last_pressed_millis > 50)
+            return last_pressed_buttons = pressed_buttons;
     
     return 0;
 }
