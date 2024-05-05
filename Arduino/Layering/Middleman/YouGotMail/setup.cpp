@@ -464,7 +464,7 @@ void setupSetup()
     blueLightOff();
     
     // Set pint 2 concerning DIO0 as floating (like disconnected)
-    pinMode(lora_dio0, INPUT);    
+    //pinMode(lora_dio0, INPUT);    
     
     localLoraTurnOn();
 
