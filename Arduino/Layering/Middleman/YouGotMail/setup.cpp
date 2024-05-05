@@ -317,7 +317,7 @@ size_t readSerialUntil(const char *characters, char *buffer, size_t length)
     size_t i = 0;
     if (Serial.available() > 0)
     {
-        unsigned long last_read_millis = millis();
+        unsigned long last_read_millis;
         do
         {
             if (Serial.available() > 0)
