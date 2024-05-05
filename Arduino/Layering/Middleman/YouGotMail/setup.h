@@ -4,16 +4,18 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       REMOTE   // For DUMMY DEBUG is always true
-#define DEBUG       false
+#define SETUP       LOCAL   // For DUMMY DEBUG is always true
+#define DEBUG       true
 
 #define COM_BAUD    (unsigned long)9600
 #define LORA_HZ     (unsigned long)433E6
 
 #if     DEBUG || SETUP == DUMMY
     #define LORA_DELAY  (unsigned long)1000
+    #define BUZZER_DUR  (unsigned long)25
 #else
     #define LORA_DELAY  (unsigned long)2000
+    #define BUZZER_DUR  (unsigned long)1000
 #endif
 
 // LIBRARY INCLUDES

@@ -358,10 +358,14 @@ void serialPrintln(const char *text)
 int loraRead(char *message)
 {
     int i = 0;
-    for (; i < 15 && LoRa.available(); i++) {
-        message[i] = (char)LoRa.read();
-        if (message[i] == '\n' || message[i] == '\t' || message[i] == '\r')
-            break;
+    // try to parse packet
+    int packetSize = LoRa.parsePacket();
+    if (packetSize) {
+        for (; LoRa.available() && i < 15; i++) {
+            message[i] = (char)LoRa.read();
+            if (message[i] == '\n' || message[i] == '\t' || message[i] == '\r')
+                break;
+        }
     }
     message[i] = '\0';
     return i;
@@ -376,8 +380,13 @@ void loraPrint(const char *message)
 
 int loraTurnOn()
 {
-    static char red_on = red_state;
-    static char green_on = green_state;
+    static char red_on;
+    static char green_on;
+    if (!(red_state == 1 && green_state == 1))
+    {
+        red_on = red_state;
+        green_on = green_state;
+    }
     digitalWrite(powerPin, HIGH);
     delay(LORA_DELAY);  // Small delay to let lora module start
     int connections_tries = 5;
@@ -387,27 +396,35 @@ int loraTurnOn()
         Serial.print(connections_tries + 1);
         Serial.println(")");
         Serial.println("Trying again shortly...");
-        if (red_state != 1 && green_state != 1)
-        {
-            red_on = red_state;
-            green_on = green_state;
-        }
         redLightOn();
         greenLightOn();
         delay(LORA_DELAY*4);  // Small delay to let lora module start
     }
     if (connections_tries > 0)
     {
+        // Set Lora parameters  
+        //LoRa.setTxPower(17, PA_OUTPUT_PA_BOOST_PIN);//Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN
+        LoRa.setSpreadingFactor(12);           // ranges from 6-12,default 7 see API docs
+        //LoRa.setSignalBandwidth(62.5E3);
+        //LoRa.setCodingRate4(7); //min 5- max 8
+        //setPreambleLength(long length);
+        //setSyncWord(int sw);
+        //LoRa.enableCrc();
+        // LoRa.disableCrc();
+        //enableInvertIQ();
+        //disableInvertIQ()
+  
         Serial.println("LoRa connected!");
         if (!red_on)
             redLightOff();
         if (!green_on)
             greenLightOff();
+        delay(LORA_DELAY);  // Small delay to let lora module warm up...
         return 1;
     }
     else
     {
-        delay(LORA_DELAY);  // Small delay to let lora module start
+        delay(LORA_DELAY);  // Small delay before abrupt turn power off
         digitalWrite(powerPin, LOW);
         Serial.println("LoRa failled to connect!");
         return 0;
@@ -439,8 +456,6 @@ void loraTurnOff()
 
 void setupSetup()
 {
-    Serial.println("Configured as RECEIVER! (LOCAL)");
-    
     pinMode(redPin, OUTPUT);
     digitalWrite(redPin, LOW);
     pinMode(greenPin, OUTPUT);
@@ -456,6 +471,8 @@ void setupSetup()
     while (!Serial);
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
+    
+    Serial.println("Configured as RECEIVER! (LOCAL)\n");
     
     redLightOn();
     greenLightOn();
@@ -478,10 +495,8 @@ int ledLightIntensity()
 
 int localLoraRead(char *message)
 {
-    if (local_lora_power)
+    if (local_lora_power && loraRead(message))
     {
-        if (!loraRead(message))
-            return 0;
         // Received a packet, print RSSI of packet
         Serial.print("Received packet '");
         Serial.print(message);
@@ -610,7 +625,7 @@ void triggerBuzzer()
 {
     Serial.println("Buzzer ON");
     digitalWrite(buzzerPin, HIGH);
-    delay(500);
+    delay(BUZZER_DUR);
     Serial.println("Buzzer OFF");
     digitalWrite(buzzerPin, LOW);
 }
@@ -638,8 +653,6 @@ int buttonsRead()
 
 void setupSetup()
 {
-    Serial.println("Configured as SENDER! (REMOTE)");
-    
     pinMode(lightPin, OUTPUT);          // set pin to the light
     digitalWrite(lightPin, LOW);        // Turn off the light
     pinMode(powerPin, OUTPUT);
@@ -653,10 +666,19 @@ void setupSetup()
     Serial.print("Serial com connected at: ");
     Serial.println(COM_BAUD);
     
+    Serial.println("Configured as SENDER! (REMOTE)\n");
+    
     // Set pint 2 concerning DIO0 as floating (like disconnected)
-    pinMode(lora_dio0, INPUT);    
+    //pinMode(lora_dio0, INPUT);    
     
     Serial.println("STARTED");
+
+    // To know that the script started succesfully
+    pinMode(13, OUTPUT);          // set onboard pin to the light
+    digitalWrite(13, HIGH);
+    delay(2000);
+    digitalWrite(13, LOW);
+    
 }
 
 int ledLightIntensity()

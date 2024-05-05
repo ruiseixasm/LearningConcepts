@@ -169,6 +169,7 @@ void middlemanLoop()
         {
             serialPrintln("\nNothing received!\n");
             last_print_seconds = now_seconds() - REST_SLACK_SECONDS;
+            expecting_to_receive = 0;
         }
     }
     
