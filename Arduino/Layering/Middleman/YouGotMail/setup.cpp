@@ -289,6 +289,18 @@ int buttonsRead()
 
 #else   // Arduino specifics
 
+void arduinoSetup()
+{
+    Serial.begin(COM_BAUD);
+    while (!Serial)
+    {
+        delay(2000);
+        Serial.begin(COM_BAUD);
+    }
+    Serial.print("Serial com connected at: ");
+    Serial.println(COM_BAUD);
+}
+
 int serialRead(char *text)
 {
     int i = 0;
@@ -467,11 +479,8 @@ void setupSetup()
     pinMode(powerPin, OUTPUT);
     digitalWrite(powerPin, LOW);
 
-    Serial.begin(COM_BAUD);
-    while (!Serial);
-    Serial.print("Serial com connected at: ");
-    Serial.println(COM_BAUD);
-    
+    arduinoSetup();
+
     Serial.println("Configured as RECEIVER! (LOCAL)\n");
     
     redLightOn();
@@ -661,10 +670,7 @@ void setupSetup()
     pinMode(blueButton, INPUT);     // INPUT_PULLDOWN doesn't exist, only INPUT_PULLUP!
     pinMode(greenButton, INPUT);
     
-    Serial.begin(COM_BAUD);
-    while (!Serial);
-    Serial.print("Serial com connected at: ");
-    Serial.println(COM_BAUD);
+    arduinoSetup();
     
     Serial.println("Configured as SENDER! (REMOTE)\n");
     

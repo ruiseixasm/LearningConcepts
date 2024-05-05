@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       LOCAL   // For DUMMY DEBUG is always true
+#define SETUP       REMOTE   // For DUMMY DEBUG is always true
 #define DEBUG       true
 
 #define COM_BAUD    (unsigned long)9600
@@ -58,6 +58,8 @@
     #include <LoRa.h>
 
     #define now_seconds() (millis()/1000)
+
+    void arduinoSetup();
     
     // Common pins
     const int powerPin  = 5;    // Pin that turns on LoRa power
