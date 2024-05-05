@@ -1,0 +1,31 @@
+# List all mounted devices with the respective file syste:
+df -hT
+
+# List all partitions of a given plugged in device:
+sudo lsblk /dev/sdb         # Example for sdb, usb flash drive
+lsblk                       # Listes all partitions of all system devices
+
+# Manage the partitions of a given device:
+sudo fdisk -l               # Lists all mounted devices and respective format
+sudo fdisk /dev/sdb
+F   list free unpartitioned space
+p   print the partition table
+d   delete a partition
+n   add a new partition
+
+w   write table to disk and exit
+
+# Unmount and ormat a given partition
+sudo umount /dev/sdb1
+sudo mkfs.vfat /dev/sdb1    # Format the first partition as FAT32
+sudo mkfs.ntfs /dev/sdb1    # Format as NTFS
+sudo mkfs.exfat /dev/sdb1   # Format as exFAT
+sude mkfs.ext4 /dev/sdb1    # Format as ext4
+
+# Name the new partition
+sudo e2label /dev/sdb1 Oscilloscope     # May not work
+
+# Mount the created partition
+ls /mnt
+sudo mkdir /mnt/usb_drive
+sudo mount /dev/sdb1 /mnt/usb_drive
