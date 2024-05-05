@@ -87,6 +87,7 @@ char *numberToText(char *text, int number);
 int textToNumber(const char *text);
 
 int serialRead(char *text);
+size_t readSerialUntil(const char *characters, char *buffer, size_t length);
 void serialPrint(const char *text);
 void serialPrintln(const char *text);
 

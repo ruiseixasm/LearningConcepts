@@ -100,6 +100,11 @@ int serialRead(char *text)
     return 0;
 }
 
+size_t readSerialUntil(const char *characters, char *buffer, size_t length)
+{
+    return serialRead(buffer);
+}
+
 void serialPrint(const char *text)
 {
     printf("%s", text);
@@ -304,6 +309,28 @@ int serialRead(char *text)
         }
     }
     text[i] = '\0';
+    return i;
+}
+
+size_t readSerialUntil(const char *characters, char *buffer, size_t length)
+{
+    size_t i = 0;
+    if (Serial.available() > 0)
+    {
+        unsigned long last_read_millis = millis();
+        do
+        {
+            if (Serial.available() > 0)
+            {
+                buffer[i] = (char)Serial.read();
+                if (strchr(characters, buffer[i]))
+                    break;
+                last_read_millis = millis();
+                i++;
+            }
+        } while (millis() - last_read_millis < 3 && i < length - 1);
+    }
+    buffer[i] = '\0';
     return i;
 }
 

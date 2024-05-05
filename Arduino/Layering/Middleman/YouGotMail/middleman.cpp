@@ -58,7 +58,7 @@ void middlemanLoop()
     }
     
     // FOR SERIAL
-    else if (serialRead(serial_read))
+    else if (readSerialUntil("\n\t\r \0", serial_read, 16))
     {
         int read_size = strlen(serial_read);
         serialPrint("\n\tREAD from SERIAL:\t");
