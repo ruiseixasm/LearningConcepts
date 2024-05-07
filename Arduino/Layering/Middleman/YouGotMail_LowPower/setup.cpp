@@ -811,6 +811,7 @@ size_t sleepForSeconds_8s(unsigned long sleep_seconds)
     Serial.flush();
     
     // in 450 runs of 8s sleep, 3600 seconds, gained 403 seconds
+    // IGNORE - Extra correction due to delay of 2 in 300 seconds, same as lost 24 in 3600 seconds (to subtract)
     const double correction_factor = 3600.0/(3600 + 403);
 
     size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);

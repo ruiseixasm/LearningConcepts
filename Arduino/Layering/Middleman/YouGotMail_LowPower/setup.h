@@ -5,7 +5,7 @@
 #define REMOTE      2
 
 #define SETUP       LOCAL   // For DUMMY DEBUG is always true
-#define DEBUG       true
+#define DEBUG       false
 
 #define COM_BAUD    (unsigned long)9600
 #define LORA_HZ     (unsigned long)433E6

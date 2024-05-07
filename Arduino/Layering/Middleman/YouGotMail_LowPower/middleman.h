@@ -14,8 +14,8 @@
         #define REST_READ_SECONDS       (unsigned long)60 * 5               // (each 5 minutes)
         #define REST_SLACK_SECONDS      (unsigned long)20                   // (slack of 20 seconds)
     #else
-        #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 4     // (four times a day)
-        #define REST_SLACK_SECONDS      (unsigned long)600                  // (slack of 10 minutes)
+        #define REST_READ_SECONDS       (unsigned long)60 * 60 * 24 / 3     // (three times a day)
+        #define REST_SLACK_SECONDS      (unsigned long)60 * 10              // (slack of 10 minutes)
     #endif
     #define TIMEOUT_RECEIVE_SECONDS     REST_READ_SECONDS*3 + REST_SLACK_SECONDS
     #define YGM_THRESHOLD               650
