@@ -1,0 +1,55 @@
+3600 seconds
+1st
+	4003
+	+403
+
+
+16:00:49.276 -> Serial com connected at: 9600
+16:00:49.510 -> 
+16:00:49.510 -> Seelping for 3600 seconds
+17:07:32.804 -> Did a total of 450 sleeps
+17:07:33.068 -> 
+17:07:33.068 -> Seelping for 3600 seconds
+
+
+480 seconds
+1st
+	534
+	+54
+2nd
+	533
+	+53
+3rd
+	533
+	+53
+4th
+	534
+	+54
+5th
+	534
+	+54
+
+
+14:59:06.339 -> Serial com connected at: 9600
+14:59:06.339 -> 
+14:59:06.339 -> 
+14:59:06.339 -> Seelping for 480 seconds
+14:59:06.339 -> 
+14:59:07.729 -> Serial com connected at: 9600
+14:59:07.961 -> 
+14:59:07.961 -> Seelping for 480 seconds
+15:08:01.779 -> Did a total of 60 sleeps
+15:08:02.078 -> 
+15:08:02.078 -> Seelping for 480 seconds
+15:16:55.865 -> Did a total of 60 sleeps
+15:16:56.164 -> 
+15:16:56.164 -> Seelping for 480 seconds
+15:25:49.963 -> Did a total of 60 sleeps
+15:25:50.229 -> 
+15:25:50.229 -> Seelping for 480 seconds
+15:34:44.022 -> Did a total of 60 sleeps
+15:34:44.285 -> 
+15:34:44.285 -> Seelping for 480 seconds
+15:43:38.055 -> Did a total of 60 sleeps
+15:43:38.353 -> 
+15:43:38.353 -> Seelping for 480 seconds

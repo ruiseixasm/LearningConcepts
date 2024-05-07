@@ -38,7 +38,7 @@ size_t sleepForSeconds(unsigned long sleep_seconds)
     const unsigned long seconds_powered_down[11] = {1, 1, 1, 1, 1, 1, 1, 2, 4, 8, 0};
     period_t power_down_period;
     size_t total_sleeps = 0;
-    
+        
     while (sleep_seconds)
     {
         power_down_period = millisToPeriod(sleep_seconds*1000);
@@ -53,13 +53,18 @@ size_t sleepForSeconds(unsigned long sleep_seconds)
 
 size_t sleepForSeconds_8s(unsigned long sleep_seconds)
 {
-    unsigned long called_at = millis();
+
+    // in 450 runs of 8s sleep, 3600 seconds, gained 403 seconds
+    const double correction_factor = 3600.0/(3600 + 403);
+
+    size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);
+
     // Arduino Power-down mode:
-    for (size_t i = sleep_seconds / 8; i; i--)
+    for (size_t i = sleep_cycles_8s; i; i--)
         LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF);
 
     //delay(sleep_seconds%8 * 1000 - (millis() - called_at));
-    return (size_t)sleep_seconds / 8;
+    return sleep_cycles_8s;
 }
 
 size_t g_total_sleeps = 0;
@@ -81,11 +86,11 @@ void setup()
 void loop()
 {
     ledBlink();
-    g_total_sleeps = sleepForSeconds_8s(60);
-    Serial.print("\nWaked up at: ");
-    Serial.print(millis());
-    Serial.println("ms");
+    Serial.println("\nSeelping for 20 seconds");
+    Serial.flush();
+    g_total_sleeps = sleepForSeconds_8s(20);
     Serial.print("Did a total of ");
     Serial.print(g_total_sleeps);
     Serial.println(" sleeps");
+    Serial.flush();
 }

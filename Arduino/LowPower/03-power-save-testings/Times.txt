@@ -1,0 +1,123 @@
+0
+	24
+	18
+1
+	24
+	18
+2
+	34
+	18
+3
+	33
+	18
+	
+12:31:30.914 -> Serial com connected at: 9600
+12:31:31.944 -> Sleep type: 0	Sleep duration: 120
+12:31:32.576 -> 	Period type [START]: 0
+12:33:56.547 -> 	Period type [FINISH]: 0
+12:33:58.542 -> 	Period type [START]: 9
+12:36:16.540 -> 	Period type [FINISH]: 9
+12:36:16.540 -> Sleep type: 1	Sleep duration: 120
+12:36:17.606 -> 	Period type [START]: 0
+12:38:41.536 -> 	Period type [FINISH]: 0
+12:38:43.562 -> 	Period type [START]: 9
+12:41:01.517 -> 	Period type [FINISH]: 9
+12:41:01.517 -> Sleep type: 2	Sleep duration: 120
+12:41:02.987 -> 	Period type [START]: 0
+12:43:36.677 -> 	Period type [FINISH]: 0
+12:43:38.706 -> 	Period type [START]: 9
+12:45:56.300 -> 	Period type [FINISH]: 9
+12:45:56.300 -> Sleep type: 3	Sleep duration: 120
+12:45:58.162 -> 	Period type [START]: 0
+12:48:31.819 -> 	Period type [FINISH]: 0
+12:48:33.846 -> 	Period type [START]: 9
+12:50:51.413 -> 	Period type [FINISH]: 9
+12:50:51.413 -> Sleep type: 4	Sleep duration: 120
+12:50:53.679 -> 	Period type [START]: 0
+
+
+
+
+0
+	13
+	10
+1
+	13
+	10
+2
+	17
+	9
+3
+	18
+	...
+	
+	
+	11:40:55.235 -> Serial com connected at: 9600
+11:40:56.231 -> Sleep type: 0	Sleep duration: 64
+11:40:56.863 -> 	Period type [START]: 0
+11:42:13.637 -> 	Period type [FINISH]: 0
+11:42:14.069 -> 	Period type [START]: 1
+11:43:30.766 -> 	Period type [FINISH]: 1
+11:43:31.396 -> 	Period type [START]: 2
+11:44:48.037 -> 	Period type [FINISH]: 2
+11:44:48.868 -> 	Period type [START]: 3
+11:46:05.499 -> 	Period type [FINISH]: 3
+11:46:06.529 -> 	Period type [START]: 4
+11:47:20.125 -> 	Period type [FINISH]: 4
+11:47:21.354 -> 	Period type [START]: 5
+11:48:34.938 -> 	Period type [FINISH]: 5
+11:48:36.367 -> 	Period type [START]: 6
+11:49:49.956 -> 	Period type [FINISH]: 6
+11:49:51.584 -> 	Period type [START]: 7
+11:51:05.189 -> 	Period type [FINISH]: 7
+11:51:07.018 -> 	Period type [START]: 8
+11:52:20.619 -> 	Period type [FINISH]: 8
+11:52:22.646 -> 	Period type [START]: 9
+11:53:36.244 -> 	Period type [FINISH]: 9
+11:53:36.244 -> Sleep type: 1	Sleep duration: 64
+11:53:37.309 -> 	Period type [START]: 0
+11:54:54.077 -> 	Period type [FINISH]: 0
+11:54:54.475 -> 	Period type [START]: 1
+11:56:11.173 -> 	Period type [FINISH]: 1
+11:56:11.804 -> 	Period type [START]: 2
+11:57:28.379 -> 	Period type [FINISH]: 2
+11:57:29.176 -> 	Period type [START]: 3
+11:58:45.811 -> 	Period type [FINISH]: 3
+11:58:46.842 -> 	Period type [START]: 4
+12:00:00.421 -> 	Period type [FINISH]: 4
+12:00:01.650 -> 	Period type [START]: 5
+12:01:15.256 -> 	Period type [FINISH]: 5
+12:01:16.684 -> 	Period type [START]: 6
+12:02:30.274 -> 	Period type [FINISH]: 6
+12:02:31.903 -> 	Period type [START]: 7
+12:03:45.503 -> 	Period type [FINISH]: 7
+12:03:47.331 -> 	Period type [START]: 8
+12:05:00.928 -> 	Period type [FINISH]: 8
+12:05:02.948 -> 	Period type [START]: 9
+12:06:16.544 -> 	Period type [FINISH]: 9
+12:06:16.544 -> Sleep type: 2	Sleep duration: 64
+12:06:18.009 -> 	Period type [START]: 0
+12:07:39.973 -> 	Period type [FINISH]: 0
+12:07:40.406 -> 	Period type [START]: 1
+12:08:59.623 -> 	Period type [FINISH]: 1
+12:09:00.254 -> 	Period type [START]: 2
+12:10:18.033 -> 	Period type [FINISH]: 2
+12:10:18.863 -> 	Period type [START]: 3
+12:11:35.943 -> 	Period type [FINISH]: 3
+12:11:36.941 -> 	Period type [START]: 4
+12:12:50.645 -> 	Period type [FINISH]: 4
+12:12:51.874 -> 	Period type [START]: 5
+12:14:05.414 -> 	Period type [FINISH]: 5
+12:14:06.844 -> 	Period type [START]: 6
+12:15:20.325 -> 	Period type [FINISH]: 6
+12:15:21.920 -> 	Period type [START]: 7
+12:16:35.340 -> 	Period type [FINISH]: 7
+12:16:37.166 -> 	Period type [START]: 8
+12:17:50.583 -> 	Period type [FINISH]: 8
+12:17:52.610 -> 	Period type [START]: 9
+12:19:05.997 -> 	Period type [FINISH]: 9
+12:19:05.997 -> Sleep type: 3	Sleep duration: 64
+12:19:07.858 -> 	Period type [START]: 0
+12:20:29.822 -> 	Period type [FINISH]: 0
+12:20:30.220 -> 	Period type [START]: 1
+
