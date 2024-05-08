@@ -13,7 +13,8 @@
     
 #include <stdio.h>
 #include <ctype.h>
-#include <string.h>     // for strlen();
+#include <string.h>     // for strlen()
+#include <conio.h>      // for getch()
 
 // Uma sequência de caracteres brancos
 int ReadWord_1(FILE *f, char *s)
@@ -67,7 +68,13 @@ int main()
     int c, n;
     char s[256];
     
-    while ((c = getchar()) != EOF)  // EOF is the same as -1
+    // Stdin will not flush input characters onto the input stream until the newline character '\n'.
+    //     So getc(stdin) has nothing to read until you hit enter. If you want to read the console
+    //     input without hitting enter, you can use getch() function in conio.h library available
+    //     with Windows compilers. getch() reads a character from stdin without waiting for a newline.
+
+    //          Avoid getchar() and getc(stdin) functions!
+    while ((c = getch()) != EOF)  // EOF is the same as -1
     {
         ungetc(c, stdin);
         while (c = SkipChars(stdin, &n), nc += n,
@@ -77,7 +84,7 @@ int main()
             nw++;
             nc += strlen(s);
         }
-        getchar();
+        getch();    // Avoid getchar() and getc(stdin) functions!
         nl++;
         nc++;
     }
