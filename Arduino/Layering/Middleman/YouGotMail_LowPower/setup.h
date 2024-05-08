@@ -114,7 +114,7 @@ void redLightOn();
 void redLightOff();
 void greenLightOn();
 void greenLightOff();
-void blueLightOn();
+void blueLightOn(bool buzzer = true);
 void blueLightOff();
 
 int buttonsRead();

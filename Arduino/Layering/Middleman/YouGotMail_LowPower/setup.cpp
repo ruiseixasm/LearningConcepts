@@ -485,7 +485,7 @@ void setupSetup()
     digitalWrite(powerPin, LOW);
     pinMode(buzzerPin, OUTPUT);
     digitalWrite(buzzerPin, HIGH);
-    delay(100);
+    delay(50);
     digitalWrite(buzzerPin, LOW);
 
     arduinoSetup();
@@ -494,7 +494,7 @@ void setupSetup()
     
     redLightOn();
     greenLightOn();
-    blueLightOn();
+    blueLightOn(false);
     greenLightOff();
     blueLightOff();
     
@@ -616,7 +616,7 @@ void greenLightOff()
     }
 }
 
-void blueLightOn()
+void blueLightOn(bool buzzer = true)
 {
     if (!blue_state && !blue_state++)
     {
@@ -624,7 +624,8 @@ void blueLightOn()
         Serial.print(++total_blues);
         Serial.println(" times");
         digitalWrite(bluePin, HIGH);
-        triggerBuzzer();
+        if (buzzer)
+            triggerBuzzer();
     }
 }
 
