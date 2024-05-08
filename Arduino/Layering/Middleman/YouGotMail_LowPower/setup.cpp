@@ -616,7 +616,7 @@ void greenLightOff()
     }
 }
 
-void blueLightOn(bool buzzer = true)
+void blueLightOn(bool buzzer)
 {
     if (!blue_state && !blue_state++)
     {
