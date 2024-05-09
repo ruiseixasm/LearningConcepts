@@ -241,7 +241,7 @@ void greenLightOff()
         printf("Green OFF   - %d times\n", total_greens);
 }
 
-void blueLightOn()
+void blueLightOn(bool buzzer)
 {
     if (!blue_state && !blue_state++)
         printf("Blue ON     - %d times\a\n", ++total_blues);    // You've Got Mail
@@ -789,7 +789,7 @@ void redLightOn() {}
 void redLightOff() {}
 void greenLightOn() {}
 void greenLightOff() {}
-void blueLightOn() {}
+void blueLightOn(bool buzzer) {}
 void blueLightOff() {}
 void triggerBuzzer() {}
 
@@ -813,9 +813,35 @@ size_t sleepForSeconds_8s(unsigned long sleep_seconds)
     
     // in 450 runs of 8s sleep, 3600 seconds, gained 403 seconds
     // IGNORE - Extra correction due to delay of 2 in 300 seconds, same as lost 24 in 3600 seconds (to subtract)
-    const double correction_factor = 3600.0/(3600 + 403);
 
-    size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);
+    // 16 hours: from 17:49:34.762 to 09:48:49.096 meaning a total of 16*60*60 - (34.762 + (60 - 49.096)) = 57554.334 seconds
+    // Transmission duration: 2*6145 = 12290 milliseconds
+    // Net duration = 57554.334 - 12.290 = 57542.044 seconds <------ NET
+
+    // First global timming: (3600 + 403) in 3600 same as 16*(3600 + 403) = 64048 in 57600 seconds (16 hours)
+    //      First global delay  = (64048.000 - 57600) = +6448.000 seconds
+    //      Second global delay = (57542.044 - 57600) = -0057.956 seconds <------ WHAT HAS TO BE ADDED
+    //      FINAL REAL delay                          = +6390.044 seconds in 16 hours (16*60*60 = 57600)
+
+    // ((57600.0 - 6448.000)/57600)/(57600.0/(57600 + 6448.000)) = 0.9874684414
+    
+    //                               57600.0/(57600 + 6448.000)        = 0.8993255059   * 57600 = 51801.1491    (ERROR)
+    //                               (57600.0 - 6448.000)/57600        = 0.8880555556   * 57600 = 51152.0000    (OK)
+    //                                                                                    ABOVE = 649.1491      (CORRECTION)
+    //                                                                    REAL CONSIDERED DELAY = 5798.8509 <-----
+
+    //      First global delay  = ((64048 + 649.1491) - 57600) = +7097.149 seconds <------ REAL VALUE PREVIOUSLY CONSIDERED!
+    //      Second global delay = (57542.044 - 57600)          = -0057.956 seconds <------ WHAT HAS TO BE ADDED
+    //      FINAL REAL delay                                   = +7039.193 seconds in 16 hours (16*60*60 = 57600)
+    
+    //const double correction_factor = (57600.0 - 7039.193)/57600;    // = 0.900140028    * 57600 = 51848.0656    (+46.9165 seconds)
+
+    //                                                           57600.0/(57600 + 6448.000)        = 0.8993255059   * 57600 = 51801.1491    (ERROR)
+    const double correction_factor = 3600.0/(3600 + 403) + ((57600.0 + 57.956)/57600 - 1);    // = 0.9003316864     * 57600 = 51859.10514   (+57.9560 seconds)
+
+                                                                                // = 7200.000 cycles    (for 57600, 16 hours) 
+                                                                                // = 6475.144 cycles    (-725 cycles, -5800 seconds, 96.666 minutes)
+    size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);   // = 6477.364 cycles    (+2 cycles in 16 hours, +16 seconds)
 
     // Arduino Power-down mode:
     for (size_t i = sleep_cycles_8s; i; i--)

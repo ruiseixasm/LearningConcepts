@@ -103,7 +103,7 @@ void middlemanLoop()
         // FOR SENDER                                                // PROCESS POWER-DOWN MODE
         if (now_seconds() - last_read_seconds > REST_READ_SECONDS || sleepForSeconds_8s(REST_READ_SECONDS))
         {
-            int light_intensity = ledLightIntensity();
+            int light_intensity = ledLightIntensity();          // delay: 10                            = 10
         
             char message_to_send[16] = {0};
             numberToText(message_to_send, light_intensity);
@@ -112,13 +112,13 @@ void middlemanLoop()
             
             addPrefix(message_to_send, "YGM");
         
-            serialPrint("SENDER to RECEIVER:\t");
-            serialPrintln(message_to_send);
-            remoteLoraTurnOn();
-            remoteLoraPrint(message_to_send);
-            remoteLoraTurnOff();
+            serialPrint("SENDER to RECEIVER:\t");               // delay: 1*20                          = 20
+            serialPrintln(message_to_send);                     // delay: 1*8                           = 8
+            remoteLoraTurnOn();                                 // delay: 1*26 + 2000 + 1*16 + 2000     = 4042
+            remoteLoraPrint(message_to_send);                   // delay: 1*(13 + 7 + 1)                = 21
+            remoteLoraTurnOff();                                // delay: 1*27 + 2000 + 1*17            = 2044
             last_read_seconds = now_seconds();
-        }
+        }                                                       // delay: TOTAL                         = 6145 milliseconds
 
         // FOR RECEIVER
         if (localLoraRead(message_received))
