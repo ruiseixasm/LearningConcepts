@@ -20,6 +20,9 @@ TransmitedMessage transmited_message;
 
 void setupSetup()
 {
+    last_serial_seconds = now_seconds();
+    transmited_message.position = -1;
+    
     redLightOn();
     greenLightOn();
     blueLightOn();
@@ -27,8 +30,6 @@ void setupSetup()
     blueLightOff();
     
     localLoraTurnOn();
-    transmited_message.position = -1;
-    last_serial_seconds = now_seconds();
     printf("\n\tSTARTED\n\n");
 }
 
@@ -814,6 +815,8 @@ size_t sleepForSeconds_8s(unsigned long sleep_seconds)
     // in 450 runs of 8s sleep, 3600 seconds, gained 403 seconds
     // IGNORE - Extra correction due to delay of 2 in 300 seconds, same as lost 24 in 3600 seconds (to subtract)
 
+    // const double correction_factor = 3600.0/(3600 + 403.000)     // = 0.8993255059
+    
     // 16 hours: from 17:49:34.762 to 09:48:49.096 meaning a total of 16*60*60 - (34.762 + (60 - 49.096)) = 57554.334 seconds
     // Transmission duration: 2*6145 = 12290 milliseconds
     // Net duration = 57554.334 - 12.290 = 57542.044 seconds <------ NET
@@ -836,12 +839,15 @@ size_t sleepForSeconds_8s(unsigned long sleep_seconds)
     
     //const double correction_factor = (57600.0 - 7039.193)/57600;    // = 0.900140028    * 57600 = 51848.0656    (+46.9165 seconds)
 
-    //                                                           57600.0/(57600 + 6448.000)        = 0.8993255059   * 57600 = 51801.1491    (ERROR)
-    const double correction_factor = 3600.0/(3600 + 403) + ((57600.0 + 57.956)/57600 - 1);    // = 0.9003316864     * 57600 = 51859.10514   (+57.9560 seconds)
+    //                                                       57600.0/(57600 + 6448.000)          = 0.8993255059     * 57600 = 51801.1491    (ERROR)
+    //const double correction_factor = 3600.0/(3600 + 403) + ((57600.0 + 57.956)/57600 - 1);  // = 0.9003316864     * 57600 = 51859.10514   (+57.9560 seconds)
 
-                                                                                // = 7200.000 cycles    (for 57600, 16 hours) 
-                                                                                // = 6475.144 cycles    (-725 cycles, -5800 seconds, 96.666 minutes)
-    size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);   // = 6477.364 cycles    (+2 cycles in 16 hours, +16 seconds)
+    // Extracting real durations: 51859.10514 means a delay of 5740.89486 seconds, 1 hour : 35 minutes : 40 seconds in 16 hours, meaning:
+    const double correction_factor = (57600.0 - 5740.89486)/57600;                            // = 0.9003316865     * 57600 = 51859.10514   (+57.9560 seconds)
+    
+
+
+    size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);
 
     // Arduino Power-down mode:
     for (size_t i = sleep_cycles_8s; i; i--)

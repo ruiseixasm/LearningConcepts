@@ -4,10 +4,10 @@
 // BASELINE FUNCTIONS
 void middlemanSetup()
 {
-    setupSetup();
     last_read_seconds = now_seconds();
-    last_receipt_seconds = now_seconds();
-    last_print_seconds = now_seconds();
+    last_receipt_seconds = last_read_seconds;
+    last_print_seconds = last_read_seconds;
+    setupSetup();
 }
 
 void middlemanLoop()
@@ -103,6 +103,8 @@ void middlemanLoop()
         // FOR SENDER                                                // PROCESS POWER-DOWN MODE
         if (now_seconds() - last_read_seconds > REST_READ_SECONDS || sleepForSeconds_8s(REST_READ_SECONDS))
         {
+            last_read_seconds = now_seconds();
+            
             int light_intensity = ledLightIntensity();          // delay: 10                            = 10
         
             char message_to_send[16] = {0};
@@ -117,7 +119,6 @@ void middlemanLoop()
             remoteLoraTurnOn();                                 // delay: 1*26 + 2000 + 1*16 + 2000     = 4042
             remoteLoraPrint(message_to_send);                   // delay: 1*(13 + 7 + 1)                = 21
             remoteLoraTurnOff();                                // delay: 1*27 + 2000 + 1*17            = 2044
-            last_read_seconds = now_seconds();
         }                                                       // delay: TOTAL                         = 6145 milliseconds
 
         // FOR RECEIVER
@@ -133,6 +134,9 @@ void middlemanLoop()
     
     if (local_light_reading != -1)  // valid reading
     {
+        last_receipt_seconds = now_seconds();
+        last_print_seconds = last_receipt_seconds;
+        
         localLoraTurnOff();
         serialPrint("\n\tEXTRACTED VALUE:\t");
         char text[16] = {0};
@@ -145,8 +149,6 @@ void middlemanLoop()
         else
             blueLightOff();
         local_light_reading = -1;
-        last_receipt_seconds = now_seconds();
-        last_print_seconds = now_seconds();
         expecting_to_receive = 0;
     }
     else if (now_seconds() - last_receipt_seconds > TIMEOUT_RECEIVE_SECONDS)
@@ -167,8 +169,8 @@ void middlemanLoop()
         
         if (now_seconds() - last_print_seconds > REST_READ_SECONDS + REST_SLACK_SECONDS)
         {
-            serialPrintln("\nNothing received!\n");
             last_print_seconds = now_seconds() - REST_SLACK_SECONDS;
+            serialPrintln("\nNothing received!\n");
             expecting_to_receive = 0;
         }
     }
