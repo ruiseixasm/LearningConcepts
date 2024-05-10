@@ -4,9 +4,7 @@
 // BASELINE FUNCTIONS
 void middlemanSetup()
 {
-    last_read_seconds = now_seconds();
-    last_receipt_seconds = last_read_seconds;
-    last_print_seconds = last_read_seconds;
+    last_print_seconds = last_receipt_seconds = last_read_seconds = now_seconds();
     setupSetup();
 }
 
@@ -134,8 +132,7 @@ void middlemanLoop()
     
     if (local_light_reading != -1)  // valid reading
     {
-        last_receipt_seconds = now_seconds();
-        last_print_seconds = last_receipt_seconds;
+        last_print_seconds = last_receipt_seconds = now_seconds();
         
         localLoraTurnOff();
         serialPrint("\n\tEXTRACTED VALUE:\t");
