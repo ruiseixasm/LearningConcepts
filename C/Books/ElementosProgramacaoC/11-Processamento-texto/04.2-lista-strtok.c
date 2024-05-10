@@ -180,6 +180,28 @@ const char *ExistsWord(char *s)
     return *p == NULL ? NULL : (*p)->word;
 }
 
+#define DELIMETERS \
+    " !\"#$%&'()*+,./0123456789:;<=>?[\\]^_{|}~\t\n"
+
+int lessthan(const Pair *x, const Pair *y)
+{
+    int k = strcmp(x->word, y->word);
+    return k < 0 || k == 0 && x->line <= y->line;
+}
+
+void PrintPairs(void)
+{
+    Pair **p = pairs;
+    int n = n_pairs;
+    const char *s;
+    while (n)
+    {
+        for (printf("%s", s = (*p)->word); n && strcmp(s, (*p)->word) == 0; n--)
+            printf(" %d", (*p++)->line);
+        printf("\n");
+    }
+}
+
 int main()
 {
     int c, n, nl;
@@ -194,28 +216,21 @@ int main()
 
     ip = pairs;
     nl = 0;
-    while (ungetc(getchar(), stdin) != EOF)  // EOF is the same as -1
+    char *t;
+    while (fgets(s, sizeof(s), stdin) != NULL)  // EOF is the same as -1
     {
         nl++;
-        while (c = SkipChars(stdin, &n),
-               c != '\n')   // The condition for the while, last one after ","
+        for (t = strtok(s, DELIMETERS); t != NULL; t = strtok(NULL, DELIMETERS))
         {
-            ReadWord(stdin, s);
-            
-            if ((p = ExistsWord(s)) == NULL)
-                p = strnew(s);  // String words are allocated outside, and so the need for 'const'
-            *ip++ = NewPair(p, nl);
+            *ip++ = NewPair((p = ExistsWord(t)) != NULL ? p : strnew(t), nl);
         }
         getchar();
     }
     n_pairs = ip - pairs;
     
-    printf("%ld %ld\n", n_words, n_unique);
+    SortPairs(lessthan);
+    PrintPairs();
     
-    SortCriterium sortby = bycount;
-    SortCounters(sortby == byword ? ltbyword : ltbycount);
-    PrintCounters();
-        
     return 0;
 }
 
