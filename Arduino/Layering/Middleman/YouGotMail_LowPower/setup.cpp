@@ -843,9 +843,13 @@ size_t sleepForSeconds_8s(unsigned long sleep_seconds)
     //const double correction_factor = 3600.0/(3600 + 403) + ((57600.0 + 57.956)/57600 - 1);  // = 0.9003316864     * 57600 = 51859.10514   (+57.9560 seconds)
 
     // Extracting real durations: 51859.10514 means a delay of 5740.89486 seconds, 1 hour : 35 minutes : 40 seconds in 16 hours, meaning:
-    const double correction_factor = (57600.0 - 5740.89486)/57600;                            // = 0.9003316865     * 57600 = 51859.10514   (+57.9560 seconds)
-    
+    //const double correction_factor = (57600.0 - 5740.89486)/57600;                          // = 0.9003316865     * 57600 = 51859.10514   (+57.9560 seconds)
 
+    // 20:23:55.174 to 04:24:21.249 to 12:24:46.604 -> (24:21.249 - 23:55.174) = (21 + (60 - 55)) + 0.249 - 0.174 = 26.075 seconds in 16 hours
+    //const double correction_factor = (57600.0 - 5740.89486 - 26.075)/57600;                   // = 0.8998789955     * 57600 = 51833.03014   (-26.075 seconds)
+
+    // FINAL CONCLUSION, 90% is the value to be used in this scenario:
+    const double correction_factor = 0.90;    
 
     size_t sleep_cycles_8s = (size_t)(correction_factor * sleep_seconds / 8);
 

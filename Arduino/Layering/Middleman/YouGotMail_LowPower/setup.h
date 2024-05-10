@@ -4,7 +4,7 @@
 #define LOCAL       1
 #define REMOTE      2
 
-#define SETUP       LOCAL   // For DUMMY DEBUG is always true
+#define SETUP       REMOTE   // For DUMMY DEBUG is always true
 #define DEBUG       false
 
 #define COM_BAUD    (unsigned long)9600
