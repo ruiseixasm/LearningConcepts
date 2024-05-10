@@ -1,4 +1,4 @@
-// Compile command: gcc 00-gets-fgets.c -o 00-gets-fgets.out
+// Compile command: gcc 00.3-gets-fgets.c -o 00.3-gets-fgets.out
 
 #include <stdio.h>
 #include <string.h>

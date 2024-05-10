@@ -1,4 +1,4 @@
-// Compile command: gcc 00-get-char.c -o 00-get-char.out
+// Compile command: gcc 00.1-get-char.c -o 00.1-get-char.out
 
 #include <stdio.h>
 

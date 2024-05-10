@@ -1,4 +1,4 @@
-// Compile command: gcc 00-get-char-clean.c -o 00-get-char-clean.out
+// Compile command: gcc 00.2-get-char-clean.c -o 00.2-get-char-clean.out
 
 #include <stdio.h>
 
