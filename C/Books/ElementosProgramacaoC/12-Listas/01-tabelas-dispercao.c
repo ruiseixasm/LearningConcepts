@@ -35,7 +35,10 @@ char *strnew(const char *s)
 }
 
 #define MAX_HASH 1259
+// Incrementing table++ for the first declaration advances by the size of a pointer to char (4 bytes).
+// Incrementing table2++ for the second declaration advances by MAX_HASH bytes (1 byte * MAX_HASH).
 static char *table[MAX_HASH];
+//static char table2[][MAX_HASH];
 
 int hash(const char *s)
 {
