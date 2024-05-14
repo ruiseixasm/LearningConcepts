@@ -80,3 +80,72 @@ int  listnull(constList s)                          /* é vazia?             */
 {
     return s == NULL_LIST;
 }
+
+List listfree(List s)                              /* liberta memória      */
+{
+    List p;
+    while (s != NULL_LIST)
+    {
+        p = s->next;
+        free(s);       // s is a pointer to a Listnode (avoids memory leak)
+        s = p;
+    }
+    return s;
+}
+
+// 2. Funções utilitárias sobre listas ///////////////////////////////////////
+
+List listsuff(List s, int n)                        /* sufixo               */
+{
+    while (--n)
+        s = listtail(s);
+    return s;
+}
+
+List listinsx(Item x, List s, int n)                /* Inserçaõ em posição  */
+{
+    List p = listnew(x);
+    List q = listsuff(s, n);
+    listswtl(q, &p);
+    return listswtl(listtail(q), &p);
+}
+
+List listlist(List x, List s, int n)                /* inserção de lista    */
+{
+    List p = x;
+    listswtl(listsuff(s, n), &p);
+    return listswtl(listfoot(x), &p);
+}
+
+List listrm(List s, int n)                          /* remoção              */
+{
+    List left = listsuff(s, n - 1);
+    List right = left->next;
+    left->next = right->next;   // bypasses the node to be deleted (free)
+    right->next = NULL_LIST;    // makes it a single node list (right)
+    listfree(right);            // frees allocated memory with malloc
+    return left;
+}
+
+List listsplt(List s, int n, List *t)               /* partição             */
+{
+    //                              returns t instead of *t
+    return listswtl(listsuff(s, n), (listclr(t), t));
+}
+
+List listfoot(List s)                               /* pé                   */
+{
+    while (!listnull(listtail(s)))
+        s = listtail(s);
+    return s;
+}
+
+List listcat(List *s, List t)                       /* concatenação         */
+{
+    if (listnull(*s))
+        *s = t;
+    else
+        listswtl(listfoot(*s), &t);
+    return *s;
+}
+

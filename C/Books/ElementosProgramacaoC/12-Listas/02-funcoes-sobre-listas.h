@@ -30,15 +30,17 @@ List listtail(constList s);                         /* a cauda              */
 int  listlen(constList s);                          /* o comprimento        */
 int  listnull(constList s);                         /* é vazia?             */
 
+List listfree(List s);                              /* liberta memória      */
+
 // 2. Funções utilitárias sobre listas ///////////////////////////////////////
 
-//List listsuff(List s, int n);                       /* sufixo               */
-//List listinsx(const Item x, List s, int n);         /* Inserçaõ em posição  */
-//List listlist(const Listnode *x, List *s, int n);   /* inserção de lista    */
-//List listrm(List s, int n);                         /* remoção              */
-//List listsplt(const Listnode *x, int n, List *s);   /* partição             */
-//List listfoot(const Listnode *x);                   /* pé                   */
-//List listcat(List *s, const Listnode *t);           /* concatenação         */
+List listsuff(List s, int n);                       /* sufixo               */
+List listinsx(Item x, List s, int n);               /* Inserçaõ em posição  */
+List listlist(List x, List s, int n);               /* inserção de lista    */
+List listrm(List s, int n);                         /* remoção              */
+List listsplt(List s, int n, List *t);              /* partição             */
+List listfoot(List s);                              /* pé                   */
+List listcat(List *s, List t);                      /* concatenação         */
 
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
