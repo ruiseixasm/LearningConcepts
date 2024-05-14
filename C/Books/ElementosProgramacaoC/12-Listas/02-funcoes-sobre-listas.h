@@ -44,10 +44,10 @@ List listcat(List *s, List t);                      /* concatenação         */
 
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
-//List listmmbr(const Listnode *s, int n);    /* membro de uma lista          */
-//List listsrch(const Listnode *s, int n);    /* busca em lista ordenada      */
-//List listins(List *s, int n);               /* inserção em lista ordenada   */
-//List listentr(List *s, int n);              /* idem, sem repetição          */
-
+List listmmbr(List s, Item x);              /* membro de uma lista          */
+List listsrch(List s, Item x);              /* busca em lista ordenada      */
+List listins(List *s, Item x);              /* inserção em lista ordenada   */
+List listentr(List *s, Item x);             /* idem, sem repetição          */
+static List listpos(List s, Item x);        /* posição de inserção          */
 
 #endif /* FUNC_LISTAS */

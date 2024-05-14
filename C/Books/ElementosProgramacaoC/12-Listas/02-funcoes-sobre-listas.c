@@ -149,3 +149,54 @@ List listcat(List *s, List t)                       /* concatenação         */
     return *s;
 }
 
+// 3. Funções de busca em listas /////////////////////////////////////////////
+
+List listmmbr(List s, Item x)               /* membro de uma lista          */
+{
+    while (s && (x != s->value))
+        s = s->next;
+    return s;
+}
+
+List listsrch(List s, Item x)               /* busca em lista ordenada      */
+{
+    while (!listnull(s) && x > listhead(s))
+        s = listtail(s);
+    return x == listhead(s) ? s : NULL_LIST;
+}
+
+List listins(List *s, Item x)               /* inserção em lista ordenada   */
+{
+    List p;
+    List q;
+    if (listnull(*s) || x < listhead(*s))
+        return listcons(x, s);
+    else
+    {
+        listswtl(q = listpos(*s, x), (p = listnew(x), &p));
+        return listswtl(listtail(q), &p);
+    }
+}
+
+List listentr(List *s, Item x)              /* idem, sem repetição          */
+{
+    List p, q;
+    if (listnull(*s) || x < listhead(*s))
+        return listcons(x, s);
+    else if (x == listhead(q = listpos(*s, x)))
+        return NULL_LIST;
+    else
+    {
+        listswtl(q, (p = listnew(x), &p));
+        return listswtl(listtail(q), &p);
+    }
+}
+
+static List listpos(List s, Item x)         /* posição de inserção          */
+{
+    List p;
+    //                   next                 value
+    while (!listnull(p = listtail(s)) && x >= listhead(p))
+        s = p;
+    return s;
+}
