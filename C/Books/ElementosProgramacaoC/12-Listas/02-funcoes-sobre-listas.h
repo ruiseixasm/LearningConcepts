@@ -2,6 +2,7 @@
 #define FUNC_LISTAS
 
 #include <stdlib.h>     // defines NULL
+#include <string.h>
 
 //typedef int Item;
 typedef char *Item;
@@ -45,9 +46,15 @@ List listcat(List *s, List t);                      /* concatenação         */
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
 List listmmbr(List s, Item x);              /* membro de uma lista          */
-List listsrch(List s, Item x);              /* busca em lista ordenada      */
-List listins(List *s, Item x);              /* inserção em lista ordenada   */
-List listentr(List *s, Item x);             /* idem, sem repetição          */
-static List listpos(List s, Item x);        /* posição de inserção          */
+List listsrch(List s, Item x,
+        int(*f)(constItem, constItem));     /* busca em lista ordenada      */
+List listins(List *s, Item x,
+        int(*f)(constItem, constItem));     /* inserção em lista ordenada   */
+List listentr(List *s, Item x,
+        int(*f)(constItem, constItem));     /* idem, sem repetição          */
+static List listpos(List s, Item x,
+        int(*f)(constItem, constItem));     /* posição de inserção          */
+
+int itemstrcmp(constItem x, constItem y);   /* compara Items como strings   */
 
 #endif /* FUNC_LISTAS */

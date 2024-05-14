@@ -143,7 +143,7 @@ List listfoot(List s)                               /* pé                   */
 List listcat(List *s, List t)                       /* concatenação         */
 {
     if (listnull(*s))
-        *s = t;
+        *s = t;     // because of this line it needs to be passed by pointer
     else
         listswtl(listfoot(*s), &t);
     return *s;
@@ -158,33 +158,35 @@ List listmmbr(List s, Item x)               /* membro de uma lista          */
     return s;
 }
 
-List listsrch(List s, Item x)               /* busca em lista ordenada      */
+List listsrch(List s, Item x,
+        int(*f)(constItem, constItem))      /* busca em lista ordenada      */
 {
-    while (!listnull(s) && x > listhead(s))
+    while (!listnull(s) && f(x, listhead(s)) > 0)
         s = listtail(s);
     return x == listhead(s) ? s : NULL_LIST;
 }
 
-List listins(List *s, Item x)               /* inserção em lista ordenada   */
+List listins(List *s, Item x,
+        int(*f)(constItem, constItem))      /* inserção em lista ordenada   */
 {
-    List p;
-    List q;
-    if (listnull(*s) || x < listhead(*s))
+    List p, q;
+    if (listnull(*s) || f(x, listhead(*s)) < 0)
         return listcons(x, s);
     else
     {
-        listswtl(q = listpos(*s, x), (p = listnew(x), &p));
+        listswtl(q = listpos(*s, x, f), (p = listnew(x), &p));
         return listswtl(listtail(q), &p);
     }
 }
 
-List listentr(List *s, Item x)              /* idem, sem repetição          */
+List listentr(List *s, Item x,
+        int(*f)(constItem, constItem))      /* idem, sem repetição          */
 {
     List p, q;
-    if (listnull(*s) || x < listhead(*s))
+    if (listnull(*s) || f(x, listhead(*s)) < 0)
         return listcons(x, s);
-    else if (x == listhead(q = listpos(*s, x)))
-        return NULL_LIST;
+    else if (x == listhead(q = listpos(*s, x, f)))
+        return NULL_LIST;   // Não adicciona se já existe na lista
     else
     {
         listswtl(q, (p = listnew(x), &p));
@@ -192,11 +194,17 @@ List listentr(List *s, Item x)              /* idem, sem repetição          */
     }
 }
 
-static List listpos(List s, Item x)         /* posição de inserção          */
+static List listpos(List s, Item x,
+        int(*f)(constItem, constItem))      /* posição de inserção          */
 {
     List p;
     //                   next                 value
-    while (!listnull(p = listtail(s)) && x >= listhead(p))
+    while (!listnull(p = listtail(s)) && f(x, listhead(p)) >= 0)
         s = p;
     return s;
+}
+
+int itemstrcmp(constItem x, constItem y)    /* compara Items como strings   */
+{
+    return strcmp(x, y);
 }
