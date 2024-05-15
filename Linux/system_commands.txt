@@ -1,0 +1,7 @@
+# Hardware details
+sudo inxi -Fxz
+
+# Memory RAM details
+sudo lshw -short -C memory
+sudo dmidecode --type 17
+
