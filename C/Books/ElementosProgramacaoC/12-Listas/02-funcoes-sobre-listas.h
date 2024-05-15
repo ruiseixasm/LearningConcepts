@@ -8,6 +8,7 @@
 typedef char *Item;
 typedef const char *constItem;
 
+
 // 1. Funções básicas sobre listas ///////////////////////////////////////////
 
 typedef struct lnode *List; // Apontador
@@ -52,9 +53,7 @@ List listins(List *s, Item x,
         int(*f)(constItem, constItem));     /* inserção em lista ordenada   */
 List listentr(List *s, Item x,
         int(*f)(constItem, constItem));     /* idem, sem repetição          */
-static List listpos(List s, Item x,
+List listpos(List s, Item x,
         int(*f)(constItem, constItem));     /* posição de inserção          */
-
-int itemstrcmp(constItem x, constItem y);   /* compara Items como strings   */
 
 #endif /* FUNC_LISTAS */

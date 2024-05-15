@@ -163,7 +163,7 @@ List listsrch(List s, Item x,
 {
     while (!listnull(s) && f(x, listhead(s)) > 0)
         s = listtail(s);
-    return x == listhead(s) ? s : NULL_LIST;
+    return f(x, listhead(s)) ? NULL_LIST : s;
 }
 
 List listins(List *s, Item x,
@@ -185,7 +185,7 @@ List listentr(List *s, Item x,
     List p, q;
     if (listnull(*s) || f(x, listhead(*s)) < 0)
         return listcons(x, s);
-    else if (x == listhead(q = listpos(*s, x, f)))
+    else if (f(x, listhead(q = listpos(*s, x, f))) == 0)
         return NULL_LIST;   // Não adicciona se já existe na lista
     else
     {
@@ -194,7 +194,7 @@ List listentr(List *s, Item x,
     }
 }
 
-static List listpos(List s, Item x,
+List listpos(List s, Item x,
         int(*f)(constItem, constItem))      /* posição de inserção          */
 {
     List p;
@@ -202,9 +202,4 @@ static List listpos(List s, Item x,
     while (!listnull(p = listtail(s)) && f(x, listhead(p)) >= 0)
         s = p;
     return s;
-}
-
-int itemstrcmp(constItem x, constItem y)    /* compara Items como strings   */
-{
-    return strcmp(x, y);
 }
