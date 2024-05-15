@@ -37,10 +37,9 @@ char *strnew(const char *s)
 
 #define MAX_HASH 1259
 // Incrementing table++ for the first declaration advances by the size of a pointer to char (4 bytes).
-//static char *table[MAX_HASH];
+static char *table[MAX_HASH];
 // Incrementing table2++ for the second declaration advances by MAX_HASH bytes (1 byte * MAX_HASH).
 //static char table2[][MAX_HASH];
-static List table[MAX_HASH];    // 3. Tableas de dispersão com encadeamentos separados
 
 int hash(const char *s)
 {
@@ -50,38 +49,18 @@ int hash(const char *s)
     return h % MAX_HASH;
 }
 
-//char **hashptr(const char *s)
-//{
-    //char **p = table + hash(s);
-    //while (*p && strcmp(*p, s))
-        //if (p == table)
-            //p = table + MAX_HASH;
-        //else
-            //p--;
-    //return p;
-//}
-
-//char *hashsearch(const char *s)
-//{
-    //return *hashptr(s);
-//}
-
-//char *hashinstall(const char *s)
-//{
-    //char **p = hashptr(s);
-    //return *p ? NULL : (*p = strnew(s));
-//}
-
 // 3. Tableas de dispersão com encadeamentos separados
+
+static List hash_table[MAX_HASH];
 
 List hashsearch(const char *w) // Item = void *
 {
-    return listsrch(table[hash(w)], w, (int(*)(constItem, constItem))strcmp);
+    return listsrch(hash_table[hash(w)], w, (int(*)(constItem, constItem))strcmp);
 }
 
 List hashinstall(char *w)
 {
-    return listentr(&table[hash(w)], strnew(w), (int(*)(constItem, constItem))strcmp);
+    return listentr(&hash_table[hash(w)], strnew(w), (int(*)(constItem, constItem))strcmp);
 }
 
 typedef struct {
@@ -89,12 +68,116 @@ typedef struct {
     int count;
 } Counter;
 
+typedef Counter *counterItem;
+
+static List counter_table[MAX_HASH];
+
+int countercmp(counterItem x, counterItem y)
+{
+    return strcmp(x->word, y->word);
+}
+
+counterItem NewCounter0(char *s)
+{
+    counterItem x = malloc(sizeof(Counter));
+    x->word = strnew(s);
+    x->count = 0;
+    return x;
+}
+
+int counterinstall(char *w)
+{
+    return ++((counterItem)listhead(
+            listentr(&hash_table[hash(w)], 
+            w, 
+            (int(*)(constItem, constItem))strcmp)
+        ))->count;
+}
+
+// For post while in main()
+
+int hashtablesize(void)
+{
+    List *p = hash_table;
+    int s = 0;
+    for (int i = MAX_HASH; i; i--)
+        s += listlen(*p++);     // each table position has a list!
+    return s;
+}
+
+Counter **counters; // where the multiple lists will be dump
+int n_counters;
+
+int dumphashtable(Counter **x)
+{
+    List *p = hash_table, s;
+    Counter **x0 = x;
+
+    for (int i = MAX_HASH; i; i--, p++)
+    {
+        s = *p;
+        while (!listnull(s))
+        {
+            *x++ = listhead(s);
+            s = listtail(s);
+        }
+    }
+    return x - x0;
+}
+
+// counters functions for sort and print
+
+void SortPointers(void **v, size_t n, int(*f)(const void *, const void *))
+{
+    void *m;
+    for (size_t i = 1; i < n; i++)
+        for (size_t j = n - 1; j >= i; j--)
+            if (!f(v[j - 1], v[j]))
+            {
+                m = v[j - 1];
+                v[j - 1] = v[j];
+                v[j] = m;
+            }
+}
+
+void SortCounters(int(*f)(const Counter *, const Counter *))
+{
+    SortPointers((void **) counters, n_counters,
+                 (int(*)(const void *, const void *)) f);
+}
+
+int ltbyword(const Counter *x, const Counter *y)
+{
+    return strcmp(x->word, y->word) <= 0;
+}
+
+int ltbycount(const Counter *x, const Counter *y)
+{
+    return x->count >= y->count || x-> count == y->count && ltbyword(x, y);
+}
+
+void PrintCounter(const Counter *p)
+{
+    printf("%-24s %4d\n", p->word, p->count);
+}
+
+void IteratePointers(void **v, size_t n, void(*f)(void *))
+{
+    while (n--)
+        f(*v++);
+}
+
+void PrintCounters(void)
+{
+    IteratePointers((void **) counters, n_counters, (void(*)(void *)) PrintCounter);
+}
+
+typedef enum {byword, bycount} SortCriterium;
+
 int main()
 {
     int n;
     char s[256];
-    long n_words = 0;
-    long n_unique = 0;
     
     while (ungetc(getchar(), stdin) != EOF)
     {
@@ -105,7 +188,14 @@ int main()
         }
         getchar();
     }
-    printf("%ld %ld\n", n_words, n_unique);
+
+    n_counters = hashtablesize();
+    counters = calloc(sizeof(Counter *), n_counters);   // implicit casting
+    dumphashtable(counters);
     
+    SortCriterium sortby = bycount;
+    SortCounters(sortby == byword ? ltbyword : ltbycount);
+    PrintCounters();
+
     return 0;
 }
