@@ -1,5 +1,5 @@
-// Compile command: gcc 02-funcoes-sobre-listas.c -c
-#include "02-funcoes-sobre-listas.h"
+// Compile command: gcc 02.1-funcoes-sobre-listas.c -c
+#include "02.1-funcoes-sobre-listas.h"
 
 
 // 1. Funções básicas sobre listas ///////////////////////////////////////////
@@ -202,4 +202,12 @@ List listpos(List s, Item x,
     while (!listnull(p = listtail(s)) && f(x, listhead(p)) >= 0)
         s = p;
     return s;
+}
+
+// 4. Funções de comparação //////////////////////////////////////////////////
+
+static int itemstrcmp(constItem x, constItem y)
+                                            /* compara Items como strings   */
+{
+    return strcmp(x, y);
 }

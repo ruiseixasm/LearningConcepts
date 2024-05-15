@@ -1,10 +1,10 @@
-// Compile command: gcc 03-dispercao-encadeamentos-separados.c 02-funcoes-sobre-listas.c -o 03-dispercao-encadeamentos-separados.out
+// Compile command: gcc 03-dispercao-encadeamentos-separados.c 02.2-funcoes-sobre-listas-void.c -o 03-dispercao-encadeamentos-separados.out
 
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include "02-funcoes-sobre-listas.h"
+#include "02.2-funcoes-sobre-listas-void.h"
 
 // Uma sequência de letras e hífenes
 int ReadWord(FILE *f, char *s)
@@ -74,19 +74,14 @@ int hash(const char *s)
 
 // 3. Tableas de dispersão com encadeamentos separados
 
-int itemstrcmp(constItem x, constItem y)    /* compara Items como strings   */
+List hashsearch(const char *w) // Item = void *
 {
-    return strcmp(x, y);
+    return listsrch(table[hash(w)], w, (int(*)(constItem, constItem))strcmp);
 }
 
-List hashsearch(Item w) // Item = char *
+List hashinstall(char *w)
 {
-    return listsrch(table[hash(w)], w, itemstrcmp);
-}
-
-List hashinstall(Item w)
-{
-    return listentr(&table[hash(w)], strnew(w), itemstrcmp);
+    return listentr(&table[hash(w)], strnew(w), (int(*)(constItem, constItem))strcmp);
 }
 
 typedef struct {

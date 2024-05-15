@@ -4,12 +4,9 @@
 #include <stdlib.h>     // defines NULL
 #include <string.h>
 
-//typedef int Item;
-typedef char *Item;
-typedef const char *constItem;
-
-
-// 1. Funções básicas sobre listas ///////////////////////////////////////////
+// void pointers as generic Items
+typedef void *Item;
+typedef const void *constItem;
 
 typedef struct lnode *List; // Apontador
 typedef const struct lnode *constList;
@@ -19,6 +16,9 @@ typedef struct lnode {
 } Listnode;                 // Tipo (Valor)
 
 #define NULL_LIST NULL      // NULL_LIST alias to NULL
+
+
+// 1. Funções básicas sobre listas ///////////////////////////////////////////
 
 List listcpy(List *s, constList t);                 /* duplicação           */
 List listnew(Item x);                               /* nova linha unitária  */
@@ -46,14 +46,21 @@ List listcat(List *s, List t);                      /* concatenação         */
 
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
-List listmmbr(List s, Item x);              /* membro de uma lista          */
-List listsrch(List s, Item x,
+List listmmbr(List s, constItem x);         /* membro de uma lista          */
+List listsrch(List s, constItem x,
         int(*f)(constItem, constItem));     /* busca em lista ordenada      */
 List listins(List *s, Item x,
         int(*f)(constItem, constItem));     /* inserção em lista ordenada   */
 List listentr(List *s, Item x,
         int(*f)(constItem, constItem));     /* idem, sem repetição          */
-List listpos(List s, Item x,
+List listpos(List s, constItem x,
         int(*f)(constItem, constItem));     /* posição de inserção          */
+
+// 4. Funções de comparação //////////////////////////////////////////////////
+
+static int charstrcmp(char *x, char *y);    /* compara strings              */
+static int itemstrcmp(constItem x, constItem y);
+                                            /* compara Items como strings   */
+
 
 #endif /* FUNC_LISTAS */
