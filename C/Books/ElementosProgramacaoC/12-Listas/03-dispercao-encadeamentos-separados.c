@@ -1,4 +1,4 @@
-// Compile command: gcc 03-dispercao-encadeamentos-separados.c 02.2-funcoes-sobre-listas-void.c -o 03-dispercao-encadeamentos-separados.out
+// Compile command: gcc 03-dispercao-encadeamentos-separados.c 02.2-funcoes-sobre-listas-void.c -g -o 03-dispercao-encadeamentos-separados.out
 
 #include <stdio.h>
 #include <string.h>
