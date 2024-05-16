@@ -1,4 +1,4 @@
-// Compile command: gcc 01-tabelas-dispercao.c -o 01-tabelas-dispercao.out
+// Compile command: gcc 01-tabelas-dispercao.c -g -o 01-tabelas-dispercao.out
 
 #include <stdio.h>
 #include <string.h>
@@ -9,7 +9,7 @@
 int ReadWord(FILE *f, char *s)
 {
     int c;
-    while (c = getc(f), !isalpha(c) || c == '-')
+    while (c = getc(f), isalpha(c) || c == '-')
         *s++ = c;
     *s = '\0';
     return ungetc(c, f);    // c is forgoten and thus needs to be given
@@ -25,7 +25,7 @@ int SkipChars(FILE *f, int *n)
             ispunct(c) && c != '-'))
         k++;
     *n = k;
-    return ungetc(c, f);
+    return ungetc(c, f);    // returns c
 }
 
 char *strnew(const char *s)
@@ -73,11 +73,11 @@ char *hashinstall(const char *s)
 int main()
 {
     int n;
-    char s[256];
+    char s[256] = {0};  // initiates all chars to '\0'
     long n_words = 0;
     long n_unique = 0;
     
-    while (ungetc(getchar(), stdin) != EOF)
+    while (ungetc(getchar(), stdin) > 0) // works for EOF and '\0'
     {
         while (SkipChars(stdin, &n) != '\n')
         {

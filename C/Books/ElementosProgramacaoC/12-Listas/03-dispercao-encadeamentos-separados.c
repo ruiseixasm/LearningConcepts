@@ -10,7 +10,7 @@
 int ReadWord(FILE *f, char *s)
 {
     int c;
-    while (c = getc(f), !isalpha(c) || c == '-')
+    while (c = getc(f), isalpha(c) || c == '-')
         *s++ = c;
     *s = '\0';
     return ungetc(c, f);    // c is forgoten and thus needs to be given
