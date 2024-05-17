@@ -1,0 +1,4 @@
+This is a simple text
+to be processed by contar-args
+and return the respective stats
+and word sorting by occurence!
