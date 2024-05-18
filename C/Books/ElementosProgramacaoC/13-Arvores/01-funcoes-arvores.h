@@ -30,7 +30,7 @@ Tree treestrt(Tree s, Item x);
 //Tree treeroot(constTree s);
 //Tree treechld(constTree s, Child c);
 #define treenull(s)     (!(s))
-#define treerroot(s)    ((s)->value)
+#define treeroot(s)     ((s)->value)
 #define treechld(s, c)  ((s)->sub[c])
 Tree treeswch(Tree s, Tree *t, Child c);
 
@@ -39,18 +39,18 @@ Tree treeswch(Tree s, Tree *t, Child c);
 int  treeleaf(constTree s);
 int  treesize(constTree s);
 int  treehght(constTree s);
-int  max(int a, int b);
 
-// 3. Percursos em ARVORES ////////////////////////////////////////////////////
+int  max(int a, int b);
+int  min(int a, int b);
 
 void treepre(constTree s, void(*p)(Item));
 void treein(constTree s, void(*p)(Item));
 void treepost(constTree s, void(*p)(Item));
 
-// 4. ARVORES de procura //////////////////////////////////////////////////////
+// 3. ARVORES de procura //////////////////////////////////////////////////////
 
-Tree treemmbr(constTree s, constItem x, int(*f)(constItem, constItem));
-Tree treesrch(constTree s, constItem x, int(*f)(constItem, constItem));
+Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem));
+Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem));
 Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem));
 
 #endif /* FUNC_ARVORES */

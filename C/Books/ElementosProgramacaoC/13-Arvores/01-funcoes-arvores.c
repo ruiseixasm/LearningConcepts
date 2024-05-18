@@ -78,9 +78,67 @@ int  max(int a, int b)
     return a > b ? a : b;
 }
 
-// 3. Percursos em ARVORES ////////////////////////////////////////////////////
+int  min(int a, int b)
+{
+    return a < b ? a : b;
+}
 
+void treepre(constTree s, void(*p)(Item))
+{
+    if (!treenull(s))
+    {
+        p(s->value);
+        treepre(treechld(s, left), p);
+        treepre(treechld(s, right), p);
+    }
+}
 
+void treein(constTree s, void(*p)(Item))
+{
+    if (!treenull(s))
+    {
+        treein(treechld(s, left), p);
+        p(s->value);
+        treein(treechld(s, right), p);
+    }
+}
 
-// 4. ARVORES de procura //////////////////////////////////////////////////////
+void treepost(constTree s, void(*p)(Item))
+{
+    if (!treenull(s))
+    {
+        treepost(treechld(s, left), p);
+        treepost(treechld(s, right), p);
+        p(s->value);
+    }
+}
 
+// 3. ARVORES de procura //////////////////////////////////////////////////////
+
+Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem))
+{
+    Item r;
+    Tree t;
+    return treenull(s) ? NULL_TREE :
+            (r = treeroot(s)) == x ? s :
+            (t = treemmbr(treechld(s, left), x, f)) != NULL_TREE ? t :
+            treemmbr(treechld(s, right), x, f);
+}
+
+Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem))
+{
+    Item r;
+    while (!treenull(s) && (r = treeroot(s)) != x)
+        s = treechld(s, x > r);
+    return s;
+}
+
+Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem))
+{
+    if (!*s)
+        return treecons(x, s, left);
+    else if (x == (*s)->value)
+        return *s;
+    else
+        return treeins((*s)->sub + (x > (*s)->value), x, f);
+}
