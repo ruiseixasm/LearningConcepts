@@ -52,5 +52,6 @@ void treepost(constTree s, void(*p)(Item));
 Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem));
 Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem));
 Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem));
+Child boolchld(int value);
 
 #endif /* FUNC_ARVORES */

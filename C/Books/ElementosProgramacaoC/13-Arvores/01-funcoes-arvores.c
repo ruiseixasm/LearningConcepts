@@ -120,7 +120,7 @@ Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem))
     Item r;
     Tree t;
     return treenull(s) ? NULL_TREE :
-            (r = treeroot(s)) == x ? s :
+            f((r = treeroot(s)), x) == 0 ? s :
             (t = treemmbr(treechld(s, left), x, f)) != NULL_TREE ? t :
             treemmbr(treechld(s, right), x, f);
 }
@@ -128,8 +128,8 @@ Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem))
 Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem))
 {
     Item r;
-    while (!treenull(s) && (r = treeroot(s)) != x)
-        s = treechld(s, x > r);
+    while (!treenull(s) && f(r = treeroot(s), x) != 0)
+        s = treechld(s, f(x, r) > 0);
     return s;
 }
 
@@ -137,8 +137,13 @@ Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem))
 {
     if (!*s)
         return treecons(x, s, left);
-    else if (x == (*s)->value)
+    else if (f(x, (*s)->value) == 0)
         return *s;
     else
-        return treeins((*s)->sub + (x > (*s)->value), x, f);
+        return treeins((*s)->sub + (f(x, (*s)->value) > 0), x, f);
+}
+
+Child boolchld(int value)
+{
+    return value == 0 ? left : right;
 }
