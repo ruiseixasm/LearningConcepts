@@ -32,10 +32,8 @@ Tree treecpy(Tree *s, constTree t)
 
 Tree treecons(Item x, Tree *s, Child c)
 {
-    Tree p = malloc(sizeof(Treenode));
-    p->value = x;
+    Tree p = treenew(x);
     p->sub[c] = *s;
-    p->sub[!c] = NULL_TREE; // complementar sub
     return *s = p;          // resest *s as root p
 }
 

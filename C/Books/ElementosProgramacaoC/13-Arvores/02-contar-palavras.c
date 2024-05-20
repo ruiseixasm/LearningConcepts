@@ -32,29 +32,36 @@ int SkipChars(FILE *f, int *n)
 // Cria uma nova string reservando a memória respetiva
 char *strnew(const char *s)
 {
-    //                                    + 1 is the extra char for '\0'
-    return strcpy((char*)malloc(strlen(s) + 1), s);
+    //                             + 1 is the extra char for '\0'
+    return strcpy(malloc(strlen(s) + 1), s);
+}
+
+// Liberta a memória previamente reservada por strnew()
+char *strfree(char *s)
+{
+    free(s);
+    return s = NULL;
 }
 
 int main()
 {
     int n;
     long n_words, n_unique;
-    Tree wtree; // It's a pointer to a struct not a struct
-    wtree->value = NULL;
-    wtree->sub[left] = wtree->sub[right] = NULL_TREE;
-    char s[256];
+    Tree wtree;         // It's a pointer to a struct not a struct
+    char word[256];
     
-    treeclr(&wtree);
+    treeclr(&wtree);    // Where the pointer is set to NULL_TREE
     n_words = 0;
     
     while (ungetc(getchar(), stdin) != EOF)
     {
         while (SkipChars(stdin, &n) != '\n')
         {
-            ReadWord(stdin, s);
+            ReadWord(stdin, word);
             n_words++;
-            treeins(&wtree, s, (int(*)(constItem, constItem))strcmp);
+            char* new_word = strnew(word);
+            if (treeins(&wtree, new_word, (int(*)(constItem, constItem))strcmp)->value != new_word)
+                strfree(new_word);
         }
         getchar();
     }
