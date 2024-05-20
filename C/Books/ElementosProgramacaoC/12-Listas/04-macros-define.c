@@ -7,9 +7,9 @@
 #define up4(x) (x + 4)  // 2*up4(5) is correctly equal to 18
 #define cube(x) (x * x * x)
 
-#define listnull(s) (!s)
-#define listhead(s) (s->value)
-#define listtail(s) (s->next)
+#define listnull(s) (!(s))
+#define listhead(s) ((s)->value)
+#define listtail(s) ((s)->next)
 
 int main()
 {
