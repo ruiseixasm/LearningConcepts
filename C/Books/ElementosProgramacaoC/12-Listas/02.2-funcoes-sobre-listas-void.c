@@ -214,7 +214,7 @@ static int itemstrcmp(constItem x, constItem y)
 
 // 5. Extra functions from trees chapter /////////////////////////////////////
 
-void listfw(List s, void(*p)(Item))         /* moves forward iteratively    */
+void listfw(constList s, void(*p)(Item))    /* moves forward iteratively    */
 {
     while (!listnull(s))
     {
@@ -223,7 +223,7 @@ void listfw(List s, void(*p)(Item))         /* moves forward iteratively    */
     }
 }
 
-void listbw(List s, void(*p)(Item))         /* moves backward recursively   */
+void listbw(constList s, void(*p)(Item))    /* moves backward recursively   */
 {
     if (!listnull(s))
     {
