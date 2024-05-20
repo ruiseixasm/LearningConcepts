@@ -35,11 +35,17 @@ char *strnew(const char *s)
     return strcpy((char*)malloc(strlen(s) + 1), s);
 }
 
+// Liberta a memória previamente reservada por strnew()
+char *strfree(char *s)
+{
+    free(s);
+    return s = NULL;
+}
+
+// 3. Tableas de dispersão com encadeamentos separados
+
 #define MAX_HASH 1259
-// Incrementing table++ for the first declaration advances by the size of a pointer to char (4 bytes).
-static char *table[MAX_HASH];
-// Incrementing table2++ for the second declaration advances by MAX_HASH bytes (1 byte * MAX_HASH).
-//static char table2[][MAX_HASH];
+static List hash_table[MAX_HASH];   // all NULL pointers by default
 
 int hash(const char *s)
 {
@@ -49,28 +55,11 @@ int hash(const char *s)
     return h % MAX_HASH;
 }
 
-// 3. Tableas de dispersão com encadeamentos separados
-
-static List hash_table[MAX_HASH];
-
-List hashsearch(const char *w) // Item = void *
-{
-    return listsrch(hash_table[hash(w)], w, (int(*)(constItem, constItem))strcmp);
-}
-
-List hashinstall(char *w)
-{
-    return listentr(&hash_table[hash(w)], strnew(w), (int(*)(constItem, constItem))strcmp);
-}
-
 typedef struct {
     char *word;
     int count;
 } Counter;
-
 typedef Counter *counterItem;
-
-static List counter_table[MAX_HASH];
 
 int countercmp(counterItem x, counterItem y)
 {
@@ -85,13 +74,21 @@ counterItem NewCounter0(char *s)
     return x;
 }
 
-int counterinstall(char *w)
+int hashinstall(char *w)
 {
-    return ++((counterItem)listhead(
-            listentr(&hash_table[hash(w)], 
-            w, 
-            (int(*)(constItem, constItem))strcmp)
-        ))->count;
+    counterItem word_item = NewCounter0(w);
+    List *word_hash = &hash_table[hash(w)];
+    List word_list = listentr(word_hash, word_item,
+                             (int(*)(constItem, constItem))countercmp);
+    
+    if (word_list == NULL_LIST) // already exists
+    {
+        word_list = listmmbr(*word_hash, word_item,
+                            (int(*)(constItem, constItem))countercmp);
+        free(word_item);
+    }
+
+    return ++((counterItem)listhead(word_list))->count;
 }
 
 // For post while in main()
@@ -118,7 +115,7 @@ int dumphashtable(Counter **x)
         s = *p;
         while (!listnull(s))
         {
-            *x++ = listhead(s);
+            *x++ = listhead(s); // s->value is already a Counter item!
             s = listtail(s);
         }
     }
@@ -191,11 +188,13 @@ int main()
 
     n_counters = hashtablesize();
     counters = calloc(sizeof(Counter *), n_counters);   // implicit casting
-    dumphashtable(counters);
     
-    SortCriterium sortby = bycount;
-    SortCounters(sortby == byword ? ltbyword : ltbycount);
-    PrintCounters();
+    if (dumphashtable(counters) == n_counters)
+    {
+        SortCriterium sortby = bycount;
+        SortCounters(sortby == byword ? ltbyword : ltbycount);
+        PrintCounters();        // segmentation fault for PrintCounter is p->word non existent
+    }
 
     return 0;
 }

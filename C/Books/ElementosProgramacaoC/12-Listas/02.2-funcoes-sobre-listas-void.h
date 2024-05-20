@@ -46,7 +46,8 @@ List listcat(List *s, List t);                      /* concatenação         */
 
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
-List listmmbr(List s, constItem x);         /* membro de uma lista          */
+List listmmbr(List s, constItem x,
+        int(*f)(constItem, constItem));     /* membro de uma lista          */
 List listsrch(List s, constItem x,
         int(*f)(constItem, constItem));     /* busca em lista ordenada      */
 List listins(List *s, Item x,

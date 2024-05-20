@@ -146,9 +146,10 @@ List listcat(List *s, List t)                       /* concatenação         */
 
 // 3. Funções de busca em listas /////////////////////////////////////////////
 
-List listmmbr(List s, constLItem x)         /* membro de uma lista          */
+List listmmbr(List s, constLItem x,
+        int(*f)(constLItem, constLItem))    /* membro de uma lista          */
 {
-    while (s && (x != s->value))
+    while (s && f(x, s->value) != 0)
         s = s->next;
     return s;
 }
