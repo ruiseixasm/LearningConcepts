@@ -36,7 +36,7 @@ Tree treecons(Item x, Tree *s, Child c)
     p->value = x;
     p->sub[c] = *s;
     p->sub[!c] = NULL_TREE; // complementar sub
-    return *s = p;
+    return *s = p;          // resest *s as root p
 }
 
 Tree treestrt(Tree s, Item x)

@@ -40,7 +40,9 @@ int main()
 {
     int n;
     long n_words, n_unique;
-    Tree wtree;
+    Tree wtree; // It's a pointer to a struct not a struct
+    wtree->value = NULL;
+    wtree->sub[left] = wtree->sub[right] = NULL_TREE;
     char s[256];
     
     treeclr(&wtree);
