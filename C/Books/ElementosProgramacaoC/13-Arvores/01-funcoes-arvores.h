@@ -34,6 +34,8 @@ Tree treestrt(Tree s, Item x);
 #define treechld(s, c)  ((s)->sub[c])
 Tree treeswch(Tree s, Tree *t, Child c);
 
+Tree treefree(Tree *s);
+
 // 2. Funções utilitárias sobre ARVORES ///////////////////////////////////////
 
 int  treeleaf(constTree s);

@@ -54,6 +54,15 @@ Tree treeswch(Tree s, Tree *t, Child c)
     return s;
 }
 
+Tree treefree(Tree *s)
+{
+    if (!treenull(treechld(*s, left)))
+        treefree(&treechld(*s, left));
+    if (!treenull(treechld(*s, right)))
+        treefree(&treechld(*s, right));
+    return treeclr(s);
+}
+
 // 2. Funções utilitárias sobre ARVORES ///////////////////////////////////////
 
 int  treeleaf(constTree s)

@@ -81,16 +81,11 @@ int  listnull(constList s)                          /* é vazia?             */
     return s == NULL_LIST;
 }
 
-List listfree(List s)                              /* liberta memória      */
+List listfree(List *s)                              /* liberta memória      */
 {
-    List p;
-    while (s != NULL_LIST)
-    {
-        p = s->next;
-        free(s);       // s is a pointer to a Listnode (avoids memory leak)
-        s = p;
-    }
-    return s;
+    for (List p = *s; !listnull(p); p = p->next)
+        free(p);        // p is a pointer to a Listnode (avoids memory leak)
+    return listclr(s);
 }
 
 // 2. Funções utilitárias sobre listas ///////////////////////////////////////
@@ -123,7 +118,7 @@ List listrm(List s, int n)                          /* remoção              */
     List right = left->next;
     left->next = right->next;   // bypasses the node to be deleted (free)
     right->next = NULL_LIST;    // makes it a single node list (right)
-    listfree(right);            // frees allocated memory with malloc
+    listfree(&right);           // frees allocated memory with malloc
     return left;
 }
 
@@ -215,4 +210,24 @@ static int itemstrcmp(constItem x, constItem y)
                                             /* compara Items como strings   */
 {   //                 pointers casting is always implicitly done (guaranteed)
     return charstrcmp((char *)x, (char *)y);
+}
+
+// 5. Extra functions from trees chapter /////////////////////////////////////
+
+void listfw(List s, void(*p)(Item))         /* moves forward iteratively    */
+{
+    while (!listnull(s))
+    {
+        p(listhead(s));
+        s = listtail(s);
+    }
+}
+
+void listbw(List s, void(*p)(Item))         /* moves backward recursively   */
+{
+    if (!listnull(s))
+    {
+        listbw(listtail(s), p);
+        p(listhead(s));
+    }
 }

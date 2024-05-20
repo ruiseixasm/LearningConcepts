@@ -32,7 +32,7 @@ List listtail(constList s);                         /* a cauda              */
 int  listlen(constList s);                          /* o comprimento        */
 int  listnull(constList s);                         /* é vazia?             */
 
-List listfree(List s);                              /* liberta memória      */
+List listfree(List *s);                             /* liberta memória      */
 
 // 2. Funções utilitárias sobre listas ///////////////////////////////////////
 
@@ -61,6 +61,11 @@ List listpos(List s, constItem x,
 static int charstrcmp(char *x, char *y);    /* compara strings              */
 static int itemstrcmp(constItem x, constItem y);
                                             /* compara Items como strings   */
+
+// 5. Extra functions from trees chapter /////////////////////////////////////
+
+void listfw(List s, void(*p)(Item));        /* moves forward iteratively    */
+void listbw(List s, void(*p)(Item));        /* moves backward recursively   */
 
 
 #endif /* FUNC_LISTAS */
