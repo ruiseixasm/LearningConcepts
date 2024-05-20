@@ -4,7 +4,7 @@
 
 // 1. Funções básicas sobre ARVORES ///////////////////////////////////////////
 
-Tree treenew(Item x)
+Tree treenew(TItem x)
 {
     Tree p = malloc(sizeof(Treenode));
     p->value = x;
@@ -30,14 +30,14 @@ Tree treecpy(Tree *s, constTree t)
     return *s;
 }
 
-Tree treecons(Item x, Tree *s, Child c)
+Tree treecons(TItem x, Tree *s, Child c)
 {
     Tree p = treenew(x);
     p->sub[c] = *s;
     return *s = p;          // resest *s as root p
 }
 
-Tree treestrt(Tree s, Item x)
+Tree treestrt(Tree s, TItem x)
 {
     s->value = x;
     return s;
@@ -90,7 +90,7 @@ int  min(int a, int b)
     return a < b ? a : b;
 }
 
-void treepre(constTree s, void(*p)(Item))
+void treepre(constTree s, void(*p)(TItem))
 {
     if (!treenull(s))
     {
@@ -100,7 +100,7 @@ void treepre(constTree s, void(*p)(Item))
     }
 }
 
-void treein(constTree s, void(*p)(Item))
+void treein(constTree s, void(*p)(TItem))
 {
     if (!treenull(s))
     {
@@ -110,7 +110,7 @@ void treein(constTree s, void(*p)(Item))
     }
 }
 
-void treepost(constTree s, void(*p)(Item))
+void treepost(constTree s, void(*p)(TItem))
 {
     if (!treenull(s))
     {
@@ -122,9 +122,9 @@ void treepost(constTree s, void(*p)(Item))
 
 // 3. ARVORES de procura //////////////////////////////////////////////////////
 
-Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem))
+Tree treemmbr(Tree s, constTItem x, int(*f)(constTItem, constTItem))
 {
-    Item r;
+    TItem r;
     Tree t;
     return treenull(s) ? NULL_TREE :
             f((r = treeroot(s)), x) == 0 ? s :
@@ -132,15 +132,15 @@ Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem))
             treemmbr(treechld(s, right), x, f);
 }
 
-Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem))
+Tree treesrch(Tree s, constTItem x, int(*f)(constTItem, constTItem))
 {
-    Item r;
+    TItem r;
     while (!treenull(s) && f(r = treeroot(s), x) != 0)
         s = treechld(s, f(x, r) > 0);
     return s;
 }
 
-Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem))
+Tree treeins(Tree *s, TItem x, int(*f)(constTItem, constTItem))
 {
     if (!*s)
         return treecons(x, s, left);

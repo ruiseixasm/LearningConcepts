@@ -60,7 +60,7 @@ int main()
             ReadWord(stdin, word);
             n_words++;
             char* new_word = strnew(word);
-            if (treeins(&wtree, new_word, (int(*)(constItem, constItem))strcmp)->value != new_word)
+            if (treeins(&wtree, new_word, (int(*)(constTItem, constTItem))strcmp)->value != new_word)
                 strfree(new_word);
         }
         getchar();

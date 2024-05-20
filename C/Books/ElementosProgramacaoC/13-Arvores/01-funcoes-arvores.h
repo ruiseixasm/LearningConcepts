@@ -5,13 +5,13 @@
 #include <string.h>
 
 // void pointers as generic Items
-typedef void *Item;
-typedef const void *constItem;
+typedef void *TItem;
+typedef const void *constTItem;
 
 typedef struct tnode *Tree; // Apontador
 typedef const struct tnode *constTree;
 typedef struct tnode {
-    Item value;
+    TItem value;
     Tree sub[2];
 } Treenode;
 typedef enum {left, right} Child;
@@ -21,11 +21,11 @@ typedef enum {left, right} Child;
 
 // 1. Funções básicas sobre ARVORES ///////////////////////////////////////////
 
-Tree treenew(Item x);
+Tree treenew(TItem x);
 Tree treeclr(Tree *s);
 Tree treecpy(Tree *s, constTree t);
-Tree treecons(Item x, Tree *s, Child c);
-Tree treestrt(Tree s, Item x);
+Tree treecons(TItem x, Tree *s, Child c);
+Tree treestrt(Tree s, TItem x);
 //int  treenull(constTree s);
 //Tree treeroot(constTree s);
 //Tree treechld(constTree s, Child c);
@@ -45,15 +45,15 @@ int  treehght(constTree s);
 int  max(int a, int b);
 int  min(int a, int b);
 
-void treepre(constTree s, void(*p)(Item));
-void treein(constTree s, void(*p)(Item));
-void treepost(constTree s, void(*p)(Item));
+void treepre(constTree s, void(*p)(TItem));
+void treein(constTree s, void(*p)(TItem));
+void treepost(constTree s, void(*p)(TItem));
 
 // 3. ARVORES de procura //////////////////////////////////////////////////////
 
-Tree treemmbr(Tree s, constItem x, int(*f)(constItem, constItem));
-Tree treesrch(Tree s, constItem x, int(*f)(constItem, constItem));
-Tree treeins(Tree *s, Item x, int(*f)(constItem, constItem));
+Tree treemmbr(Tree s, constTItem x, int(*f)(constTItem, constTItem));
+Tree treesrch(Tree s, constTItem x, int(*f)(constTItem, constTItem));
+Tree treeins(Tree *s, TItem x, int(*f)(constTItem, constTItem));
 Child boolchld(int value);
 
 #endif /* FUNC_ARVORES */
