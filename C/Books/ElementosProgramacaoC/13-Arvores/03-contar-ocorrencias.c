@@ -52,6 +52,14 @@ typedef Counter *counterItem;
 counterItem *counters;
 int n_counters;
 
+counterItem NewCounter0(char *s)
+{
+    counterItem x = malloc(sizeof(Counter));
+    x->word = strnew(s);
+    x->count = 0;
+    return x;
+}
+
 int countercmp(counterItem x, counterItem y)
 {
     return strcmp(x->word, y->word);
@@ -60,9 +68,18 @@ int countercmp(counterItem x, counterItem y)
 // Função análoga à função hashinstall()
 int treeinstall(Tree *s, char *w)
 {
-    return ++((counterItem)treeroot(
-                treeins(s, w, (int(*)(constTItem, constTItem))countercmp)
-            ))->count;
+    counterItem word_item = NewCounter0(w);
+
+    Tree word_position;
+    if (!(word_position = treemmbr(*s, word_item, (int(*)(constTItem, constTItem))countercmp)))
+        word_position = treeins(s, word_item, (int(*)(constTItem, constTItem))countercmp);
+    else
+    {
+        free(word_item->word);
+        free(word_item);
+    }
+
+    return ++((counterItem)treeroot(word_position))->count;
 }
 
 void dumptree(constTree s, counterItem **x)

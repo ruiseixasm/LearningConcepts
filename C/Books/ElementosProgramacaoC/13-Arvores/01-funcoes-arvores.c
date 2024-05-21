@@ -142,7 +142,7 @@ Tree treesrch(Tree s, constTItem x, int(*f)(constTItem, constTItem))
 
 Tree treeins(Tree *s, TItem x, int(*f)(constTItem, constTItem))
 {
-    if (!*s)
+    if (!*s)    // Also if travels entire tree and doesn't find it
         return treecons(x, s, left);
     else if (f(x, (*s)->value) == 0)
         return *s;

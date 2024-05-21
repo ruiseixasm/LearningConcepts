@@ -85,6 +85,7 @@ int hashinstall(char *w)
     {
         word_list = listmmbr(*word_hash, word_item,
                             (int(*)(constItem, constItem))countercmp);
+        free(word_item->word);
         free(word_item);
     }
 
