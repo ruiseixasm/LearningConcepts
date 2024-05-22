@@ -8,7 +8,7 @@ static void DisplayMenu(const Menu *m)
         if (m->items[i].enabled)
             printf("(%2d)", i + 1);
         else
-            printf("( )");
+            printf("(  )");
         printf(" %s%s\n", m->items[i].name, m->items[i].checked ? " +" : "");
     }
     printf("--> ");

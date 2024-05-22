@@ -58,13 +58,6 @@ void DoAddOneSong(Disk *d);
 
 int main(int argc, char *argv[])
 {
-    printf("Total arguments: %d\n", argc);
-    printf("Arguments:");
-    for (int i = 0; i < argc; i++)
-        printf(" %s", argv[i]);
-    printf("\n");
-
-
     /* inicialização dos menus */
     // Main Menu    (A)
     CreateMenu(&mainMenu, "MAIN MENU", "file>>;disks>>;search>>;quit;");
@@ -91,7 +84,6 @@ int main(int argc, char *argv[])
     
     return 0;
 }
-
 
 // AUXILIAR
 
