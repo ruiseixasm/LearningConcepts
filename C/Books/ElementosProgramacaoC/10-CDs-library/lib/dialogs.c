@@ -8,7 +8,7 @@ int ReadString(char **s, const char *prompt, Fstring f, const char *error)
     
     for (;;)
     {
-        printf(prompt);
+        printf("%s", prompt);
         p = strtolower(strtrml(strtrmr(gets_string(reply, sizeof(reply)))));
         
         if (*p == CANCEL)
