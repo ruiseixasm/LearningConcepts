@@ -6,3 +6,8 @@ pactl load-module module-loopback latency_msec=10
 
 # To stop it running, run:
 pactl unload-module module-loopback
+
+# To add compressor follow the instructions here:
+https://github.com/gotbletu/shownotes/blob/master/pulseaudio-dynamic-range-compression.md
+https://youtu.be/NXE-kSrhk_w?si=S0r-DFaruGowZ16d
+
