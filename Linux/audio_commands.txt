@@ -1,0 +1,8 @@
+# Install PulseAudio Volume Control (pavucontrol):
+sudo apt install pavucontrol
+
+# Route your microphone to your speakers:
+pactl load-module module-loopback latency_msec=100
+
+# To stop it running, run:
+pactl unload-module module-loopback
