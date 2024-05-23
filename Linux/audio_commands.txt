@@ -1,3 +1,6 @@
+# Install PulseAudio:
+sudo apt install pulseaudio
+
 # Install PulseAudio Volume Control (pavucontrol):
 sudo apt install pavucontrol
 
@@ -11,3 +14,8 @@ pactl unload-module module-loopback
 https://github.com/gotbletu/shownotes/blob/master/pulseaudio-dynamic-range-compression.md
 https://youtu.be/NXE-kSrhk_w?si=S0r-DFaruGowZ16d
 
+# In case you get the error "No PulseAudio daemon running, or not running as session daemon." type:
+aplay -l
+
+# Also try:
+pulseaudio --dump-conf
