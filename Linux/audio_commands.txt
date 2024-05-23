@@ -2,7 +2,7 @@
 sudo apt install pavucontrol
 
 # Route your microphone to your speakers:
-pactl load-module module-loopback latency_msec=100
+pactl load-module module-loopback latency_msec=10
 
 # To stop it running, run:
 pactl unload-module module-loopback
