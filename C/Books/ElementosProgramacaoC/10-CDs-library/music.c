@@ -396,7 +396,7 @@ void DoAddItems(void)
     Item *x;
     char message[32];
 
-    while (DialogBox("Add a new disk\n%s%s%d%m",
+    while (DialogBox("Add a new disk (type '$' to CANCEL)\n%s%s%d%m",
             &a, "Artist: ", istrlen, "This field must be non-empty. ",
             &t, "Title:  ", NULL, "",
             &y, "Year: ", IsYear, "Invalid year. ",
