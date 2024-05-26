@@ -5,8 +5,14 @@ sudo inxi -Fxz
 sudo lshw -short -C memory
 sudo dmidecode --type 17
 
-# Mount Windows shares
+# Access Windows shares [mount]
 sudo mkdir /media/littleboy
 sudo mount -t cifs //littleboy/ /media/littleboy -o username=admin,password=admin
 
-
+# Access Windows shares [credentials file]
+vi ~/.samba_credentials
+# Type:
+username=user
+password=password
+# Run:
+//192.168.1.122/myshare /mnt/share cifs credentials=/home/user/.samba_credentials,_netdev 0 0
