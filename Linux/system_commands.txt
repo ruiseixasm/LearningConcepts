@@ -16,3 +16,10 @@ username=user
 password=password
 # Run:
 //192.168.1.122/myshare /mnt/share cifs credentials=/home/user/.samba_credentials,_netdev 0 0
+
+# Access Windows shares [persistent]
+vim /etc/fstab
+# Add line:
+192.168.1.122/myshare /mnt/share cifs username=user,password=password,_netdev 0  0
+
+
