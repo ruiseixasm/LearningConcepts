@@ -5,3 +5,8 @@ sudo inxi -Fxz
 sudo lshw -short -C memory
 sudo dmidecode --type 17
 
+# Mount Windows shares
+sudo mkdir /media/littleboy
+sudo mount -t cifs //littleboy/ /media/littleboy -o username=admin,password=admin
+
+
