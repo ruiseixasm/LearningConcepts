@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1586642134 source:c:\cpp_aio4\booki\chapter08\returnpointer\main.cpp
+	<iostream>
+	<sstream>
+	<stdlib.h>
+

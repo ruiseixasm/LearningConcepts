@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1589833222 source:c:\cpp_aio4\bookiii\chapter01\nosideeffects\main.cpp
+	<iostream>
+	<vector>
+	<algorithm>
+

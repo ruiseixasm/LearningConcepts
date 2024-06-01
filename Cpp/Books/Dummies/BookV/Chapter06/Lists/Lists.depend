@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1594926988 source:c:\cpp_aio4\bookv\chapter06\lists\main.cpp
+	<iostream>
+	<list>
+

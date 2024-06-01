@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1585947839 source:c:\cpp_aio4\booki\chapter07\multiplesourcefiles2\main.cpp
+	<iostream>
+	"safestuff.h"
+
+1585947774 c:\cpp_aio4\booki\chapter07\multiplesourcefiles2\safestuff.h
+
+1585947787 source:c:\cpp_aio4\booki\chapter07\multiplesourcefiles2\safestuff.cpp
+	<iostream>
+

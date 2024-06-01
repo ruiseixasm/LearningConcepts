@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1589480675 source:c:\cpp_aio4\bookiii\chapter01\immutable\main.cpp
+	<iostream>
+	<memory>
+

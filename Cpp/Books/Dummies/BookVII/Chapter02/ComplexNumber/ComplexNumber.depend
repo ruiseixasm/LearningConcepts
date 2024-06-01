@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1602437024 source:c:\cpp_aio4\bookvii\chapter02\complexnumber\main.cpp
+	<iostream>
+	<complex>
+

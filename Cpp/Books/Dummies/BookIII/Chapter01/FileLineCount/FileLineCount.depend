@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1589486366 source:c:\cpp_aio4\bookii\chapter04\filelinecount\main.cpp
+	<iostream>
+	<fstream>
+	<algorithm>
+
+1589486366 source:c:\cpp_aio4\bookiii\chapter01\filelinecount\main.cpp
+	<iostream>
+	<fstream>
+	<algorithm>
+

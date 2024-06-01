@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1595702931 source:c:\cpp_aio4\bookvi\chapter03\writereadstring\readstring.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1595702835 source:c:\cpp_aio4\bookvi\chapter03\writereadstring\main.cpp
+	<iostream>
+
+1595702824 source:c:\cpp_aio4\bookvi\chapter03\writereadstring\writestring.cpp
+	<iostream>
+	<fstream>
+

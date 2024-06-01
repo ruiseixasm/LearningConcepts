@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1590178372 source:c:\cpp_aio4\bookiii\chapter02\returndeduction\main.cpp
+	<iostream>
+	<typeinfo>
+	<memory>
+	<cxxabi.h>
+	<limits>
+

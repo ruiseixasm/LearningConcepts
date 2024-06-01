@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1595798032 source:c:\cpp_aio4\bookvi\chapter04\deletedirectory\main.cpp
+	<iostream>
+	<stdio.h>
+	<io.h>
+

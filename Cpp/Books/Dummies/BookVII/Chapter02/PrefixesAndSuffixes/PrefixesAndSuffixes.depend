@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1596747171 source:c:\cpp_aio4\bookvii\chapter02\prefixesandsuffixes\main.cpp
+	<iostream>
+	<typeinfo>
+	<cxxabi.h>
+

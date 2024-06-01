@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="OS" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/OS" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/OS" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="C:/CodeBlocks/boost_1_73_0/boost" />
+		</Compiler>
+		<Linker>
+			<Add library="C:/CodeBlocks/boost_1_73_0/bin.v2/libs/filesystem/build/gcc-6.2.0/release/address-model-32/link-static/threading-multi/visibility-hidden/libboost_filesystem-mgw6-mt-x32-1_73.a" />
+			<Add library="C:/CodeBlocks/boost_1_73_0/bin.v2/libs/system/build/gcc-6.2.0/release/address-model-32/link-static/threading-multi/visibility-hidden/libboost_system-mgw6-mt-x32-1_73.a" />
+			<Add directory="C:/CodeBlocks/boost_1_73_0/bin.v2/libs" />
+		</Linker>
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1594654289 source:c:\cpp_aio4\bookv\chapter06\iteratorpointer\main.cpp
+	<iostream>
+	<vector>
+

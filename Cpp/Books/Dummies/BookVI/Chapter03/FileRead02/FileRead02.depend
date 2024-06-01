@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1595534487 source:c:\cpp_aio4\bookvi\chapter03\fileread02\readdata.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1595533800 source:c:\cpp_aio4\bookvi\chapter03\fileread02\writedata.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1595535377 source:c:\cpp_aio4\bookvi\chapter03\fileread02\main.cpp
+	<iostream>
+

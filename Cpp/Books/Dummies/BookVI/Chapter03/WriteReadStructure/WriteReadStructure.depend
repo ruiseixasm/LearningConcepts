@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1595707636 source:c:\cpp_aio4\bookvi\chapter03\writereadstructure\main.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1595705204 source:c:\cpp_aio4\bookvi\chapter03\writereadstructure\readstruct.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+
+1595707168 source:c:\cpp_aio4\bookvi\chapter03\writereadstructure\writestruct.cpp
+	<iostream>
+	<fstream>
+	<string.h>
+

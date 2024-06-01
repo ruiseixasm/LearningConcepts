@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1596578314 source:c:\cpp_aio4\bookvii\chapter01\temporarybuffer\main.cpp
+	<iostream>
+	<vector>
+	<memory>
+	<algorithm>
+
