@@ -8,6 +8,7 @@ sudo dmidecode --type 17
 # Access Windows shares [mount]
 sudo mkdir /media/littleboy
 sudo mount -t cifs //littleboy/ /media/littleboy -o username=admin,password=admin
+sudo mount -t cifs --verbose -o vers=1.0,username=nmt,password=0000 //pch-a410/share /media/PCH-A410/share
 
 # Access Windows shares [credentials file]
 vi ~/.samba_credentials
@@ -20,6 +21,18 @@ password=password
 # Access Windows shares [persistent]
 vim /etc/fstab
 # Add line:
-192.168.1.122/myshare /mnt/share cifs username=user,password=password,_netdev 0  0
+//192.168.1.122/myshare /mnt/share cifs username=user,password=password,_netdev 0  0
+//LITTLEBOY/Downloads /media/LITTLEBOY/Downloads cifs username=user,password=password,_netdev 0  0
+//LITTLEBOY/Downloads /media/LITTLEBOY/Downloads cifs credentials=/root/.littleboy_credentials,_netdev 0 0
+//LITTLEBOY/Downloads /media/LITTLEBOY/Downloads cifs rw,auto,nofail,file_mode=0777,dir_mode=0777,credentials=/root/.littleboy_credentials,_netdev 0 0
 
 
+# Mount windows shares
+sudo mount -a
+sudo mount -t cifs -a
+
+# Verify that the share has been successfully mounted using the following command:
+mount -t cifs
+
+# Umount all shares
+sudo umount -t cifs -a
