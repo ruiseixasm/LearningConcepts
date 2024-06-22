@@ -8,3 +8,9 @@ sudo apt-get install --reinstall xfce4
 
 # Check for the type of gui desktop running
 ps aux | grep session
+
+# Add VNC client
+sudo apt install xfce4 xfce4-goodies
+https://www.realvnc.com/en/connect/download/viewer/linux/?lai_sr=5-9&lai_sl=l
+
+
