@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
   MeltedMess mymess;
   mymess.SetDiamondWeight(10);
   mymess.SetJadeWeight(20);
-  mymess.Weight = 30;
+  mymess.Weight = 30;   // single mymess instance
 
   cout << mymess.GetDiamondWeight() << endl;
   cout << mymess.GetJadeWeight() << endl;
