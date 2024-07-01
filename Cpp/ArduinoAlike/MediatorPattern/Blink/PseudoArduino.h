@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 class SerialClass {
 public:
@@ -13,4 +15,8 @@ public:
     // Overloads for print with no arguments to just start a new line
     void println();
 };
+
+
+// Function to mimic Arduino's delay function
+void delay(unsigned long milliseconds);
 

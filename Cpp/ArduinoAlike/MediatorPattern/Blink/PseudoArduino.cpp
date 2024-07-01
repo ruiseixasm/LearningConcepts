@@ -19,4 +19,11 @@ void SerialClass::println() {
 // Instantiate a global Serial object similar to Arduino
 static SerialClass Serial;
 
+
+// Function to mimic Arduino's delay function
+void delay(unsigned long milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+
+
 #endif
