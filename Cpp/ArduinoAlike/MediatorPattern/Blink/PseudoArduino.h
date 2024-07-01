@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef  ARDUINO
-
 #include <iostream>
 
 class SerialClass {
@@ -16,4 +14,3 @@ public:
     void println();
 };
 
-#endif

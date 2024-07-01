@@ -1,7 +1,6 @@
-#include "PseudoArduino.h"
-
 #ifndef  ARDUINO
 
+#include "PseudoArduino.h"
 
 template <typename T>
 void SerialClass::print(const T& data) {

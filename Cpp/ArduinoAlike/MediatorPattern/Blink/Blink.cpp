@@ -1,6 +1,7 @@
+#ifndef  ARDUINO
+
 #include "Mediator.h"
 
-#ifndef  ARDUINO
 
 int main()
 {
