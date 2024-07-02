@@ -20,3 +20,15 @@ target_compile_options(${EXECUTABLE_NAME} PRIVATE -g)
 
 # Disable optimization for debug builds
 target_compile_options(${EXECUTABLE_NAME} PRIVATE -O0)
+
+###################################################
+# Needed to compile in windows for MinGW compiler #
+###################################################
+
+# # Specify the C++ standard
+# set_target_properties(${EXECUTABLE_NAME} PROPERTIES CXX_STANDARD 11)
+
+# # Link with pthread library if necessary
+# if (WIN32)
+#   target_link_libraries(${EXECUTABLE_NAME} PRIVATE -lpthread)
+# endif()
