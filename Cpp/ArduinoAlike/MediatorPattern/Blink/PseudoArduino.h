@@ -15,6 +15,8 @@ public:
     void println();
 };
 
+// Promisses an instantiate a global Serial object similar to Arduino
+extern SerialClass Serial;
 
 #include <chrono>
 #include <thread>
@@ -56,6 +58,10 @@ public:
     void digitalWrite(int pin, int value);
     void printPinStates();
 };
+
+
+// Promisses the MCU is defined as global instance in other file
+extern Microcontroller MCU;
 
 // Function to mimic Arduino's pinMode()
 void pinMode(int pin, PinMode mode);
