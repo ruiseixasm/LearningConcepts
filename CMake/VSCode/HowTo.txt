@@ -16,6 +16,8 @@ cmake_minimum_required(VERSION 3.25)
 project(MyNumber LANGUAGES CXX)
 (...)
 
+# USE THE CMAKE TOOLS ICON (NOT THE LAST MAKEFILE ICON)
+
 # Generate the CMake files on the terminal command line:
 mkdir build
 cd build
