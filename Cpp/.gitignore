@@ -49,6 +49,7 @@ _deps
 
 # Ignore any build folder
 build/
+build2/
 
 # Extras
 *.opendb
