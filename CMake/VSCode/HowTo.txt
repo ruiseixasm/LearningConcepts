@@ -16,7 +16,22 @@ cmake_minimum_required(VERSION 3.25)
 project(MyNumber LANGUAGES CXX)
 (...)
 
-# Use a kit to tell VS Code to use the CMake CMakeLists.txt configuration file:
+# Generate the CMake files on the terminal command line:
+mkdir build
+cd build
+cmake .. or cmake -G "MinGW Makefiles" ..
+
+# Verify global configuration .json file:
+C:\Users\Utilizador\AppData\Local\CMakeTools\cmake-tools-kits.json
+
+# Use CMake Presets (Option 1):
+
+
+
+# Use a kit to tell VS Code to use the CMake CMakeLists.txt configuration file (Option 2):
+Select the CMake configuration file to make it visible
+View -> Command Palette...
+Select CMake: Scan for Kits
 View -> Command Palette...
 
 
