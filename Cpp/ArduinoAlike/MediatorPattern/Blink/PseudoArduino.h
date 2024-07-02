@@ -1,8 +1,7 @@
 #pragma once
 
+
 #include <iostream>
-#include <chrono>
-#include <thread>
 
 class SerialClass {
 public:
@@ -17,6 +16,52 @@ public:
 };
 
 
+#include <chrono>
+#include <thread>
+
 // Function to mimic Arduino's delay function
 void delay(unsigned long milliseconds);
+
+
+#include <unordered_map>
+
+// Define constants for HIGH and LOW
+#define HIGH 1
+#define LOW 0
+
+// Macro definition for LED_BUILTIN
+#define LED_BUILTIN 13
+
+// Enum for pin modes
+enum PinMode {
+    INPUT,
+    OUTPUT,
+    INPUT_PULLUP
+};
+
+// Enum for pin states
+enum PinState {
+    LOW_STATE,
+    HIGH_STATE
+};
+
+// Microcontroller simulation class
+class Microcontroller {
+private:
+    std::unordered_map<int, PinMode> pinModes;
+    std::unordered_map<int, PinState> pinStates;
+    std::string modeToString(PinMode mode);
+public:
+    void pinMode(int pin, PinMode mode);
+    void digitalWrite(int pin, int value);
+    void printPinStates();
+};
+
+// Function to mimic Arduino's pinMode()
+void pinMode(int pin, PinMode mode);
+
+// Function to mimic Arduino's digitalWrite()
+void digitalWrite(int pin, int value);
+
+
 
