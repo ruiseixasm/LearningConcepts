@@ -20,6 +20,7 @@ extern SerialClass Serial;
 
 #include <chrono>
 #include <thread>
+//#define _GLIBCXX_USE_NANOSLEEP
 
 // Function to mimic Arduino's delay function
 void delay(unsigned long milliseconds);
