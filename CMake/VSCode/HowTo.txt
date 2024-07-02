@@ -1,0 +1,22 @@
+# Install de following extensions in VSCode:
+CMake
+CMake Tools
+
+# Install CMake in your system from this site:
+https://cmake.org/download/
+
+# Add the CMake path to the System variables Path:
+C:\Program Files\CMake\bin
+
+# Check CMake version to make sure it's installed and available:
+cmake --version
+
+# Write the CMake configuration file as CMakeLists.txt
+cmake_minimum_required(VERSION 3.25)
+project(MyNumber LANGUAGES CXX)
+(...)
+
+# Use a kit to tell VS Code to use the CMake CMakeLists.txt configuration file:
+View -> Command Palette...
+
+
