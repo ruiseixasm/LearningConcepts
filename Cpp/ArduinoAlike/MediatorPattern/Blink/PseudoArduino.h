@@ -4,7 +4,11 @@
 #include <iostream>
 
 class SerialClass {
+private:
+    unsigned long int boud_rate;
 public:
+    void begin(unsigned long int boud);
+
     template <typename T>
     void print(const T& data);
 
