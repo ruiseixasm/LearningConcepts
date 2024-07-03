@@ -1,0 +1,17 @@
+https://www.reddit.com/r/vscode/comments/1c7kne8/configuring_tasksjson_and_launchjson_for/
+https://sourceforge.net/projects/mingw-w64/
+https://sourceforge.net/projects/mingw-w64/files/
+
+
+# cmake commands on WINDOWS
+mkdir build
+cd build
+cmake -G "MinGW Makefiles" ..
+MinGW32-make
+
+
+# cmake commands on LINUX
+mkdir build
+cd build
+cmake ..
+make
