@@ -1,0 +1,23 @@
+Processor Macros:
+    __AVR__: Defined for all AVR-based boards (like Arduino Uno,
+        Mega, etc.).
+    __arm__: Defined for ARM-based boards (like Arduino Due, Zero, 
+        MKR series, etc.).
+    __SAM__: Defined for SAM-based boards (such as Arduino Due).
+    ARDUINO_ARCH_*: Specific to each architecture, like 
+        ARDUINO_ARCH_AVR, ARDUINO_ARCH_SAM, ARDUINO_ARCH_SAMD, etc.
+
+Board Macros:
+    ARDUINO: Defined for all Arduino boards.
+    ARDUINO_AVR_UNO, ARDUINO_AVR_MEGA2560, etc.: Specific board 
+        definitions for various Arduino models.
+
+Compiler Macros:
+    __GNUC__: Defined if the GCC compiler is used.
+    __ICCARM__: Defined if the IAR Embedded Workbench compiler is 
+        used (for some ARM-based boards).
+    ARDUINO_*: Various macros specific to the Arduino environment.
+
+Version Macros:
+    ARDUINO: The version of the Arduino IDE.
+
