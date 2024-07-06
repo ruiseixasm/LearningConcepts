@@ -31,6 +31,30 @@ void delay(unsigned long milliseconds) {
 }
 
 
+Microcontroller::Microcontroller(const std::vector<int>& values)
+    : readValues(values), currentIndex(0) {
+
+    lastReadTime = std::chrono::steady_clock::now() - std::chrono::seconds(1);
+}
+
+Microcontroller::Microcontroller() : currentIndex(0) {
+    // Initialize random seed based on current time
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // Generate a default array of random values (LOW or HIGH)
+    for (int i = 0; i < 10; ++i) {  // Adjust the size of the array as needed
+        readValues.push_back(std::rand() % 2);
+    }
+
+    lastReadTime = std::chrono::steady_clock::now() - std::chrono::seconds(1);
+}
+
+Microcontroller::~Microcontroller() {
+    // In the provided Microcontroller class, there is no need for a custom destructor
+    //     because the class does not manage any resources that require explicit release.
+    // The compiler-generated destructor will be sufficient.
+}
+
 std::string Microcontroller::modeToString(PinMode mode) {
     switch (mode) {
         case INPUT: return "INPUT";
@@ -56,6 +80,20 @@ void Microcontroller::digitalWrite(int pin, int value) {
     std::cout << "Pin " << pin << " set to " << stateStr << "." << std::endl;
 }
 
+int Microcontroller::digitalRead(int pin) {
+    auto now = std::chrono::steady_clock::now();
+    auto durationSinceLastRead = std::chrono::duration_cast<std::chrono::seconds>(now - lastReadTime);
+
+    if (durationSinceLastRead.count() < 1) {
+        return readValues.back();
+    } else {
+        lastReadTime = now;
+        int value = readValues[currentIndex];
+        currentIndex = (currentIndex + 1) % readValues.size();
+        return value;
+    }
+}
+
 void Microcontroller::printPinStates() {
     for (const auto &entry : pinStates) {
         std::string stateStr = (entry.second == HIGH_STATE) ? "HIGH" : "LOW";
@@ -76,6 +114,10 @@ void digitalWrite(int pin, int value) {
     MCU.digitalWrite(pin, value);
 }
 
+// Function to mimic Arduino's digitalRead()
+int digitalRead(int pin) {
+    return MCU.digitalRead(pin);
+}
 
 
 

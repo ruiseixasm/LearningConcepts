@@ -30,6 +30,7 @@ extern SerialClass Serial;
 void delay(unsigned long milliseconds);
 
 
+#include <vector>
 #include <unordered_map>
 
 // Define constants for HIGH and LOW
@@ -58,10 +59,17 @@ private:
     std::unordered_map<int, PinMode> pinModes;
     std::unordered_map<int, PinState> pinStates;
     std::string modeToString(PinMode mode);
+    std::vector<int> readValues;
+    std::chrono::time_point<std::chrono::steady_clock> lastReadTime;
+    size_t currentIndex;
 public:
     void pinMode(int pin, PinMode mode);
     void digitalWrite(int pin, int value);
+    int digitalRead(int pin);
     void printPinStates();
+    Microcontroller(const std::vector<int>& values);
+    Microcontroller();  // Default constructor
+    ~Microcontroller(); // Destructor
 };
 
 
@@ -74,5 +82,7 @@ void pinMode(int pin, PinMode mode);
 // Function to mimic Arduino's digitalWrite()
 void digitalWrite(int pin, int value);
 
+// Function to mimic Arduino's digitalRead()
+int digitalRead(int pin);
 
 
