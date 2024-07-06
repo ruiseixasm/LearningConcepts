@@ -17,6 +17,6 @@ void mediatorLoop()
   // read the input pin:
   int buttonState = digitalRead(pushButton);
   // print out the state of the button:
-  //Serial.println(buttonState);  // DOESN'T COMPILE!
-  delay(1);        // delay in between reads for stability
+  Serial.println(buttonState);  // DOESN'T COMPILE!
+  delay(500);        // delay in between reads for stability
 }
