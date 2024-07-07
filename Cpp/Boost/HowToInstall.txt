@@ -1,0 +1,5 @@
+# On Linux:
+sudo apt install libboost-all-dev
+
+# On Windows:
+
