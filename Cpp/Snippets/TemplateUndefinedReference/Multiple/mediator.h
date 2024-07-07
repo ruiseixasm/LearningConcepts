@@ -25,6 +25,6 @@ void SerialClass::println(const T& data) {
 }
 
 // Instantiate a global Serial object similar to Arduino
-//extern SerialClass Serial;
+extern SerialClass Serial;
 
 
