@@ -103,7 +103,7 @@ vector<int> extractData(vector<int>& hammingCode) {
 
 int main() {
     // Example data: 1011
-    vector<int> data = {1, 0, 1, 1};
+    vector<int> data = {1, 0, 1, 1};    // Input Data = Original Data
 
     // Encode the data using Hamming Code
     vector<int> hammingCode = calculateParityBits(data);
