@@ -47,4 +47,7 @@ sudo apt purge firefox
 
 # Uninstall Libre Office Base
 sudo apt purge liberoffice-base
+sudo apt update
+sudo apt remove libreoffice-base
+sudo apt reinstall libreoffice-core libreoffice-common libreoffice-writer
 
