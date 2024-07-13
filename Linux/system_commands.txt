@@ -36,3 +36,9 @@ mount -t cifs
 
 # Umount all shares
 sudo umount -t cifs -a
+
+# Check for folders total size and disk usage
+du -sh /path/to/directory
+du -sh -- */ .[!.]*/ 2>/dev/null
+du -sh -- * .[!.]* 2>/dev/null | sort -h
+
