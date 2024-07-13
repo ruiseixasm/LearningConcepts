@@ -45,5 +45,6 @@ du -sh -- * .[!.]* 2>/dev/null | sort -h
 # Uninstall Firefox
 sudo apt purge firefox
 
-
+# Uninstall Libre Office Base
+sudo apt purge liberoffice-base
 
