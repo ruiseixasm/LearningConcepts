@@ -36,3 +36,18 @@ mount -t cifs
 
 # Umount all shares
 sudo umount -t cifs -a
+
+# Check for folders total size and disk usage
+du -sh /path/to/directory
+du -sh -- */ .[!.]*/ 2>/dev/null
+du -sh -- * .[!.]* 2>/dev/null | sort -h
+
+# Uninstall Firefox
+sudo apt purge firefox
+
+# Uninstall Libre Office Base
+sudo apt purge liberoffice-base
+sudo apt update
+sudo apt remove libreoffice-base
+sudo apt reinstall libreoffice-core libreoffice-common libreoffice-writer
+
