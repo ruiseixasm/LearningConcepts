@@ -18,3 +18,12 @@ g++ -g -std=c++20 main.cpp -o rooster
 g++ -g -std=c++20 main.cpp -o rooster.out
 
 
+#
+# To make an executable file from CMake build folder
+#
+
+# From Visual Studio 2022 CMake files (solution)
+msbuild .\HelloProgram.sln
+
+# From C++ CMake files
+make
