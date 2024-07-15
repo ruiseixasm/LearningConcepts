@@ -1,0 +1,20 @@
+# How to check the existencec of the Visual Studio compiler
+1. Open the Developer PowerShell from the start menu
+2. Type: cl.exe
+
+# How to compile in Visual Studio 2022 on a Windows machine
+1. Open the Developer PowerShell from the start menu
+2. Type: cl.exe /Zi /std:c++latest /EHsc /Fe: rooster.exe main.cpp
+
+# How to test gcc and g++ installation:
+gcc --version
+g++ --version
+
+# How to compile in MinGW-w64 on a Windows machine
+g++ -g -std=c++20 main.cpp -o rooster
+
+
+# How to compile in g++ on a Linux machine
+g++ -g -std=c++20 main.cpp -o rooster.out
+
+
