@@ -2,11 +2,7 @@
 #define MY_LIBRARY_HPP
 
 #ifdef _WIN32
-    #ifdef BUILDING_DLL
-        #define DLL_EXPORT __declspec(dllexport)
-    #else
-        #define DLL_EXPORT __declspec(dllimport)
-    #endif
+    #define DLL_EXPORT __declspec(dllexport)
 #else
     #define DLL_EXPORT
 #endif
