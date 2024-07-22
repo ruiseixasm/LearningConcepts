@@ -1,0 +1,7 @@
+# How to set the default C++ compiller in VSCode:
+1. Press Ctrl+Shift+p to bring up the Command Pallete
+2. Start typing C/C++...
+3. Choose Edit Configurations UI
+4. Set the C++ version
+
+
