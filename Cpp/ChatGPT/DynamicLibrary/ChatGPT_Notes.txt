@@ -1,0 +1,117 @@
+To verify whether your library was dynamically linked rather than statically linked, you can check a few different
+    aspects of your build and the resulting binaries. Here are some methods to determine if dynamic linkage was used:
+
+During Build:
+CMake Configuration:
+Ensure you used add_library(MyLibrary SHARED ${SRC_SOURCES}) in your CMakeLists.txt to indicate that you want
+    to create a shared (dynamic) library.
+After Build:
+On Linux:
+Check the File Type:
+Use the file command to check the type of the library file:
+
+sh
+Copy code
+    file libMyLibrary.so
+This should output something like:
+
+sh
+Copy code
+    libMyLibrary.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, ...
+Check the Dependencies:
+Use the ldd command to list the dynamic dependencies of your executable:
+
+sh
+Copy code
+    ldd ./bin/MyApp
+This should show a line indicating that libMyLibrary.so is a shared library dependency.
+
+On Windows:
+Check the File Type:
+Simply look at the extension of the library file. A dynamically linked library will have a .dll extension,
+    whereas a statically linked library would typically be part of the executable or have a .lib
+    extension for the static library itself.
+
+Check the Dependencies:
+Use a tool like Dependency Walker to check the dynamic dependencies of your executable:
+
+Open your executable with Dependency Walker.
+Look for MyLibrary.dll in the list of dependencies.
+On macOS:
+Check the File Type:
+Use the file command to check the type of the library file:
+
+sh
+Copy code
+    file libMyLibrary.dylib
+This should output something like:
+
+sh
+Copy code
+    libMyLibrary.dylib: Mach-O 64-bit dynamically linked shared library x86_64
+Check the Dependencies:
+Use the otool command to check the dynamic dependencies of your executable:
+
+sh
+Copy code
+    otool -L ./bin/MyApp
+This should show a line indicating that libMyLibrary.dylib is a shared library dependency.
+
+Example Verification Steps
+Assuming you've built your project, here are the steps for each platform:
+
+Linux:
+sh
+    Copy code
+    cd build/bin
+    file libMyLibrary.so
+    # Should output: libMyLibrary.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, ...
+    ldd MyApp
+    # Should list libMyLibrary.so as a dependency
+Windows:
+Open Command Prompt and navigate to your build directory:
+
+    cmd
+    Copy code
+    cd build\bin
+Verify the file extension:
+
+    cmd
+    Copy code
+    dir MyLibrary.dll
+You should see MyLibrary.dll listed.
+
+Use Dependency Walker:
+
+Open Dependency Walker.
+Load MyApp.exe.
+Check for MyLibrary.dll in the dependency list.
+macOS:
+    sh
+    Copy code
+    cd build/bin
+    file libMyLibrary.dylib
+    # Should output: libMyLibrary.dylib: Mach-O 64-bit dynamically linked shared library x86_64
+    otool -L MyApp
+    # Should list libMyLibrary.dylib as a dependency
+Example of Build and Verification on Linux:
+Here's an example to check if the shared library is dynamically linked in Linux:
+
+Build the project:
+
+    sh
+    Copy code
+    mkdir -p build
+    cd build
+    cmake ..
+    cmake --build .
+Verify the shared library:
+
+    sh
+    Copy code
+    file lib/libMyLibrary.so
+    # Expected output: lib/libMyLibrary.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, ...
+
+    ldd bin/MyApp
+    # Expected to list libMyLibrary.so as a dependency
+Following these steps should confirm that your project is using dynamic linkage for the library.
