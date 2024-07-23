@@ -11,6 +11,8 @@ set(SOURCES
 
 # Create the shared library
 add_library(MyLibrary SHARED ${SOURCES})
+# Add the -fPIC option for position-independent code
+set_target_properties(MyLibrary PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # Set properties for Windows DLL export
 if(WIN32)
