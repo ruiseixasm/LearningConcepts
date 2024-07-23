@@ -29,7 +29,9 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
 
 
 set(LIBRARY_CTYPES "MyLibrary_ctypes")
-add_library(${LIBRARY_CTYPES} SHARED ${SRC_SOURCES})
+# Source files
+set(CTYPES_SOURCES src/my_library_ctypes.cpp)
+add_library(${LIBRARY_CTYPES} SHARED ${CTYPES_SOURCES})
 
 # Link to MyLibrary
 target_link_libraries(${LIBRARY_CTYPES} PRIVATE ${LIBRARY_NAME})
@@ -43,10 +45,7 @@ set_target_properties(${LIBRARY_CTYPES} PROPERTIES
 
 
 # Source files
-set(SOURCES main.cpp)
-
-# Combine all sources
-list(APPEND SOURCES ${LIBRARY_SOURCES})
+set(EXECUTABLE_SOURCES main.cpp src/my_library.cpp)
 
 # Specify the executable name
 if (WIN32) # LINUX is new for CMake VERSION 3.25
@@ -56,7 +55,7 @@ else()
 endif()
 
 # Add the executable target
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
 
 # Link to MyLibrary
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${LIBRARY_NAME})
