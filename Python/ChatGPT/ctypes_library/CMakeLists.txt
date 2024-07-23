@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(MyLibrary)
+project(MyProject)
 
 # Include directories
 include_directories(include)
@@ -19,7 +19,7 @@ endif()
 
 # Specify output directories
 set_target_properties(MyLibrary PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )

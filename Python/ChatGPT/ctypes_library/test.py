@@ -14,7 +14,7 @@ else:  # Assume Linux/Unix
     lib_name = 'libMyLibrary.so'
 
 # Get the absolute path to the library
-lib_path = os.path.abspath(f'./build/bin/{lib_name}')
+lib_path = os.path.abspath(f'./build/lib/{lib_name}')
 
 # Print the library path for debugging
 print(f"Library path: {lib_path}")

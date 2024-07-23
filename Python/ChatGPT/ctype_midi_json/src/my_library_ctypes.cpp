@@ -1,5 +1,5 @@
-#include "my_library_ctypes.h"
+#include "my_library_ctypes.hpp"
 
 int add_ctypes(int a, int b) {
-    return add(a, b);
+    return add_original(a, b);
 }

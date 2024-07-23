@@ -4,21 +4,11 @@ project(MyProject)
 # Include directories
 include_directories(include single_include)
 
-# Set properties for Windows DLL export
-if(WIN32)
-    add_compile_definitions(__WINDOWS_MM__)
-endif()
-
-# Add all source files from the src directory
-file(GLOB SRC_SOURCES "src/*.cpp")
+# Source files
+set(LIBRARY_SOURCES src/my_library.cpp)
 
 set(LIBRARY_NAME "MyLibrary")
-add_library(${LIBRARY_NAME} STATIC ${SRC_SOURCES})
-
-# Set properties for Windows DLL export
-if(WIN32)
-    target_compile_definitions(${LIBRARY_NAME} PRIVATE -DBUILDING_DLL)
-endif()
+add_library(${LIBRARY_NAME} STATIC ${LIBRARY_SOURCES})
 
 # Specify output directories
 set_target_properties(${LIBRARY_NAME} PROPERTIES
@@ -31,37 +21,38 @@ set_target_properties(${LIBRARY_NAME} PROPERTIES
 set(LIBRARY_CTYPES "MyLibrary_ctypes")
 # Source files
 set(CTYPES_SOURCES src/my_library_ctypes.cpp)
-add_library(${LIBRARY_CTYPES} SHARED ${CTYPES_SOURCES})
+
+add_library(MyLibrary_ctypes SHARED ${CTYPES_SOURCES})
 
 # Link to MyLibrary
-target_link_libraries(${LIBRARY_CTYPES} PRIVATE ${LIBRARY_NAME})
+target_link_libraries(MyLibrary_ctypes PRIVATE ${LIBRARY_NAME})
 
 # Specify output directories
-set_target_properties(${LIBRARY_CTYPES} PROPERTIES
+set_target_properties(MyLibrary_ctypes PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
 
+# # Source files
+# set(EXECUTABLE_SOURCES main.cpp src/my_library.cpp)
 
-# Source files
-set(EXECUTABLE_SOURCES main.cpp src/my_library.cpp)
+# # Specify the executable name
+# if (WIN32) # LINUX is new for CMake VERSION 3.25
+#     set(EXECUTABLE_NAME "MyExecutalbe")
+# else()
+#     set(EXECUTABLE_NAME "MyExecutable.out")
+# endif()
 
-# Specify the executable name
-if (WIN32) # LINUX is new for CMake VERSION 3.25
-    set(EXECUTABLE_NAME "MyExecutalbe")
-else()
-    set(EXECUTABLE_NAME "MyExecutable.out")
-endif()
+# # Add the executable target
+# add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
 
-# Add the executable target
-add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
-
-# Link to MyLibrary
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${LIBRARY_NAME})
+# # Link to MyLibrary
+# target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${LIBRARY_NAME})
 
 # Check if we are on Windows
 if (WIN32)  # Try to load ASIO SDK
+    add_compile_definitions(__WINDOWS_MM__)
     target_link_libraries(${LIBRARY_NAME} PRIVATE
             winmm.lib
             ws2_32.lib
