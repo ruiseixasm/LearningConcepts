@@ -11,8 +11,6 @@
     #define DLL_EXPORT
 #endif
 
-extern "C" {
-    DLL_EXPORT void my_function();
-}
+DLL_EXPORT void my_function();
 
 #endif // MY_LIBRARY_HPP
