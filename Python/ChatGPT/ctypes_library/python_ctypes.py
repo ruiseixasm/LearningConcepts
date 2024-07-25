@@ -35,8 +35,9 @@ else:
         result = lib.add_ctypes(3, 4)
         print(f"3 + 4 = {result}")
 
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         print(f"Could not find the library file: {lib_path}")
+        print (e)
     except OSError as e:
         print(f"An error occurred while loading the library: {e}")
     except AttributeError as e:

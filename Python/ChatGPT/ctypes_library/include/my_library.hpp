@@ -11,7 +11,7 @@
     If <iostream> is included then ctypes thows an error,
     if <iostream> isn't included then ctypes works just fine!
 */
-// #include <iostream> // THIS SIMPLE INCLUSION MAKES CTYPES TO FAIL ON WINDOWS
+#include <iostream> // THIS SIMPLE INCLUSION MAKES CTYPES TO FAIL ON WINDOWS
 
 
 extern "C" {
