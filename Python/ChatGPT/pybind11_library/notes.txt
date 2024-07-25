@@ -1,0 +1,91 @@
+My Steps:
+
+Add the path to the user configurations:
+
+set the $PATH variable in the ~/.bashrc file. Example /home/rui/.local/bin
+Find where cmake/pybind11 is with the command:
+find -name "pybind11"
+
+
+Load the .bashrc file with:
+source ~/.bashrc
+
+Verify the installation:
+echo $CMAKE_PREFIX_PATH
+
+
+
+Step 1: Install pybind11
+First, you need to install pybind11. You can install it via pip or from source.
+
+Using pip
+bash
+Copy code
+pip install pybind11
+From source
+Clone the pybind11 repository and install it.
+
+bash
+Copy code
+git clone https://github.com/pybind/pybind11.git
+cd pybind11
+mkdir build
+cd build
+cmake ..
+make install
+Step 2: Specify the Path to pybind11 in CMakeLists.txt
+Add the installation prefix of pybind11 to CMAKE_PREFIX_PATH or set pybind11_DIR to the directory containing pybind11Config.cmake.
+
+You can either modify your CMakeLists.txt file or set these variables in your build environment.
+
+Option 1: Modify CMakeLists.txt
+Add the following lines before the find_package(pybind11 REQUIRED) line in your CMakeLists.txt:
+
+cmake
+Copy code
+set(pybind11_DIR "<path-to-pybind11>/share/cmake/pybind11")
+Replace <path-to-pybind11> with the actual path where pybind11 is installed.
+
+For example, if you installed pybind11 via pip, the path might look something like this:
+
+cmake
+Copy code
+set(pybind11_DIR "/usr/local/lib/python3.8/site-packages/pybind11/share/cmake/pybind11")
+Option 2: Set Environment Variable
+Alternatively, you can set the CMAKE_PREFIX_PATH or pybind11_DIR environment variable in your terminal before running CMake.
+
+For example:
+
+bash
+Copy code
+export CMAKE_PREFIX_PATH=/path/to/pybind11/share/cmake/pybind11
+cmake ..
+make
+Full CMakeLists.txt Example
+Here is a complete example with the pybind11_DIR set:
+
+cmake
+Copy code
+cmake_minimum_required(VERSION 3.12)
+project(MyLibrary)
+
+# Set pybind11_DIR to the location where pybind11 is installed
+set(pybind11_DIR "<path-to-pybind11>/share/cmake/pybind11")
+
+# Find pybind11
+find_package(pybind11 REQUIRED)
+
+# Create the library
+pybind11_add_module(my_library my_library.cpp)
+Replace <path-to-pybind11> with the correct path on your system.
+
+Building the Project
+After making these changes, create a build directory, configure the project, and build it.
+
+bash
+Copy code
+mkdir build
+cd build
+cmake ..
+make
+This should build your my_library shared library, and you can then use it from Python as described earlier.
