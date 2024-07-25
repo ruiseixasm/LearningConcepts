@@ -1,6 +1,9 @@
-import ctypes
 import platform
 import os
+import ctypes
+
+# Determine the directory of the current Python file
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Determine the operating system
 current_os = platform.system()
@@ -13,23 +16,31 @@ elif current_os == "Darwin":  # macOS
 else:  # Assume Linux/Unix
     lib_name = 'libMyLibrary.so'
 
-# Get the absolute path to the library
-lib_path = os.path.abspath(f'./build/lib/{lib_name}')
-
-# Print the library path for debugging
-print(f"Library path: {lib_path}")
+# Construct the full path to the library
+lib_path = os.path.join(script_dir, 'build', 'lib', lib_name)
 
 # Check if the library file exists
 if not os.path.isfile(lib_path):
-    raise FileNotFoundError(f"Could not find the library file: {lib_path}")
+    raise FileNotFoundError(f"COULD NOT FIND THE LIBRARY FILE: {lib_path}")
+else:
+    # Print the library path for debugging
+    print(f"Library FOUND in: {lib_path}")
+    try:
+        # Load the shared library
+        lib = ctypes.CDLL(lib_path)
+        # Define the argument and return types for the C function
+        lib.add_ctypes.argtypes = [ctypes.c_int, ctypes.c_int]
+        lib.add_ctypes.restype = ctypes.c_int
+        # Call the C++ function from Python
+        result = lib.add_ctypes(3, 4)
+        print(f"3 + 4 = {result}")
 
-# Load the shared library
-lib = ctypes.CDLL(lib_path)
+    except FileNotFoundError:
+        print(f"Could not find the library file: {lib_path}")
+    except OSError as e:
+        print(f"An error occurred while loading the library: {e}")
+    except AttributeError as e:
+        print(f"An error occurred while accessing the function: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
-# Define the argument and return types for the C function
-lib.add.argtypes = [ctypes.c_int, ctypes.c_int]
-lib.add.restype = ctypes.c_int
-
-# Call the C++ function from Python
-result = lib.add(3, 4)
-print(f"3 + 4 = {result}")

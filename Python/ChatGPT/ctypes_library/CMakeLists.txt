@@ -5,19 +5,12 @@ project(MyProject)
 include_directories(include)
 
 # Source files
-set(SOURCES
-    src/my_library.cpp
-)
+set(SOURCES src/my_library.cpp)
 
 # Create the shared library
 add_library(MyLibrary SHARED ${SOURCES})
 # Add the -fPIC option for position-independent code
 set_target_properties(MyLibrary PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-# Set properties for Windows DLL export
-if(WIN32)
-    target_compile_definitions(MyLibrary PRIVATE -DBUILDING_DLL)
-endif()
 
 # Specify output directories
 set_target_properties(MyLibrary PROPERTIES
