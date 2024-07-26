@@ -1,5 +1,4 @@
 #include "my_library.hpp"
-#include <pybind11/pybind11.h>
 
 int add(int a, int b) {
     return a + b;
