@@ -51,3 +51,33 @@ sudo apt update
 sudo apt remove libreoffice-base
 sudo apt reinstall libreoffice-core libreoffice-common libreoffice-writer
 
+# Clean up disk space
+# It’s a no-brainer command that you can run from time to time to make some free space on your Ubuntu system:
+sudo apt-get autoremove
+
+# You can remove a program in Ubuntu from the software centre or use the command below with the particular app names:
+sudo apt-get remove package-name1 package-name2
+
+# You can see the size of this cache with the du command below:
+sudo du -sh /var/cache/apt
+
+# Either remove only the outdated packages, like those superseded by a recent update, making them completely unnecessary.
+sudo apt-get autoclean
+
+# Or delete apt cache in its entirety (frees more disk space):
+sudo apt-get clean
+
+# The problem is that over time, these logs take a considerable amount of disk space. You can check the log size with this command:
+journalctl --disk-usage
+
+# Now, there are ways to clean systemd journal logs. The easiest for you is to clear the logs that are older than certain days.
+sudo journalctl --vacuum-time=3d
+
+# You can see the size of this cache with the du command below:
+sudo du -sh /var/cache/apt
+
+# You can check the size of the thumbnail cache with the command below:
+du -sh ~/.cache/thumbnails
+rm -rf ~/.cache/thumbnails/*
+
+
