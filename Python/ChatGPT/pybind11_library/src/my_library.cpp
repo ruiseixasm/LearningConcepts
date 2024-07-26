@@ -1,3 +1,4 @@
+#include "my_library.hpp"
 #include <pybind11/pybind11.h>
 
 int add(int a, int b) {
@@ -5,5 +6,5 @@ int add(int a, int b) {
 }
 
 PYBIND11_MODULE(my_library, m) {
-    m.def("add", &add, "A function that adds two numbers");
+    m.def("add", &add, "A function which adds two numbers");
 }
