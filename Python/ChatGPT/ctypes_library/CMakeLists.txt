@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(MyProject)
 
+# CTYPES DLL LIBRARIES ON WINDOWS HAVE TO BE COMPILED BY VISUAL STUDIO XX
+# IF COMPILED BY GCC THOSE FILES WON'T BE RECOGNIZED BY CTYPES AND WILL RESULT IN ERROR
+
 # Include directories
 include_directories(include)
 
