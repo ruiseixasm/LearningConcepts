@@ -1,0 +1,53 @@
+1. Manually Remove the Extension
+Sometimes, manually removing the extension and reinstalling it can resolve issues. Follow these steps:
+
+Close Visual Studio Code.
+Navigate to the extensions directory.
+Open File Explorer and go to the path:
+makefile
+Copy code
+C:\Users\Utilizador\.vscode\extensions
+Delete the problematic extension folder.
+Find the folder named ms-python.debugpy-2024.10.0-win32-x64 and delete it.
+Restart Visual Studio Code.
+Reinstall the extension.
+Open the Extensions view in VS Code (Ctrl+Shift+X), search for "Python Debugger" or "debugpy", and reinstall the extension.
+2. Clear Extension Cache
+Clearing the extension cache can also help resolve update issues:
+
+Close Visual Studio Code.
+Navigate to the extension cache directory.
+Open File Explorer and go to the path:
+makefile
+Copy code
+C:\Users\Utilizador\AppData\Roaming\Code\CachedExtensionVSIXs
+Delete the cached extension files.
+Delete any files related to the ms-python.debugpy extension.
+Restart Visual Studio Code.
+Reinstall the extension.
+Open the Extensions view in VS Code (Ctrl+Shift+X), search for "Python Debugger" or "debugpy", and reinstall the extension.
+3. Update Visual Studio Code
+Ensure that you are using the latest version of Visual Studio Code:
+
+Check for updates.
+Open Visual Studio Code and go to Help > Check for Updates.
+Install any available updates.
+Restart Visual Studio Code.
+4. Check Permissions
+Make sure you have the necessary permissions to modify the extension files:
+
+Run Visual Studio Code as Administrator.
+Right-click the Visual Studio Code shortcut and select Run as administrator.
+5. Use Command Line
+You can also try to install or update the extension using the command line:
+
+Open Command Prompt or PowerShell.
+Use the code command to install the extension.
+bash
+Copy code
+code --install-extension ms-python.debugpy
+If you do not have the code command in your PATH, you can add it from Visual Studio Code:
+
+Open Visual Studio Code.
+Go to View > Command Palette.
+Type Shell Command: Install 'code' command in PATH and select it.
