@@ -1,4 +1,4 @@
-# configure user credencials
+# configure user credentials
 git config --list --show-origin						# shows all the origin configuration
 git config --global user.name "Rui Monteiro"		# sets the user name
 git config --global user.email johndoe@example.com	# sets the user email
@@ -16,4 +16,12 @@ git push origin main			# or simple git push
 gh auth status
 sudo apt install gh
 gh auth login
+
+# Executing a git pull from a different directory
+git -C <git-working-directory> pull <git remote>
+git -C checkout/myApp/ pull
+git -C ~/GitHub/JsonMidiPlayer pull
+git -C ~/GitHub/JsonMidiCreator pull
+git -C ~/GitHub/LearningConcepts pull
+
 
