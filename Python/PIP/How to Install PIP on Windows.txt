@@ -1,0 +1,14 @@
+# How to Install PIP on Windows?
+
+python --version
+
+
+https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+
+pip --version
+
+# How to Upgrad Pip On Windows?
+
+python -m pip install -U pip
+pip list
