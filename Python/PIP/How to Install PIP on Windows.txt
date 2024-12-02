@@ -12,3 +12,5 @@ pip --version
 
 python -m pip install -U pip
 pip list
+pip list --outdated
+

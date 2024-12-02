@@ -1,0 +1,19 @@
+pip install virtualenv
+virtualenv --version
+pip list
+
+mkdir Environments
+cd Environments
+virtualenv project1_env
+source project1_env/bin/activate
+deactivate
+
+
+cd my-project
+echo %PATH%
+C:\Users\%username%\AppData\Local\Programs\Python\Python312\python.exe
+C:\Users\Utilizador\AppData\Local\Programs\Python\Python312\python.exe
+virtualenv --python C:\Path\To\Python\python.exe venv
+
+.\venv\Scripts\activate
+deactivate
