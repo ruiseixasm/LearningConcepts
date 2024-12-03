@@ -15,8 +15,23 @@ git push -u origin main
 python -m venv /new/location/venv
 pip install -r requirements.txt
 
+<<<<<<< HEAD
 # Tk is a System package that has to be installed at system level
 
 sudo apt update
 sudo apt install python3-tk
 
+=======
+
+
+git clone <repository-url>
+cd <repository-folder>
+
+python -m venv venv
+
+# LINUX
+source venv/bin/activate
+# WINDOWS
+venv\Scripts\activate
+
+pip install -r requirements.txt
