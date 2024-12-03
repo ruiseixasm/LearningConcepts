@@ -35,3 +35,11 @@ source venv/bin/activate
 venv\Scripts\activate
 
 pip install -r requirements.txt
+
+
+# If You Want to Overwrite the Remote File
+
+git add UsefulCommands.txt
+git commit -m "Overwrite UsefulCommands.txt with local version"
+git push --force
+
