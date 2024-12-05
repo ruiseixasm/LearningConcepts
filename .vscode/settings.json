@@ -2,5 +2,11 @@
     "dotnet.defaultSolution": "disable",
     "files.associations": {
         "stdio.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "entrythingy",
+        "offvalue",
+        "onvalue",
+        "textvariable"
+    ]
 }
