@@ -13,4 +13,4 @@ run the command "cmake .." and "build" or "cmake --build ."
 
 Import .dll file into the VBA script:
 Copy the file 'RandomNumber.dll' in the bin folder into the excel folder
-
+Press the Excel first button
