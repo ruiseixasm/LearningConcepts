@@ -6,9 +6,15 @@
     "cSpell.words": [
         "declspec",
         "dllexport",
+        "DREGISTER",
         "entrythingy",
+        "HRESULT",
+        "NOAGGREGATION",
         "offvalue",
         "onvalue",
+        "REFCLSID",
+        "REFIID",
+        "riid",
         "STREQUAL",
         "textvariable"
     ]
