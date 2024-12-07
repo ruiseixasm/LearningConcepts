@@ -1,0 +1,16 @@
+Steps:
+Open your Excel workbook.
+Press Alt + F11 to open the VBA editor.
+Insert a new module (Insert > Module).
+Copy and paste the following VBA code into the module.
+Run the ShowMessageBox subroutine from the VBA editor or by linking it to a button in Excel.
+
+CMake:
+Write the CMakeLists.txt file
+create the folder build
+enter the folder build (cd build)
+run the command "cmake .." and "build" or "cmake --build ."
+
+Import .dll file into the VBA script:
+Copy the file 'RandomNumber.dll' in the bin folder into the excel folder
+

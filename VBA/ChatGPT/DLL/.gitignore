@@ -1,0 +1,3 @@
+/build
+# Ignores any file starting with ~
+~$*

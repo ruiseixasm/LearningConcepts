@@ -4,9 +4,12 @@
         "stdio.h": "c"
     },
     "cSpell.words": [
+        "declspec",
+        "dllexport",
         "entrythingy",
         "offvalue",
         "onvalue",
+        "STREQUAL",
         "textvariable"
     ]
 }
