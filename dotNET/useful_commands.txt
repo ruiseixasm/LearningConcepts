@@ -1,0 +1,3 @@
+dotnet new gitignore
+dotnet -h
+dotnet new list
