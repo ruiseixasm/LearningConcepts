@@ -1,3 +1,25 @@
 dotnet new gitignore
 dotnet -h
 dotnet new list
+
+
+dotnet new sln
+dotnet new console -o DemoApp
+dotnet sln add DemoApp
+dotnet new classlib -o DemoLib
+dotnet sln add DemoLib
+
+cd .\DemoLib\
+dotnet add package Dapper
+cd ..\DemoApp\
+dotnet add reference ..\DemoLib\DemoLib.csproj
+dotnet restore
+dotnet build
+dotnet clean
+dotnet build
+
+dotnet run
+
+dotnet publish -p:PublishSingleFile=true -r win-x64 --self-contained false
+.\bin\Debug\net7.0\win-x64\publish\DemoApp.exe
+
