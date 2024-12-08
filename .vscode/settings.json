@@ -8,6 +8,7 @@
         "dllexport",
         "DREGISTER",
         "entrythingy",
+        "gaierror",
         "HRESULT",
         "NOAGGREGATION",
         "offvalue",
