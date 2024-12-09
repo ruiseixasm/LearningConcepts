@@ -18,6 +18,7 @@
         "REFIID",
         "riid",
         "STREQUAL",
-        "textvariable"
+        "textvariable",
+        "Threadpools"
     ]
 }
