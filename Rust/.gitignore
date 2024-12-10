@@ -1,0 +1,27 @@
+# Compiled binary artifacts
+target/
+
+# Rust package manager lockfile
+# Ignore Cargo.lock if you're writing a library, but commit it for binaries
+Cargo.lock
+
+# IDE-specific settings (e.g., VSCode, IntelliJ, etc.)
+.idea/
+.vscode/
+*.iml
+
+# Temporary files and logs
+*.swp
+*.swo
+*.tmp
+*.log
+*.bk
+
+# macOS-specific files
+.DS_Store
+
+# Windows-specific files
+Thumbs.db
+
+# Node.js dependencies (if applicable)
+node_modules/

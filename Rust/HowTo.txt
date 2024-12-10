@@ -1,0 +1,68 @@
+INSTALL IN WINDOWS:
+
+Download the Rust installer for Windows:
+
+Visit the Rust official website and click "Get Started".
+Download and run the installer (rustup-init.exe).
+During installation:
+
+Choose the default installation (recommended).
+Rust will install the rustc compiler, cargo package manager, and other tools.
+Verify the installation:
+
+Open Command Prompt or PowerShell.
+Run:
+cmd
+Copy code
+rustc --version
+cargo --version
+You should see the installed versions of rustc and cargo.
+
+
+INSTALL IN LINUX:
+
+Step 1: Install Rust
+Open a terminal and run the following command to install Rust:
+
+bash
+Copy code
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+This will install the rustup tool and the latest stable version of Rust.
+Follow the prompts in the terminal to complete the installation.
+After installation, ensure rustc (the Rust compiler) and cargo (Rust's package manager) are in your PATH:
+
+bash
+Copy code
+rustc --version
+cargo --version
+
+
+ADD RUST VSCODE EXTENSION
+
+Step 2: Install the Rust Extension for VSCode
+Open VSCode.
+Go to the Extensions Marketplace (Ctrl + Shift + X or Cmd + Shift + X on Mac).
+Search for "Rust Analyzer" and click Install.
+This extension provides rich IDE features like code completion, linting, and debugging for Rust.
+
+
+
+CREATE A RUST PROJECT
+
+Navigate to the project root folder
+Type "cargo new hello_world"
+
+
+WRITE YOUR RUST PROGRAM
+
+Open the files "src/main.rs"
+Write these lines of code:
+    fn main() {
+        println!("Hello, world!");
+    }
+
+
+RUN THE CREATED PROGRAM
+
+Navigate to the projet folder "hello_world"
+Type "cargo run" to compile and run the program
