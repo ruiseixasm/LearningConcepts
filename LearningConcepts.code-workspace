@@ -1,0 +1,12 @@
+{
+    "folders": [
+        { "path": "C:/Users/Utilizador/Documents/GitHub/LearningConcepts/Rust/ChatGPT/hello_world" },
+        { "path": "C:/Users/Utilizador/Documents/GitHub/LearningConcepts/Rust/YouTube/copy_move" }
+    ],
+    "settings": {
+        "rust-analyzer.linkedProjects": [
+            "C:/Users/Utilizador/Documents/GitHub/LearningConcepts/Rust/ChatGPT/hello_world/Cargo.toml",
+            "C:/Users/Utilizador/Documents/GitHub/LearningConcepts/Rust/YouTube/copy_move/Cargo.toml"
+        ]
+    }
+}
