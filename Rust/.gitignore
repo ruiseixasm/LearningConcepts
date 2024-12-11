@@ -25,3 +25,7 @@ Thumbs.db
 
 # Node.js dependencies (if applicable)
 node_modules/
+
+# Executable files
+*.exe
+*.pdb
