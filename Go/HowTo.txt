@@ -1,0 +1,76 @@
+
+Here’s a step-by-step guide to install Go, set it up in VSCode on Windows 10, and run a simple "Hello, World!" program.
+
+
+Step 1: Install Go
+Download Go:
+
+Visit the official Go downloads page (https://go.dev/dl/).
+Download the installer for Windows (e.g., go1.x.x.windows-amd64.msi).
+Run the Installer:
+
+Double-click the .msi file and follow the installation wizard.
+By default, Go will be installed in C:\Program Files\Go.
+Set Environment Variables:
+
+The installer automatically sets the GOPATH and adds C:\Program Files\Go\bin to your system's PATH.
+To verify, open Command Prompt and run:
+sh
+Copy code
+go version
+You should see the installed Go version.
+
+
+Step 2: Install VSCode and Go Extension
+Install VSCode:
+
+If you haven't already, download and install VSCode from code.visualstudio.com.
+Install the Go Extension:
+
+Open VSCode.
+Go to the Extensions view (Ctrl+Shift+X).
+Search for "Go" (by the Go team) and install it.
+
+
+Step 3: Create a Go Project
+Create a New Folder:
+
+Open File Explorer and create a folder for your Go project (e.g., C:\GoProjects\HelloWorld).
+Set Up Go Workspace:
+
+Open the folder in VSCode (File > Open Folder).
+Inside the folder, create a new file named main.go.
+Write Your Code:
+
+Paste the following code into main.go:
+go
+Copy code
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+
+
+Step 4: Run the Program
+Open a Terminal:
+
+In VSCode, open the integrated terminal (`Ctrl+``).
+Run the Go Program:
+
+Execute the following command:
+    go run main.go
+
+You should see:
+Copy code
+Hello, World!
+
+
+Optional: Build the Program
+To create an executable, run:
+    go build main.go
+This will generate an main.exe file in the project folder.
+Run the executable directly:
+    ./main.exe
