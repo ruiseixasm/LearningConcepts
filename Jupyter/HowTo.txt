@@ -93,3 +93,25 @@ Cost-free: All tools are open-source.
 You’re ready to start working with Jupyter for data analysis! Let me know if you need help setting up your first notebook. 😊
 
 
+
+EXTRAS:
+
+Keep the Notebook Clean
+To avoid committing unwanted outputs (like plots or large cell outputs), you can clean your notebooks
+before staging them for Git. Use one of these approaches:
+
+Manually Clear Outputs:
+
+Open the notebook in Jupyter and use Cell > All Output > Clear.
+Save the notebook before committing.
+
+
+Automate with nbstripout:
+
+Install nbstripout:
+    pip install nbstripout
+
+Set it up for your repository:
+    nbstripout --install
+
+This strips outputs automatically during git add.
