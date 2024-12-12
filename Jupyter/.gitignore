@@ -1,0 +1,56 @@
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Python compiled files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignore environment and package files
+.env
+.venv
+*.env
+*.venv
+*.egg-info/
+.Python
+
+# Ignore virtual environment folders
+env/
+venv/
+ENV/
+ENV.bak/
+venv.bak/
+
+# Ignore data files
+*.csv
+*.tsv
+*.data
+*.dat
+*.log
+*.sql
+*.sqlite3
+
+# Ignore large or raw data files
+*.hdf5
+*.parquet
+*.feather
+*.pickle
+
+# Ignore output plots
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# Ignore machine learning models
+*.model
+*.joblib
+
+# Ignore Jupyter Notebook kernelspec
+*.ipynb.kernelspec
+
+# Ignore Jupyter Notebook output and metadata files
+*.ipynb_checkpoints/
+*.ipynb.kernelspec
