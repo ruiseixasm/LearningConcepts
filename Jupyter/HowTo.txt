@@ -51,6 +51,9 @@ Use pip to install libraries you’ll commonly use in data analysis:
 
 These libraries are essential for data manipulation and visualization.
 
+To work with Excel add this library:
+    pip install openpyxl
+
 For working with Jupyter, also install:
     pip install ipykernel
 
