@@ -24,4 +24,20 @@ git -C ~/GitHub/JsonMidiPlayer pull
 git -C ~/GitHub/JsonMidiCreator pull
 git -C ~/GitHub/LearningConcepts pull
 
+# Create a new branch
+git branch
+git switch -c <branch_name>
+git push origin -u <branch_name>
+
+# Fetch branches on 3rd local repositories
+git fetch --all
+git checkout main
+git pull origin main
+git checkout <branch_name>
+
+# Merge a new branch on main branch
+git switch main
+git merge <branch_name>
+git push
+
 
