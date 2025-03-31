@@ -53,14 +53,16 @@ int main() {
     for (nlohmann::json jsonFloat : json_files_data) {
 
         double json_float = jsonFloat;
-        floats_list_100_cpp.push_back( json_float );
+        floats_list_100_json.push_back( json_float );
     }
 
 
     for (int i = 0; i < 100; ++i) {
 
+        bool equal_floats = floats_list_100_json[i] == floats_list_100_cpp[i];
         std::cout << "float Json: " << floats_list_100_json[i];
-        std::cout << "\tfloat Cpp:  " << floats_list_100_cpp[i] << std::endl;;
+        std::cout << "\t\tfloat Cpp: " << floats_list_100_cpp[i];
+        std::cout << "\t\tequal floats: " << equal_floats << std::endl;
     }
 
     return 0;
