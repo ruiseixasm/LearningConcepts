@@ -27,7 +27,14 @@ int main() {
 
     int numerator_number = 10;
     int denominator_number = 123456;
+    std::vector<double> floats_list_100_cpp;
+    std::vector<double> floats_list_100_json;
 
+    for (int n = 0; n < 100; ++n) {
+        floats_list_100_cpp.push_back(
+            get_float(n * numerator_number, denominator_number)
+        );
+    }
 
     std::stringstream json_files_buffer;
 
@@ -46,8 +53,14 @@ int main() {
     for (nlohmann::json jsonFloat : json_files_data) {
 
         double json_float = jsonFloat;
-        std::cout << "Extracted float: " << json_float << std::endl;
+        floats_list_100_cpp.push_back( json_float );
+    }
 
+
+    for (int i = 0; i < 100; ++i) {
+
+        std::cout << "float Json: " << floats_list_100_json[i];
+        std::cout << "\tfloat Cpp:  " << floats_list_100_cpp[i] << std::endl;;
     }
 
     return 0;
