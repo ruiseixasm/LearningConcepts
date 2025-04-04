@@ -60,7 +60,7 @@ sudo ln -s /etc/alternatives/python3 /usr/bin/python3
 /usr/bin/python --version
 
 # How to add the python to the system path
-# Where <PATH_TO_PYTHON> is 
+# Where <PATH_TO_PYTHON> is usr/bin/python3
 echo export PATH="<PATH_TO_PYTHON>:$PATH" >> ~/.profile
 
 
