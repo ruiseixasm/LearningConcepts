@@ -24,5 +24,15 @@ python3.11 --version
 python3.13 --version
 
 
+# Enter python command line to just make sure pip can be imported
+python3.13
+>>> import pip
+>>> quit()
+
+# Upgrade pip
+python3.13 -m pip install --upgrade pip
+
+# Now, back to the command line, type
+python3.13 -m pip install matplotlib
 
 
