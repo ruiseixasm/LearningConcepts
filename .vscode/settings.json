@@ -3,6 +3,7 @@
     "files.associations": {
         "stdio.h": "c"
     },
+    "python.defaultInterpreterPath": "/usr/bin/python3.13",
     "cSpell.words": [
         "autoremove",
         "binded",

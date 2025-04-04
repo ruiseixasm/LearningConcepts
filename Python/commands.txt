@@ -60,8 +60,120 @@ sudo ln -s /etc/alternatives/python3 /usr/bin/python3
 /usr/bin/python --version
 
 # How to add the python to the system path
-# Where <PATH_TO_PYTHON> is usr/bin/python3
+# Where <PATH_TO_PYTHON> is /usr/bin/python3
 echo export PATH="<PATH_TO_PYTHON>:$PATH" >> ~/.profile
+
+
+# How to make VSCode run /usr/bin/python3.13 instead of /usr/bin/python3
+
+✅ Option 1: Use the Python interpreter selector (Recommended)
+Open VSCode.
+
+Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P).
+
+Type and select: Python: Select Interpreter.
+
+Look for something like:
+
+bash
+Copy
+Edit
+Python 3.13.x (/usr/bin/python3.13)
+Click it to select.
+
+VSCode will now use that interpreter for running and debugging any Python file in that workspace.
+
+✅ Option 2: Set it manually in .vscode/settings.json
+If you want to force VSCode to use /usr/bin/python3.13, add or edit this file in your workspace:
+
+.vscode/settings.json
+
+json
+Copy
+Edit
+{
+  "python.defaultInterpreterPath": "/usr/bin/python3.13"
+}
+You can also use:
+
+json
+Copy
+Edit
+{
+  "python.pythonPath": "/usr/bin/python3.13"
+}
+(still supported in many setups)
+
+✅ Option 3: Create a custom launch configuration
+You can define how the Run/Debug button behaves:
+
+Go to the Run tab (left sidebar).
+
+Click create a launch.json file (if none exists).
+
+Choose Python.
+
+Modify launch.json like this:
+
+json
+Copy
+Edit
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python 3.13 Launch",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "python": "/usr/bin/python3.13",
+      "console": "integratedTerminal"
+    }
+  ]
+}
+
+
+
+# How to clear the apt cache
+
+rui@acer:~/GitHub/LearningConcepts/Python/ChatGPT/matplotlib$ apt-cache search python3. | grep "^python3\."
+python3.10 - Interactive high-level object-oriented language (version 3.10)
+python3.10-dbg - Debug Build of the Python Interpreter (version 3.10)
+python3.10-dev - Header files and a static library for Python (v3.10)
+python3.10-doc - Documentation for the high-level object-oriented language Python (v3.10)
+python3.10-examples - Examples for the Python language (v3.10)
+python3.10-minimal - Minimal subset of the Python language (version 3.10)
+python3.10-full - Python Interpreter with complete class library (version 3.10)
+python3.10-nopie - Python interpreter linked without PIE (version 3.10)
+python3.10-venv - Interactive high-level object-oriented language (pyvenv binary, version 3.10)
+python3.11 - Interactive high-level object-oriented language (version 3.11)
+python3.11-dbg - Debug Build of the Python Interpreter (version 3.11)
+python3.11-dev - Header files and a static library for Python (v3.11)
+python3.11-doc - Documentation for the high-level object-oriented language Python (v3.11)
+python3.11-examples - Examples for the Python language (v3.11)
+python3.11-full - Python Interpreter with complete class library (version 3.11)
+python3.11-minimal - Minimal subset of the Python language (version 3.11)
+python3.11-nopie - Python interpreter linked without PIE (version 3.11)
+python3.11-venv - Interactive high-level object-oriented language (pyvenv binary, version 3.11)
+rui@acer:~/GitHub/LearningConcepts/Python/ChatGPT/matplotlib$ ls /usr/bin/ | grep "^python3"
+python3
+python3.10
+python3.10-config
+python3-config
+python3-qr
+rui@acer:~/GitHub/LearningConcepts/Python/ChatGPT/matplotlib$ 
+
+
+
+sudo apt clean
+sudo apt autoremove
+sudo apt autoclean
+
+# same as
+sudo apt clean && sudo apt autoclean && sudo apt autoremove
+
+
+
 
 
 
