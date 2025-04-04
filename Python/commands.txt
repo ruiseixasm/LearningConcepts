@@ -36,3 +36,32 @@ python3.13 -m pip install --upgrade pip
 python3.13 -m pip install matplotlib
 
 
+# How to find the path to Python
+which python
+cd /usr/bin/python
+
+# Check if it't a broken link (in red it means it is!!!)
+rui@acer:/usr/bin$ ls -l /usr/bin/python3
+lrwxrwxrwx 1 root root 25 Jan 27 14:07 /usr/bin/python3 -> /etc/alternatives/python3
+
+
+# 1. Remove broken links (if they exist)
+sudo rm /usr/bin/python3
+sudo rm /etc/alternatives/python3
+
+# 2. Recreate the alternatives link
+sudo ln -s /usr/bin/python3.10 /etc/alternatives/python3
+
+# 3. Point /usr/bin/python3 to the alternatives link
+sudo ln -s /etc/alternatives/python3 /usr/bin/python3
+
+# 4. Verify it
+/usr/bin/python3 --version
+/usr/bin/python --version
+
+# How to add the python to the system path
+# Where <PATH_TO_PYTHON> is 
+echo export PATH="<PATH_TO_PYTHON>:$PATH" >> ~/.profile
+
+
+

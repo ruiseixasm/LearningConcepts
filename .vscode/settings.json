@@ -4,6 +4,7 @@
         "stdio.h": "c"
     },
     "cSpell.words": [
+        "autoremove",
         "binded",
         "declspec",
         "dllexport",
