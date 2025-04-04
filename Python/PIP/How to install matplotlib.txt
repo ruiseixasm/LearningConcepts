@@ -1,0 +1,6 @@
+sudo apt-get install python3-matplotlib
+python3 --version
+pip3 --version
+sudo apt-get install python3-pip  # For Debian/Ubuntu
+pip3 install matplotlib
+sudo apt-get install python3-matplotlib
