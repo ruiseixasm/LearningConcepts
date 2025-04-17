@@ -80,10 +80,26 @@ sudo du -sh /var/cache/apt
 du -sh ~/.cache/thumbnails
 rm -rf ~/.cache/thumbnails/*
 
-
+sudo apt clean
+sudo apt autoclean
 
 sudo apt-get clean
 sudo apt-get autoremove --purge
 
 # Removes too big Flatpak files
 flatpak remove --unused
+
+# Check folders with big sizes
+sudo du -h --max-depth=1 /var | sort -h
+
+# Trim the journalctl logs
+sudo du -h /var/log | sort -h | tail -n 10
+sudo journalctl --vacuum-size=100M
+
+sudo nano /etc/systemd/journald.conf
+# And set to
+SystemMaxUse=100M
+
+# Then do
+sudo systemctl restart systemd-journald
+
