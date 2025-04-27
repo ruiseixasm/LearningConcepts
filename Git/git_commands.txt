@@ -1,3 +1,7 @@
+# Cloning a repository
+git clone https://github.com/ruiseixasm/JsonTalkie.git
+
+
 # configure user credentials
 git config --list --show-origin						# shows all the origin configuration
 git config --global user.name "Rui Monteiro"		# sets the user name
