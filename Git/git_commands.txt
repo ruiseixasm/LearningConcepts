@@ -1,6 +1,13 @@
 # Cloning a repository
 git clone https://github.com/ruiseixasm/JsonTalkie.git
 
+# When .gitignore still doesn't ignore
+git ls-files
+# On specific file
+git rm --cached unwanted_file
+# All files altogether in .
+git rm -r --cached .
+git add .
 
 # configure user credentials
 git config --list --show-origin						# shows all the origin configuration
