@@ -30,12 +30,15 @@ const Run Manifesto::runCommands[] = {
 };
 const size_t Manifesto::runSize = sizeof(Manifesto::runCommands) / sizeof(Run);
 
-const Set setCommands[] = {
-    {"duration", "Sets duration", &setDuration}
+const Set Manifesto::setCommands[] = {
+    {"duration", "Sets duration", setDuration}
 };
-const Get getCommands[] = {
-    {"duration", "Gets duration", &getDuration}
+const size_t Manifesto::setSize = sizeof(Manifesto::setCommands) / sizeof(Set);
+
+const Get Manifesto::getCommands[] = {
+    {"duration", "Gets duration", getDuration}
 };
+const size_t Manifesto::getSize = sizeof(Manifesto::getCommands) / sizeof(Get);
 
 
 // JsonTalkie json_talkie(&manifesto)
