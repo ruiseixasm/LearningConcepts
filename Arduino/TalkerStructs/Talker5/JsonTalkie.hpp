@@ -54,9 +54,7 @@ struct Manifesto {
     static const size_t setSize;        // Declaration only
     static const Get getCommands[];
     static const size_t getSize;        // Declaration only
-    // const bool (*echo)(StaticJsonDocument<256> *message, const char* response); // 256 bytes
-
-
+    static bool (*echo)(StaticJsonDocument<256>*, const char*);
 };
 
 // // Triggering methods definitions

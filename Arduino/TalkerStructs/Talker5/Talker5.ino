@@ -24,8 +24,9 @@ const char* getDuration() {
     return buffer;
 }
 
+
 // Define the commands (stored in RAM)
-const Talker Manifesto::talker =  {
+const Talker Manifesto::talker = {
     'Buzzer', 'This device does a 500ms buzz!'
 };
 
@@ -44,6 +45,12 @@ const Get Manifesto::getCommands[] = {
 };
 const size_t Manifesto::getSize = sizeof(Manifesto::getCommands) / sizeof(Get);
 
+// Alternative: Direct lambda assignment (C++11)
+bool (*Manifesto::echo)(StaticJsonDocument<256>*, const char*) = 
+    [](StaticJsonDocument<256>* msg, const char* res) {
+        Serial.println((*msg)["response"].as<String>()); // The magic fix
+        return true;
+    };
 
 // JsonTalkie json_talkie(&manifesto)
 
