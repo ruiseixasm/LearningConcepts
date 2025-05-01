@@ -25,6 +25,10 @@ const char* getDuration() {
 }
 
 // Define the commands (stored in RAM)
+const Talker Manifesto::talker =  {
+    'Buzzer', 'This device does a 500ms buzz!'
+};
+
 const Run Manifesto::runCommands[] = {
     {"buzz", "Triggers buzzing", buzz}
 };

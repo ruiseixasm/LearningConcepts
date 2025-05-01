@@ -47,13 +47,13 @@ struct Manifesto {
     // Storage	Typically flash/PROGMEM	Typically RAM
     // Arduino AVR	Needs special handling	Just works
 
-    // static const Talker talker;     // Declaration only
+    static const Talker talker;         // Declaration only
     static const Run runCommands[];     // Declaration only
-    static const size_t runSize;       // Declaration only
+    static const size_t runSize;        // Declaration only
     static const Set setCommands[];
-    static const size_t setSize;       // Declaration only
+    static const size_t setSize;        // Declaration only
     static const Get getCommands[];
-    static const size_t getSize;       // Declaration only
+    static const size_t getSize;        // Declaration only
     // const bool (*echo)(StaticJsonDocument<256> *message, const char* response); // 256 bytes
 
 
