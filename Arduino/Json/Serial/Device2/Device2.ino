@@ -1,9 +1,16 @@
 #include <ArduinoJson.h>
 
+// Buzzer pin
+#define buzzer_pin 3
+
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(buzzer_pin, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
+//   digitalWrite(buzzer_pin, HIGH);
+//   delay(5);
+//   digitalWrite(buzzer_pin, LOW);
   delay(2000);
   digitalWrite(LED_BUILTIN, LOW);
 }
@@ -15,6 +22,10 @@ void loop() {
         String request = Serial.readStringUntil('\n');
         if (request.length() > 0) {  // Proper empty check
             
+            digitalWrite(buzzer_pin, HIGH);
+            delay(100);
+            digitalWrite(buzzer_pin, LOW);
+
             // Visual feedback
             digitalWrite(LED_BUILTIN, HIGH);
             
