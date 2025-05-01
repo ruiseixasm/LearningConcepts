@@ -57,10 +57,10 @@ struct Manifesto {
     static bool (*echo)(StaticJsonDocument<256>*, const char*);
 };
 
-// // Triggering methods definitions
-// const struct* talk() {
-//     return &talker;
-// }
+// Triggering methods definitions
+const Talker* talk() {
+    return &Manifesto::talker;
+}
 
 const char* run(const char* cmd) {
     for (int index = 0; index < Manifesto::runSize; ++index) {
@@ -71,23 +71,24 @@ const char* run(const char* cmd) {
     return "Command not found";
 }
 
-// const char* set(const char* cmd, const char* value) {
-//     for (const Set& c : setCommands) {
-//         if (strcmp(cmd, c.name) == 0) {
-//             return (this->*c.function)(value);  // Call the function
-//         }
-//     }
-//     return "Command not found";
-// }
+const char* set(const char* cmd, const char* value) {
+    for (int index = 0; index < Manifesto::runSize; ++index) {
+        if (strcmp(cmd, Manifesto::setCommands[index].name) == 0) {
+            return (Manifesto::setCommands[index].function)(value);  // Call the function
+        }
+    }
+    return "Command not found";
+}
 
-// const char* get(const char* cmd) {
-//     for (const Get& c : getCommands) {
-//         if (strcmp(cmd, c.name) == 0) {
-//             return (this->*c.function)();  // Call the function
-//         }
-//     }
-//     return "Command not found";
-// }
+const char* get(const char* cmd) {
+    for (int index = 0; index < Manifesto::runSize; ++index) {
+        if (strcmp(cmd, Manifesto::getCommands[index].name) == 0) {
+            return (Manifesto::getCommands[index].function)();  // Call the function
+        }
+    }
+    return "Command not found";
+}
+
 
 // Class Implementation
 class JsonTalkie {
