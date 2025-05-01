@@ -34,50 +34,60 @@ char* floatToStr(float val, uint8_t decimals = 2) {
     return buffer;
 }
 
-
 // Structure Definition
 struct Manifesto {
 
+    // constexpr means "compile-time constant"
+    // Plain const doesn't guarantee compile-time initialization
     // Device variables
-    Talker talker;
-    Run runCommands[];
-    Set setCommands[];
-    Get getCommands[];
-    const bool (*echo)(StaticJsonDocument<256> *message, const char* response); // 256 bytes
+
+    // Feature	constexpr	const
+    // Initialization timing	Compile-time	Runtime (or link-time)
+    // Type requirements	Must be literal type	Any type
+    // Storage	Typically flash/PROGMEM	Typically RAM
+    // Arduino AVR	Needs special handling	Just works
+
+    // static const Talker talker;     // Declaration only
+    static const Run runCommands[];     // Declaration only
+    static const size_t runSize;       // Declaration only
+    // static const Set setCommands[];
+    // static const Get getCommands[];
+    // const bool (*echo)(StaticJsonDocument<256> *message, const char* response); // 256 bytes
 
 
-    // Triggering methods definitions
-    const struct* talk() {
-        return &talker;
-    }
-
-    const char* run(const char* cmd) {
-        for (const Run& c : runCommands) {
-            if (strcmp(cmd, c.name) == 0) {
-                return (this->*c.function)();  // Call the function
-            }
-        }
-        return "Command not found";
-    }
-
-    const char* set(const char* cmd, const char* value) {
-        for (const Set& c : setCommands) {
-            if (strcmp(cmd, c.name) == 0) {
-                return (this->*c.function)(value);  // Call the function
-            }
-        }
-        return "Command not found";
-    }
-
-    const char* get(const char* cmd) {
-        for (const Get& c : getCommands) {
-            if (strcmp(cmd, c.name) == 0) {
-                return (this->*c.function)();  // Call the function
-            }
-        }
-        return "Command not found";
-    }
 };
+
+// // Triggering methods definitions
+// const struct* talk() {
+//     return &talker;
+// }
+
+const char* run(const char* cmd) {
+    for (int index = 0; index < Manifesto::runSize; ++index) {
+        if (strcmp(cmd, Manifesto::runCommands[index].name) == 0) {
+            return (Manifesto::runCommands[index].function)();  // Call the function
+        }
+    }
+    return "Command not found";
+}
+
+// const char* set(const char* cmd, const char* value) {
+//     for (const Set& c : setCommands) {
+//         if (strcmp(cmd, c.name) == 0) {
+//             return (this->*c.function)(value);  // Call the function
+//         }
+//     }
+//     return "Command not found";
+// }
+
+// const char* get(const char* cmd) {
+//     for (const Get& c : getCommands) {
+//         if (strcmp(cmd, c.name) == 0) {
+//             return (this->*c.function)();  // Call the function
+//         }
+//     }
+//     return "Command not found";
+// }
 
 // Class Implementation
 class JsonTalkie {

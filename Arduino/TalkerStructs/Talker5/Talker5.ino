@@ -1,10 +1,6 @@
 #include "JsonTalkie.hpp"
 
 
-Manifesto manifesto;
-JsonTalkie json_talkie(&manifesto)
-
-
 float _duration = 0.5f;  // Example variable
 
 // Command implementations
@@ -28,21 +24,27 @@ const char* getDuration() {
     return buffer;
 }
 
+// Define the commands (stored in RAM)
+const Run Manifesto::runCommands[] = {
+    {"buzz", "Triggers buzzing", buzz}
+};
+const size_t Manifesto::runSize = sizeof(Manifesto::runCommands) / sizeof(Run);
+
+const Set setCommands[] = {
+    {"duration", "Sets duration", &setDuration}
+};
+const Get getCommands[] = {
+    {"duration", "Gets duration", &getDuration}
+};
+
+
+// JsonTalkie json_talkie(&manifesto)
+
 
 void setup() {
     Serial.begin(9600);
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
-
-    manifesto.runCommands = {
-        {"buzz", "Triggers buzzing", &buzz}
-    }
-    manifesto.setCommands = {
-        {"duration", "Sets duration", &setDuration}
-    }
-    manifesto.getCommands = {
-        {"duration", "Gets duration", &getDuration}
-    }
 
 
 }
