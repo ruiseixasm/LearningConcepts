@@ -1,7 +1,17 @@
 {
     "dotnet.defaultSolution": "disable",
     "files.associations": {
-        "stdio.h": "c"
+        "*.txt": "cmake",
+        "stdio.h": "c",
+        "format": "cpp",
+        "future": "cpp",
+        "istream": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp"
     },
     "python.defaultInterpreterPath": "/usr/bin/python3.13",
     "cSpell.words": [
