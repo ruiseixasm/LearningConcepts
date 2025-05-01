@@ -44,7 +44,7 @@ void loop() {
                 Serial.println();  // Terminator matching request format
                 delay(5000);
             }
+            digitalWrite(LED_BUILTIN, LOW);  // End of processing
         }
-        digitalWrite(LED_BUILTIN, LOW);  // End of processing
     }
 }

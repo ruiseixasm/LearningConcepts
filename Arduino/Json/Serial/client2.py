@@ -15,5 +15,6 @@ while time.time() - start_reading < 5:
     response = ser.readline().decode().strip()
     if response:
         print("Received:", json.loads(response))
+        break
 
 ser.close()
