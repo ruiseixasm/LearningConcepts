@@ -21,7 +21,7 @@ void setup() {
     // Open serial communications and wait for port to open:
     Serial.begin(9600);
     while (!Serial)
-    ;
+        ;
 
     delay(2000);
 
@@ -41,11 +41,11 @@ void setup() {
     // start the Ethernet
     Ethernet.begin(mac, localIP);
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-    Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-    while (true) delay(1);  // do nothing, no point running without Ethernet hardware
+        Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+        while (true) delay(1);  // do nothing, no point running without Ethernet hardware
     }
     if (Ethernet.linkStatus() == LinkOFF) {
-    Serial.println("Ethernet cable is not connected.");
+        Serial.println("Ethernet cable is not connected.");
     }
     Udp.begin(localPort);  // start UDP
     Serial.print("Ethernet UDP started ");
