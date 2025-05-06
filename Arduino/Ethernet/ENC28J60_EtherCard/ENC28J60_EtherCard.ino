@@ -1,6 +1,9 @@
 #include <EtherCard.h>
 #include <enc28j60.h>   // <- expose enc28j60Read() and EREVID
 
+// #include <UIPEthernet.h>
+// #include <EthernetUdp.h>
+
 #define EREVID 0x12     // Already defined in enc28j60.h, but harmless here
 
 // Test it this way:
@@ -83,9 +86,9 @@ void setup() {
         while (1);
     }
 
-    uint8_t revID = enc28j60Read(EREVID);
-    Serial.print("ENC28J60 Rev ID: 0x");
-    Serial.println(revID, HEX);
+    // uint8_t revID = enc28j60Read(EREVID);
+    // Serial.print("ENC28J60 Rev ID: 0x");
+    // Serial.println(revID, HEX);
 
     ether.enableBroadcast();
     ether.udpServerListenOnPort(udpCallback, UDP_PORT);
