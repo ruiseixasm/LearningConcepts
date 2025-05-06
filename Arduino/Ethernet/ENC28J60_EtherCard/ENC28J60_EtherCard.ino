@@ -18,7 +18,7 @@ static byte broadcastIP[]   = { 192,168,31,255 }; // Use this instead of 255.255
 
         // Basic packetLoop() + UDP server setup
 // Ethernet buffer
-#define BUFFER_SIZE 350
+#define BUFFER_SIZE 500
 byte Ethernet::buffer[BUFFER_SIZE];
 
 const uint16_t UDP_PORT = 5005;
