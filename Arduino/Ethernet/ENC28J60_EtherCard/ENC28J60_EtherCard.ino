@@ -82,7 +82,7 @@ void loop() {
     ether.packetLoop(ether.packetReceive());
 
     static uint32_t lastSend = 0;
-    if (millis() - lastSend >= 5000) {
+    if (millis() - lastSend >= 39000) {
         lastSend = millis();
         ether.sendUdp(testMessage, strlen(testMessage), UDP_PORT, broadcastIP, UDP_PORT);
         Serial.println("Broadcast sent");
