@@ -2,7 +2,7 @@
 
 
 // Test it this way:
-//     echo "TEST" | nc -u 192.168.31.99 5005
+//     echo "TEST" | nc -u 192.168.31.255 5005
 
 
 // Buzzer pin
