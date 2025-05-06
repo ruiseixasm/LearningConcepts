@@ -39,7 +39,7 @@ const char page[] PROGMEM =
 ;
 
 void setup(){
-  Serial.begin(57600);
+  Serial.begin(9600);
   Serial.println("\n[backSoon]");
 
   // Change 'SS' to your Slave Select pin, if you arn't using the default pin
