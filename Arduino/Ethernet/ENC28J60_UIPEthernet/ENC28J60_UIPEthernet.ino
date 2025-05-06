@@ -2,7 +2,7 @@
 #include <EthernetUdp.h>
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 1, 99);
+IPAddress ip(192, 168, 31, 99);
 EthernetUDP Udp;
 unsigned int localPort = 5005;
 
@@ -25,7 +25,7 @@ void loop() {
   static unsigned long lastSend = 0;
   if (millis() - lastSend > 5000) {
     lastSend = millis();
-    Udp.beginPacket(IPAddress(192,168,1,255), 5005);
+    Udp.beginPacket(IPAddress(192,168,31,255), 5005);
     Udp.write("Hello from Nano!");
     Udp.endPacket();
     Serial.println("Broadcast Sent");
