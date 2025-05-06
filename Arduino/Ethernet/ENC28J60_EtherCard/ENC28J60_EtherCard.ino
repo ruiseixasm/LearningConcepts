@@ -55,6 +55,14 @@ static void udpCallback(uint16_t src_port, uint8_t* src_ip, uint16_t dst_port, c
     buzz(100);
 }
 
+// // Helper function to read revision ID
+// uint8_t readRevID() {
+//     uint8_t revID = 0;
+//     ether.enc28j60PhyWrite(PHLCON, 0x0000); // Dummy PHY write (triggers revision read)
+//     revID = ether.enc28j60PhyRead(PHLCON) & 0xFF; // Lower byte contains revision
+//     return revID;
+// }
+
 void setup() {
     Serial.begin(9600);
     while (!Serial);
@@ -67,6 +75,10 @@ void setup() {
         while (1);
     }
 
+    // // Read revision ID (alternative method)
+    // uint8_t revID = readRevID();
+    // Serial.print("ENC28J60 Rev: "); Serial.println(revID, HEX); // Should print 0x04, 0x06, etc.
+        
     if (!ether.staticSetup(myIp, 0, 0, netmask)) {
         Serial.println("Failed to set static IP");
         while (1);
