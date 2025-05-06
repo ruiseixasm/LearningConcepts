@@ -1,5 +1,5 @@
 #include <UIPEthernet.h>
-#include <EthernetUdp.h>
+#include <UIPUdp.h>  // If using UDP
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192, 168, 31, 99);
