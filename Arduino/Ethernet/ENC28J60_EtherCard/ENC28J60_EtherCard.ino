@@ -24,52 +24,47 @@ byte Ethernet::buffer[BUFFER_SIZE];
 const uint16_t UDP_PORT = 5005;
 const char* testMessage = "Hello from Nano!";
 
-// ----- UDP Callback -----
-bool udpCallback(uint8_t* data, uint16_t len, uint16_t srcPort, uint8_t* srcIp) {
-  Serial.print("Received UDP packet from ");
+// Corrected callback
+static void udpCallback(uint16_t src_port, uint8_t* src_ip, uint16_t dst_port, const char* data, uint16_t len) {
+  Serial.print("UDP from ");
   for (byte i = 0; i < 4; i++) {
-    Serial.print(srcIp[i]);
-    if (i < 3) Serial.print('.');
+    Serial.print(src_ip[i]);
+    if (i < 3) Serial.print(".");
   }
   Serial.print(":");
-  Serial.print(srcPort);
+  Serial.print(src_port);
   Serial.print(" -> ");
-  for (uint16_t i = 0; i < len; ++i) {
-    Serial.write(data[i]);
-  }
+  Serial.write(data, len);
   Serial.println();
-  return true;
 }
 
-// ----- Setup -----
 void setup() {
   Serial.begin(9600);
-  delay(1000);
-
+  while (!Serial);
+  
   if (!ether.begin(BUFFER_SIZE, myMac, 10)) {
     Serial.println("Failed to access ENC28J60");
     while (1);
   }
 
   if (!ether.staticSetup(myIp, 0, 0, netmask)) {
-    Serial.println("Failed to configure static IP");
+    Serial.println("Failed to set static IP");
     while (1);
   }
 
-  ether.enableBroadcast();  // Enable broadcast reception
-  ether.udpServerListenOnPort(&udpCallback, UDP_PORT);
-
-  Serial.println("Setup complete. Sending broadcast every 5 seconds.");
+  ether.enableBroadcast();
+  ether.udpServerListenOnPort(udpCallback, UDP_PORT);
+  
+  Serial.println("Ready. Sending broadcasts...");
 }
 
-// ----- Loop -----
 void loop() {
   ether.packetLoop(ether.packetReceive());
 
-  static unsigned long lastSend = 0;
-  if (millis() - lastSend > 5000) {
+  static uint32_t lastSend = 0;
+  if (millis() - lastSend >= 5000) {
     lastSend = millis();
-    ether.sendUdp((char*)testMessage, strlen(testMessage), UDP_PORT, broadcastIP, UDP_PORT);
-    Serial.println("UDP broadcast sent");
+    ether.sendUdp(testMessage, strlen(testMessage), UDP_PORT, broadcastIP, UDP_PORT);
+    Serial.println("Broadcast sent");
   }
 }
