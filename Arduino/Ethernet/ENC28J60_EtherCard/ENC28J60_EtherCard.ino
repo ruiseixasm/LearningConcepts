@@ -23,7 +23,7 @@ void buzz(size_t duration = 5) {
 
 // Network configuration
 static byte myMac[]         = { 0x74,0x69,0x69,0x2D,0x30,0x31 };
-static byte myIp[]          = { 192,168,31,99 };
+static byte myIp[]          = { 192,168,31,100 };
 static byte netmask[]       = { 255,255,255,0 };
 static byte broadcastIP[]   = { 192,168,31,255 }; // Use this instead of 255.255.255.255
 
@@ -39,7 +39,7 @@ static byte broadcastIP[]   = { 192,168,31,255 }; // Use this instead of 255.255
 
         // Basic packetLoop() + UDP server setup
 // Ethernet buffer
-#define BUFFER_SIZE 500
+#define BUFFER_SIZE 256 // Typical UDP payloads (<256 bytes)
 byte Ethernet::buffer[BUFFER_SIZE];
 
 const uint16_t UDP_PORT = 5005;
