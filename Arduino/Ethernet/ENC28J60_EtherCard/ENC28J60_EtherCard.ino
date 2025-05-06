@@ -1,5 +1,5 @@
 #include <EtherCard.h>
-
+#include <enc28j60.h>
 
 // Test it this way:
 //     echo "TEST" | nc -u 192.168.31.255 5005
@@ -63,6 +63,10 @@ static void udpCallback(uint16_t src_port, uint8_t* src_ip, uint16_t dst_port, c
 //     return revID;
 // }
 
+
+// extern uint8_t enc28j60Read(uint8_t address);  // Forward declaration
+#define EREVID 0x12  // ENC28J60 Revision ID register address
+
 void setup() {
     Serial.begin(9600);
     while (!Serial);
@@ -74,6 +78,12 @@ void setup() {
         Serial.println("Failed to access ENC28J60");
         while (1);
     }
+
+    // // Now it's safe to read the revision register
+    // uint8_t revID = enc28j60Read(EREVID);
+    // Serial.print("ENC28J60 Rev: 0x");
+    // Serial.println(revID, HEX);
+
 
     // // Read revision ID (alternative method)
     // uint8_t revID = readRevID();
