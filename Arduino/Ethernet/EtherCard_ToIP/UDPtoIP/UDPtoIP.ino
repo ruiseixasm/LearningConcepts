@@ -1,8 +1,11 @@
 #include <EtherCard.h>
 
 // Network settings
-byte mymac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};    // MAC address
-byte myip[] = {192, 168, 31, 100};                      // Arduino IP
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};      // MAC address
+byte my_ip[] = {192, 168, 31, 100};                     // Arduino IP
+byte gw_ip[] = {192, 168, 31, 77};                      // IP of the main router, gateway
+byte dns_ip[] = {192, 168, 31, 77};                     // DNS address is the same as the gateway router
+byte mask[] = {255, 255, 255, 0};                       // NEEDED FOR NETWORK BROADCAST
 const uint16_t PORT = 5005;                             // UDP port
 
 // Ethernet buffer
@@ -13,13 +16,13 @@ void setup() {
     Serial.println("\n");
 
     // Initialize Ethernet (CS pin = 10 for Uno)
-    if (!ether.begin(sizeof(Ethernet::buffer), mymac, 10)) {
+    if (!ether.begin(sizeof(Ethernet::buffer), mac, 10)) {
         Serial.println("Failed to initialize ENC28J60!");
         while(1);
     }
     
     // Set static IP (disable DHCP)
-    ether.staticSetup(myip);
+    ether.staticSetup(my_ip, gw_ip, dns_ip, mask);
     
     Serial.println("Ethernet initialized");
 }
@@ -40,7 +43,7 @@ void loop() {
         PORT                    // Destination port
     );
     
-    // 2. DOESN'T WORK :(
+    // 2. IT WORKS :)
 
     const char* data_network = "2. Network Address!";
     const byte network_ip[] = {192, 168, 31, 255};      // Network destination IP (broadcast)
