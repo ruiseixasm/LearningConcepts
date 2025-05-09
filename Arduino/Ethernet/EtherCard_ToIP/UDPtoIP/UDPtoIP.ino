@@ -28,13 +28,13 @@ void loop() {
     
     // 1. DOESN'T WORK :(
 
-    const char* data_specific = "1. Single Address!";
+    const char* data_single = "1. Single Address!";
     const byte single_ip[]  = {192, 168, 31, 22};       // Single destination IP
     delay(2000); // Send every 2 seconds
-    Serial.println(data_specific);
+    Serial.println(data_single);
     ether.sendUdp(
-        data_specific,          // Payload
-        strlen(data_specific),  // Length
+        data_single,            // Payload
+        strlen(data_single),    // Length
         PORT,                   // Source port
         single_ip,              // Destination IP
         PORT                    // Destination port
