@@ -21,8 +21,25 @@ void setup() {
         while(1);
     }
     
-    // Set static IP (disable DHCP)
-    ether.staticSetup(my_ip, gw_ip, dns_ip, mask);
+    // // Set static IP (disable DHCP)
+    // ether.staticSetup(my_ip, gw_ip, dns_ip, mask);
+        
+    // DHCP Configuration
+    Serial.println("Requesting DHCP lease...");
+    if (!ether.dhcpSetup()) {
+        Serial.println("DHCP failed!");
+        while(1);
+    }
+
+    // Print network configuration
+    Serial.println("DHCP assigned configuration:");
+    Serial.print("IP: "); ether.printIp(ether.myip); Serial.println();
+    Serial.print("GW: "); ether.printIp(ether.gwip); Serial.println();
+    Serial.print("DNS: "); ether.printIp(ether.dnsip); Serial.println();
+    Serial.print("NETMASK: "); ether.printIp(ether.netmask); Serial.println();
+
+    // Makes sure it allows broadcast
+    ether.enableBroadcast();
     
     Serial.println("Ethernet initialized");
 }
