@@ -61,8 +61,8 @@ void loop() {
     delay(2000); // Send every 2 seconds
     Serial.println(data_global);
     ether.sendUdp(
-        data_global,         // Payload
-        strlen(data_global), // Length
+        data_global,            // Payload
+        strlen(data_global),    // Length
         PORT,                   // Source port
         global_ip,              // Destination IP
         PORT                    // Destination port
