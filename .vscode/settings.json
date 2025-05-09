@@ -12,7 +12,8 @@
         "xlocmon": "cpp",
         "xlocnum": "cpp",
         "xloctime": "cpp",
-        "cstddef": "cpp"
+        "cstddef": "cpp",
+        "ostream": "cpp"
     },
     "python.defaultInterpreterPath": "/usr/bin/python3.13",
     "cSpell.words": [
