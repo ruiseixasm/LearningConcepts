@@ -1,5 +1,7 @@
 #include <EtherCard.h>
 
+#define USE_STATIC_IP
+
 // Network settings
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};      // MAC address
 byte my_ip[] = {192, 168, 31, 100};                     // Arduino IP
@@ -21,9 +23,10 @@ void setup() {
         while(1);
     }
     
-    // // Set static IP (disable DHCP)
-    // ether.staticSetup(my_ip, gw_ip, dns_ip, mask);
-        
+    #ifdef USE_STATIC_IP    
+    // Set static IP (disable DHCP)
+    ether.staticSetup(my_ip, gw_ip, dns_ip, mask);
+    #else
     // DHCP Configuration
     Serial.println("Requesting DHCP lease...");
     if (!ether.dhcpSetup()) {
@@ -37,6 +40,7 @@ void setup() {
     Serial.print("GW: "); ether.printIp(ether.gwip); Serial.println();
     Serial.print("DNS: "); ether.printIp(ether.dnsip); Serial.println();
     Serial.print("NETMASK: "); ether.printIp(ether.netmask); Serial.println();
+    #endif
 
     // Makes sure it allows broadcast
     ether.enableBroadcast();
@@ -46,7 +50,8 @@ void setup() {
 
 void loop() {
     
-    // 1. DOESN'T WORK :(
+    // 1. WORKS AFTER SETTING THE DESTINATION PC ADDRESS AS DHCP INSTEAD OF STATIC :/
+    // (EFFECT NOT IMMEDIATE THOUGH)
 
     const char* data_single = "1. Single Address!";
     const byte single_ip[]  = {192, 168, 31, 22};       // Single destination IP
