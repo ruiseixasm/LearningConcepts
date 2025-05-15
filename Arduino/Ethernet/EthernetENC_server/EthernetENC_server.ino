@@ -8,7 +8,7 @@ byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 EthernetServer server(8080);  // Port 8080
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   
   // Start Ethernet connection
   if (Ethernet.begin(mac) == 0) {
