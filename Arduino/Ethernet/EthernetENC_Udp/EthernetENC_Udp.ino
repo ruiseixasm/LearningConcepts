@@ -48,7 +48,7 @@ void loop() {
     // Check for incoming packets
     int packetSize = udp.parsePacket();
     if (packetSize > 0) {
-        char packet[64];
+        char packet[128];
         udp.read(packet, sizeof(packet));
         Serial.print("From ");
         Serial.print(udp.remoteIP());
