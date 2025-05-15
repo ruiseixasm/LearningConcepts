@@ -7,8 +7,12 @@ IPAddress ip(192, 168, 31, 100);       // Arduino IP
 IPAddress subnet(255, 255, 255, 0);   // Network mask
 IPAddress gateway(192, 168, 31, 77);    // Router IP (if needed)
 const unsigned int UDP_PORT = 5005;
+IPAddress target(192, 168, 31, 172);                // Target PC IP
+IPAddress broadcast(255, 255, 255, 255); // Broadcast address
 
 EthernetUDP udp;
+unsigned long lastSendTime = 0;
+const unsigned long INTERVAL = 5000; // 5 seconds
 
 void setup() {
     Serial.begin(9600);
@@ -18,7 +22,7 @@ void setup() {
     
     // Start UDP
     if (udp.begin(UDP_PORT)) {
-        Serial.print("UDP active on ");
+        Serial.print("\n\nUDP active on ");
         Serial.println(Ethernet.localIP());
     } else {
         Serial.println("UDP failed!");
@@ -26,29 +30,29 @@ void setup() {
 }
 
 void loop() {
+    // Send "Hello" every 5 seconds
+    if (millis() - lastSendTime >= INTERVAL) {
+        if (random(2) % 2 == 0) {
+            udp.beginPacket(target, UDP_PORT);
+            Serial.println("Direct hello");
+            udp.write("Direct hello");
+        } else {
+            udp.beginPacket(broadcast, UDP_PORT);
+            Serial.println("Broadcasted hello");
+            udp.write("Broadcasted hello");
+        }
+        udp.endPacket();
+        lastSendTime = millis();
+    }
+
     // Check for incoming packets
     int packetSize = udp.parsePacket();
-    if (packetSize) {
+    if (packetSize > 0) {
         char packet[64];
         udp.read(packet, sizeof(packet));
         Serial.print("From ");
         Serial.print(udp.remoteIP());
         Serial.print(": ");
         Serial.println(packet);
-    }
-
-    // Send to specific IP (replace with target IP)
-    if (Serial.available()) {
-        IPAddress target(192, 168, 31, 172);  // Direct target IP
-        String message = Serial.readStringUntil('\n');
-        
-        udp.beginPacket(target, UDP_PORT);
-        udp.write(message.c_str());
-        udp.endPacket();
-        
-        Serial.print("Sent to ");
-        Serial.print(target);
-        Serial.print(": ");
-        Serial.println(message);
     }
 }
