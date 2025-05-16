@@ -1,6 +1,13 @@
 #include <EthernetENC.h>
 #include <EthernetUdp.h>
 
+
+// // Linux testing commands:
+// echo "BROADCAST 255" | nc -ubv 255.255.255.255 5005
+// echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
+// echo "UNICAST" | nc -ubv 192.168.31.100 5005
+
+
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 IPAddress ip(192, 168, 31, 100);
 const unsigned int UDP_PORT = 5005;
