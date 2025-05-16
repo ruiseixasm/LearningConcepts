@@ -51,6 +51,8 @@ void loop() {
         lastSendTime = millis();
     }
 
+    // This doesn't work: echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
+    
     // Check for incoming packets
     int packetSize = udp.parsePacket();
     if (packetSize > 0) {
