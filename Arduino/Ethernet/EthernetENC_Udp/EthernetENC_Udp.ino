@@ -19,7 +19,7 @@ void setup() {
     
     // Initialize Ethernet with static IP
     Ethernet.begin(mac, ip, gateway, subnet);
-    
+
     // Start UDP
     if (udp.begin(UDP_PORT)) {
         Serial.print("\n\nUDP active on ");
