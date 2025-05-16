@@ -105,8 +105,8 @@ sudo systemctl restart systemd-journald
 
 # UDP network testing commands
 
-# # Linux testing commands:
-# echo "BROADCAST 255" | nc -ubv 255.255.255.255 5005
-# echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
-# echo "UNICAST" | nc -ubv 192.168.31.100 5005
+# Linux testing commands:
+echo "BROADCAST 255" | nc -ubv 255.255.255.255 5005
+echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
+echo "UNICAST" | nc -ubv 192.168.31.100 5005
 
