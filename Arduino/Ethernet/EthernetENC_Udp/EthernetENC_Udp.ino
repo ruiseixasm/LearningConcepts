@@ -13,7 +13,7 @@ IPAddress ip(192, 168, 31, 100);       // Arduino IP
 IPAddress subnet(255, 255, 255, 0);   // Network mask
 IPAddress gateway(192, 168, 31, 77);    // Router IP (if needed)
 const unsigned int UDP_PORT = 5005;
-IPAddress target(192, 168, 31, 172);                // Target PC IP
+IPAddress target(192, 168, 31, 22);                // Target PC IP
 IPAddress broadcast(255, 255, 255, 255); // Broadcast address
 
 EthernetUDP udp;
