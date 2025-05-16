@@ -39,12 +39,12 @@ void loop() {
     // Send "Hello" every 5 seconds
     if (millis() - lastSendTime >= INTERVAL) {
         if (random(2) % 2 == 0) {
-            udp.beginPacket(target, UDP_PORT);
             Serial.println("Direct hello");
+            udp.beginPacket(target, UDP_PORT);
             udp.write("Direct hello");
         } else {
-            udp.beginPacket(broadcast, UDP_PORT);
             Serial.println("Broadcasted hello");
+            udp.beginPacket(broadcast, UDP_PORT);
             udp.write("Broadcasted hello");
         }
         udp.endPacket();
