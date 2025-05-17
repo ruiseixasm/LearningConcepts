@@ -5,6 +5,9 @@
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
 
+// Configuration
+#define USE_DHCP
+
 const unsigned int PORT = 5005;         // UDP port
 IPAddress remoteIP(192, 168, 31, 22);   // Target IP
 
@@ -15,7 +18,15 @@ const unsigned long sendInterval = 5000;    // Send every 5 seconds
 void setup() {
     Serial.begin(9600);
     WiFi.begin(ssid, password);
-    
+
+    // Configure IP based on macro
+    #ifdef USE_DHCP
+        IPAddress staticIP(192, 168, 31, 100);
+        IPAddress gateway(192, 168, 31, 77);
+        IPAddress subnet(255, 255, 255, 0);
+        WiFi.config(staticIP, gateway, subnet);
+    #endif
+
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
