@@ -8,8 +8,9 @@ const char* password = WIFI_PASSWORD;
 // Configuration
 #define USE_DHCP
 
-const unsigned int PORT = 5005;         // UDP port
-IPAddress remoteIP(192, 168, 31, 22);   // Target IP
+const unsigned int PORT = 5005;             // UDP port
+IPAddress remoteIP(192, 168, 31, 22);       // Target IP
+IPAddress broadcastIP(255, 255, 255, 255);  // Broadcast IP
 
 WiFiUDP udp;
 unsigned long lastSendTime = 0;
@@ -32,7 +33,7 @@ void setup() {
         Serial.print(".");
     }
 
-    Serial.print("\nIP: ");
+    Serial.print("\n\nIP: ");
     Serial.println(WiFi.localIP());
     
     if (!udp.begin(PORT)) {
@@ -44,38 +45,27 @@ void setup() {
 void loop() {
     // 1. Send UDP packet at intervals
     if (millis() - lastSendTime >= sendInterval) {
-        sendUDPMessage();
+        if (random(2) % 2 == 0) {
+            Serial.println("Direct hello");
+            udp.beginPacket(remoteIP, PORT);
+            udp.write("Direct hello");
+        } else {
+            Serial.println("Broadcasted hello");
+            udp.beginPacket(broadcastIP, PORT);
+            udp.write("Broadcasted hello");
+        }
+        udp.endPacket();
         lastSendTime = millis();
     }
     // 2. Check for incoming packets
-    checkUDPIncoming();
-}
-
-void sendUDPMessage() {
-    udp.beginPacket(remoteIP, PORT);
-    udp.write("Hello from ESP8266");
-    udp.endPacket();
-    
-    Serial.print("Sent UDP to ");
-    Serial.print(remoteIP);
-    Serial.print(":");
-    Serial.println(PORT);
-}
-
-void checkUDPIncoming() {
     int packetSize = udp.parsePacket();
-    if (packetSize) {
+    if (packetSize > 0) {
         char incoming[128];
         int len = udp.read(incoming, sizeof(incoming));
-        incoming[len] = 0; // Null-terminate
-        
-        Serial.print("Received ");
-        Serial.print(len);
-        Serial.print("B from ");
+        incoming[len] = '\0';   // Null-terminate
+        Serial.print("From ");
         Serial.print(udp.remoteIP());
-        Serial.print(":");
-        Serial.print(udp.remotePort());
-        Serial.print(" - ");
+        Serial.print(": ");
         Serial.println(incoming);
     }
 }
