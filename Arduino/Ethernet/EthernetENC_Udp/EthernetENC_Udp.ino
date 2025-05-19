@@ -63,7 +63,7 @@ void loop() {
     // Check for incoming packets (ASCII text packages)
     int packetSize = udp.parsePacket();
     if (packetSize > 0) {
-        char packet[128];
+        char packet[512];
         int len = udp.read(packet, sizeof(packet));
         packet[len] = '\0';
         Serial.print("From ");
@@ -81,7 +81,7 @@ void loop() {
     packetSize = udp.parsePacket();
     if (packetSize > 0) {
         // Buffer for raw binary data
-        uint8_t packetBuffer[128];
+        uint8_t packetBuffer[512];
         
         // Read raw bytes (no string conversion)
         int len = udp.read(packetBuffer, min(packetSize, (int)sizeof(packetBuffer)));
