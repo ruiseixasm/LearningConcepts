@@ -6,6 +6,7 @@
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192, 168, 31, 100);
 IPAddress subnet(255, 255, 255, 0);
+IPAddress target(192, 168, 31, 22);
 unsigned int UDP_PORT = 5005;
 
 EthernetUDP Udp;
@@ -30,10 +31,17 @@ void loop() {
     static unsigned long lastSend = 0;
     if (millis() - lastSend > 20000) {
         lastSend = millis();
-        Udp.beginPacket(IPAddress(255,255,255,255), UDP_PORT);
-        Udp.write("Hello from Nano!");
-        Udp.endPacket();
-        Serial.println("Broadcast Sent");
+        if (random(2) % 2 == 0) {
+            Udp.beginPacket(IPAddress(255,255,255,255), UDP_PORT);
+            Udp.write("Broadcasted Hello!");
+            Udp.endPacket();
+            Serial.println("Broadcast Sent");
+        } else {
+            Udp.beginPacket(target, UDP_PORT);
+            Udp.write("Unicasted Hello!");
+            Udp.endPacket();
+            Serial.println("Unicast Sent");
+        }
         // Udp.flush(); // Clear any remaining data
         // Udp.begin(UDP_PORT); // Refresh socket
     }
