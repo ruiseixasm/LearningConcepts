@@ -9,7 +9,9 @@ from broadcast_socket_udp import *
 if __name__ == "__main__":
     messages: tuple[bytes, bytes] = (
         b'{"m": 0, "t": "*"}',
-        b'{"m": 5, "t": "*"}'
+        b'{"m": 5, "t": "*"}',
+        b'{"m": 0, "f": "Talker-40", "i": 3921942051, "c": 28235}',
+        b'{"m": 5, "f": "Talker-40", "i": 3921986557, "c": 24906}'
     )
     broadcast_socket: BroadcastSocket = BroadcastSocket_UDP()
     try:

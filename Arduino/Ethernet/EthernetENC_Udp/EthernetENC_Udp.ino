@@ -77,30 +77,30 @@ void loop() {
     // # Send mixed binary/text
     // echo -ne 'TEXT\x00\x01BINARY\xFF' | nc -ubv 192.168.31.100 5005
     
-    // Check for incoming packets (Binary packages)
-    packetSize = udp.parsePacket();
-    if (packetSize > 0) {
-        // Buffer for raw binary data
-        uint8_t packetBuffer[512];
+    // // Check for incoming packets (Binary packages)
+    // packetSize = udp.parsePacket();
+    // if (packetSize > 0) {
+    //     // Buffer for raw binary data
+    //     uint8_t packetBuffer[512];
         
-        // Read raw bytes (no string conversion)
-        int len = udp.read(packetBuffer, min(packetSize, (int)sizeof(packetBuffer)));
+    //     // Read raw bytes (no string conversion)
+    //     int len = udp.read(packetBuffer, min(packetSize, (int)sizeof(packetBuffer)));
         
-        Serial.print("Received ");
-        Serial.print(len);
-        Serial.print(" bytes from ");
-        Serial.print(udp.remoteIP());
-        Serial.print(":");
-        Serial.println(udp.remotePort());
+    //     Serial.print("Received ");
+    //     Serial.print(len);
+    //     Serial.print(" bytes from ");
+    //     Serial.print(udp.remoteIP());
+    //     Serial.print(":");
+    //     Serial.println(udp.remotePort());
         
-        // Hex dump of received data
-        Serial.println("Packet content (hex):");
-        for (int i = 0; i < len; i++) {
-        if (packetBuffer[i] < 0x10) Serial.print('0');
-        Serial.print(packetBuffer[i], HEX);
-        Serial.print(' ');
-        if ((i+1) % 16 == 0) Serial.println();
-        }
-        Serial.println("\n---");
-    }
+    //     // Hex dump of received data
+    //     Serial.println("Packet content (hex):");
+    //     for (int i = 0; i < len; i++) {
+    //     if (packetBuffer[i] < 0x10) Serial.print('0');
+    //     Serial.print(packetBuffer[i], HEX);
+    //     Serial.print(' ');
+    //     if ((i+1) % 16 == 0) Serial.println();
+    //     }
+    //     Serial.println("\n---");
+    // }
 }
