@@ -60,7 +60,7 @@ void loop() {
     // // DOESN'T WORK
     // echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
     
-    // Check for incoming packets
+    // Check for incoming packets (ASCII text packages)
     int packetSize = udp.parsePacket();
     if (packetSize > 0) {
         char packet[128];
@@ -70,5 +70,33 @@ void loop() {
         Serial.print(udp.remoteIP());
         Serial.print(": ");
         Serial.println(packet);
+    }
+
+    
+    // Check for incoming packets (ASCII text packages)
+    packetSize = udp.parsePacket();
+    if (packetSize > 0) {
+        // Buffer for raw binary data
+        uint8_t packetBuffer[128];
+        
+        // Read raw bytes (no string conversion)
+        int len = udp.read(packetBuffer, min(packetSize, (int)sizeof(packetBuffer)));
+        
+        Serial.print("Received ");
+        Serial.print(len);
+        Serial.print(" bytes from ");
+        Serial.print(udp.remoteIP());
+        Serial.print(":");
+        Serial.println(udp.remotePort());
+        
+        // Hex dump of received data
+        Serial.println("Packet content (hex):");
+        for (int i = 0; i < len; i++) {
+        if (packetBuffer[i] < 0x10) Serial.print('0');
+        Serial.print(packetBuffer[i], HEX);
+        Serial.print(' ');
+        if ((i+1) % 16 == 0) Serial.println();
+        }
+        Serial.println("\n---");
     }
 }
