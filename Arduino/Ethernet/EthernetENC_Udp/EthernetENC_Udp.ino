@@ -72,8 +72,12 @@ void loop() {
         Serial.println(packet);
     }
 
+    // # Send binary packet (0x00 to 0xFF)
+    // echo -ne '\x00\x01\x02\x03\xFF' | nc -ubv 192.168.31.100 5005
+    // # Send mixed binary/text
+    // echo -ne 'TEXT\x00\x01BINARY\xFF' | nc -ubv 192.168.31.100 5005
     
-    // Check for incoming packets (ASCII text packages)
+    // Check for incoming packets (Binary packages)
     packetSize = udp.parsePacket();
     if (packetSize > 0) {
         // Buffer for raw binary data
