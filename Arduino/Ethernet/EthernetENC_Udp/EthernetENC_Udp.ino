@@ -54,7 +54,11 @@ void loop() {
         lastSendTime = millis();
     }
 
-    // This NEVER works despite being able to ping it!
+    // // WORK
+    // echo "BROADCAST 255" | nc -ubv 255.255.255.255 5005
+    // echo "UNICAST" | nc -ubv 192.168.31.100 5005
+    // // DOESN'T WORK
+    // echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
     
     // Check for incoming packets
     int packetSize = udp.parsePacket();
