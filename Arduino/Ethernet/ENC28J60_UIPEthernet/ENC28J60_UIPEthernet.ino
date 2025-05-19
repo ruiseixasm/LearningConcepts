@@ -30,7 +30,7 @@ void loop() {
     static unsigned long lastSend = 0;
     if (millis() - lastSend > 20000) {
         lastSend = millis();
-        Udp.beginPacket(IPAddress(192,168,31,255), 5005);
+        Udp.beginPacket(IPAddress(255,255,255,255), UDP_PORT);
         Udp.write("Hello from Nano!");
         Udp.endPacket();
         Serial.println("Broadcast Sent");
