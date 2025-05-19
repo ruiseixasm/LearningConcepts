@@ -36,6 +36,9 @@ void setup() {
 }
 
 void loop() {
+    
+    // This DO work despite being able to ping it!
+
     // Send "Hello" every 5 seconds
     if (millis() - lastSendTime >= INTERVAL) {
         if (random(2) % 2 == 0) {
@@ -51,7 +54,7 @@ void loop() {
         lastSendTime = millis();
     }
 
-    // This doesn't work: echo "BROADCAST 192" | nc -ubv 192.168.31.255 5005
+    // This NEVER works despite being able to ping it!
     
     // Check for incoming packets
     int packetSize = udp.parsePacket();
