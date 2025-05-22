@@ -1,3 +1,70 @@
+To set up your Arduino library on the official Arduino Library Manager, you need to submit it to their registry repository by making a request.
+
+From what you've said, your library:
+
+Is located in a subfolder (Arduino) inside a GitHub repository.
+
+Already includes a valid library.properties.
+
+Here are the exact steps to get it added:
+
+✅ 1. Make Sure Your Repository Follows These Requirements
+Arduino Library Manager expects:
+
+Your library code to be in the root of the GitHub repo, or inside a single subfolder, e.g., Arduino/.
+
+A valid library.properties at the top level of the library folder.
+
+A tagged release in GitHub (e.g., v1.0.0).
+
+From your description, you're already using a subfolder structure, so this is allowed.
+
+✅ You have library.properties.
+
+✅ 2. Create a GitHub Release
+Go to your repo: https://github.com/ruiseixasm/JsonTalkie
+
+Click "Releases" > "Draft a new release".
+
+Tag version: v1.0.0 (must match the version in library.properties)
+
+Title: v1.0.0
+
+Description: (you can leave it simple like "Initial release")
+
+Click "Publish release"
+
+✅ 3. Submit to the Arduino Library Registry
+Go to: https://github.com/arduino/library-registry/issues
+
+Click "New Issue"
+
+Choose "Library Submission Request"
+
+Fill it out like this:
+
+yaml
+Copy
+Edit
+Repository: https://github.com/ruiseixasm/JsonTalkie
+Library folder: Arduino
+⚠️ Important: You must include Library folder: Arduino since your library isn't in the root.
+
+✅ 4. Wait for Arduino CI to Approve It
+Arduino maintainers will run checks (syntax, metadata, structure, etc.) and respond to your issue. If all goes well, your library will be added to the Library Manager within a few days.
+
+✅ 5. After It’s Added
+Your library will be installable via the Arduino IDE's Library Manager, by searching "JsonTalkie".
+
+
+
+
+
+
+
+
+
+
 Setting Up Your Library in the Arduino Library Manager
 To get your JsonTalkie library listed in the Arduino Library Manager (official repository), you'll need to follow these steps:
 
