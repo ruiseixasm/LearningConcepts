@@ -1,3 +1,100 @@
+1. DELETE Your Current Setup (Clean Start)
+Run these commands one by one in PowerShell:
+
+powershell
+cd ~/Documents/GitHub
+rmdir -r -fo library-registry  # Force delete old folder
+2. Fork the Registry (One-Click)
+Open: 🔗 https://github.com/arduino/library-registry
+
+Click "Fork" (top-right) → Creates ruiseixasm/library-registry
+(Just wait for GitHub to finish - no commands needed)
+
+3. Clone YOUR Fork (Not Arduino's!)
+powershell
+cd ~/Documents/GitHub
+git clone https://github.com/ruiseixasm/library-registry.git
+cd library-registry
+4. Add Your Library (Safe Edit)
+powershell
+# Add your line to registry.txt
+echo "JsonTalkie https://github.com/ruiseixasm/JsonTalkie" >> registry.txt
+
+# Commit the change
+git add registry.txt
+git commit -m "Add JsonTalkie library"
+
+# Verify your addition
+type registry.txt  # Should show your line
+git status         # Should show 'modified: registry.txt'
+
+# Push to YOUR Fork
+git push origin main  # This WILL work now
+
+
+1. FIRST, Fork the Repository (One-Time Step)
+Go to: 🔗 https://github.com/arduino/library-registry
+
+Click "Fork" (top-right) → Creates your personal copy at:
+https://github.com/ruiseixasm/library-registry
+
+TO SPEED UP!
+
+https://github.com/arduino/library-registry/compare/main...ruiseixasm:main
+
+
+2. DIRECTLY Create the Pull Request
+Open this exact URL to compare changes:
+🔗 https://github.com/arduino/library-registry/compare
+(This bypasses all Git commands completely)
+
+On the compare page:
+
+Base repository: arduino/library-registry
+
+Head repository: ruiseixasm/library-registry
+
+Click "Create pull request"
+
+Add this title:
+
+[SUBMISSION] JsonTalkie  
+Click "Create pull request" again.
+
+
+
+
+
+
+
+
+For Windows:
+Open Command Prompt (Win+R → type cmd)
+
+Run these commands one by one:
+
+cmd
+cd \
+dir /s /b "library-registry"
+This will search your entire C: drive and show the full path if it exists.
+
+For Mac/Linux:
+Open Terminal
+
+Run:
+
+bash
+sudo find / -name "library-registry" -type d 2>/dev/null
+
+
+
+
+
+
+
+
+
+
 To set up your Arduino library on the official Arduino Library Manager, you need to submit it to their registry repository by making a request.
 
 From what you've said, your library:
