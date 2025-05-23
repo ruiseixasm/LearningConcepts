@@ -17,19 +17,35 @@ git clone https://github.com/ruiseixasm/library-registry.git
 cd library-registry
 4. Add Your Library (Safe Edit)
 powershell
-# Add your line to registry.txt
-echo "JsonTalkie https://github.com/ruiseixasm/JsonTalkie" >> registry.txt
+# Add your line to repositories.txt  (THE LINK ONLY)
+# SAFE append command (use forever)
+Add-Content -Path .\repositories.txt -Value "https://github.com/ruiseixasm/JsonTalkie" -Encoding UTF8
 
 # Commit the change
-git add registry.txt
+git add repositories.txt    # THIS IS ABSOLUTELY NEEDED !!!!!!!!! STAGE FILE CHANGES
 git commit -m "Add JsonTalkie library"
 
 # Verify your addition
-type registry.txt  # Should show your line
+Select-String -Path .\repositories.txt -Pattern "JsonTalkie"
+Get-Content .\repositories.txt | Where-Object { $_ -match "ruiseixasm" }
+type repositories.txt  # Should show your line
 git status         # Should show 'modified: registry.txt'
 
 # Push to YOUR Fork
 git push origin main  # This WILL work now
+
+
+# UNDO screw ups!
+
+# See all versions of the file
+git log -- repositories.txt
+# WARNING: Deletes uncommitted work too!
+git reset --hard HEAD~1
+
+# Stage, commit, and FORCE push
+git add .\repositories.txt
+git commit -m "Fix repositories.txt corruption"
+git push origin main --force
 
 
 1. FIRST, Fork the Repository (One-Time Step)
