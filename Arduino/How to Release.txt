@@ -110,6 +110,116 @@ sudo find / -name "library-registry" -type d 2>/dev/null
 
 
 
+✅ Here’s How You Submit a Library in a Subfolder
+To submit your library that lives in Arduino/JsonTalkie, do this:
+
+🔗 Go to the official submission page:
+👉 https://github.com/arduino/library-registry/issues/new?template=library_submission_request.yml
+
+📝 Fill in the form like this:
+yaml
+Copy
+Edit
+Repository: https://github.com/ruiseixasm/JsonTalkie
+Library folder: Arduino/JsonTalkie
+That Library folder: line is mandatory in your case, because your library is not at the root of the repo — it’s nested.
+
+🔍 Common Mistake: Submitting Without Library folder
+If you submit like this:
+
+yaml
+Copy
+Edit
+Repository: https://github.com/ruiseixasm/JsonTalkie
+…with no Library folder: line, Arduino will assume library.properties is in the root — and fail with:
+
+❌ ERROR: Library is missing a library.properties metadata file.
+
+Which is what you saw.
+
+✅ Final Checklist for Your Setup
+Make sure the following is true:
+
+✅ Your repo has this structure:
+
+css
+Copy
+Edit
+JsonTalkie/
+└── Arduino/
+    └── JsonTalkie/
+        ├── library.properties
+        ├── src/
+        └── ...
+✅ You've tagged a release (e.g. v1.1.0) after the above structure was in place
+✅ You submitted like:
+
+yaml
+Copy
+Edit
+Repository: https://github.com/ruiseixasm/JsonTalkie
+Library folder: Arduino/JsonTalkie
+✅ The library.properties file is correct (which yours is, based on your last message)
+
+✅ Optional: Confirm It Yourself
+To be 100% sure Arduino will accept it, you can test using arduino-cli:
+
+bash
+Copy
+Edit
+arduino-cli lib install --git-url https://github.com/ruiseixasm/JsonTalkie --git-path Arduino/JsonTalkie
+If it installs successfully — you're good to go.
+
+Let me know if you'd like help submitting the actual issue to the Arduino registry — I can even generate the exact Markdown for you.
+
+
+
+
+
+
+
+You said:
+Add Title ????????
+
+
+ChatGPT said:
+When submitting your Arduino library to the Arduino Library Registry, the "Title" of the GitHub issue should be:
+
+[Library Submission] JsonTalkie
+
+This is the convention Arduino asks for.
+
+✅ Full Example Submission (What to Post)
+Title:
+
+csharp
+Copy
+Edit
+[Library Submission] JsonTalkie
+Body:
+
+yaml
+Copy
+Edit
+Repository: https://github.com/ruiseixasm/JsonTalkie
+Library folder: Arduino/JsonTalkie
+Once you’ve pushed your v1.1.0 tag with the proper folder structure and library.properties, submit this to:
+
+🔗 https://github.com/arduino/library-registry/issues/new?template=library_submission_request.yml
+
+Just paste the title and YAML as shown above.
+
+
+
+
+
+
+
+
+
+
+
+
 
 To set up your Arduino library on the official Arduino Library Manager, you need to submit it to their registry repository by making a request.
 
