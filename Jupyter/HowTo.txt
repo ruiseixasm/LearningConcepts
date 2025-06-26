@@ -38,6 +38,10 @@ Navigate to the folder where you want to save your notebooks:
     cd path\to\your\working\directory
 Start the Jupyter Notebook server:
     jupyter notebook
+Start the Jupyter Notebook without launching the browser:
+    jupyter notebook --no-browser
+
+
 
 A web browser will open with the Jupyter interface. If it doesn’t open automatically, copy the URL displayed in the terminal (e.g., http://localhost:8888) and paste it into your browser.
 
