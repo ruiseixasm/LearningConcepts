@@ -55,6 +55,7 @@ git push
 # Revert to a given commit
 ## Check for the commit hashes
 git log --oneline
+git log --oneline -5
 ## Do a commit for each revert
 git revert e8b907c6 e0127393 fff5ebbf ec77b52d 36cee43f
 ## Revert everything in a single commit
