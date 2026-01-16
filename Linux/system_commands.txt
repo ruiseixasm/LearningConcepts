@@ -112,7 +112,9 @@ echo "UNICAST" | nc -ubv 192.168.31.100 5005
 
 
 # Remove tapping from the touch pad
+xinput list | grep -i touchpad
 xinput list-props "ELAN0501:00 04F3:3025 Touchpad"
-xinput set-prop "ELAN0501:00 04F3:3025 Touchpad" "libinput Tapping Enabled" 0
-
+# xinput set-prop "ELAN0501:00 04F3:3025 Touchpad" "libinput Tapping Enabled" 0
+xinput set-prop "ELAN0501:00 04F3:3025 Touchpad" 339 0
+xinput set-prop "ELAN0501:00 04F3:3025 Touchpad" 343 1, 0, 0  # 1=enabled, 0=disabled, 0=disabled
 
