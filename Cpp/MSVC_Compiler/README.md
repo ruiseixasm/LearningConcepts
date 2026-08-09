@@ -20,3 +20,19 @@ Do **Ctrl+Shift+P → CMake: Select Configure Preset** or **Ctrl+Shift+P → CMa
 Visual Studio Build Tools 2022 Release - amd64
 ```
 Select that in order to CMake use the `cl.exe` rather than any other.
+
+## Remove old compiler references from VSCode
+
+### Delete the CMake Tools cache
+```shell
+rmdir /s "%APPDATA%\Code\User\globalStorage\ms-vscode.cmake-tools"
+```
+
+### Delete project cache
+```shell
+cd C:\Users\rui\Documents\GitHub\JsonMidiPort
+rmdir /s build
+del CMakeCache.txt 2>nul
+rmdir /s .vs 2>nul
+```
+
