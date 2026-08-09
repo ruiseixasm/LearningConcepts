@@ -10,7 +10,7 @@ Go to the page [https://visualstudio.microsoft.com/downloads/](https://visualstu
 In the **installation details** panel on the right, select the following:
 1. C++ x64/x86 build tools
 1. C++ CMake tools for Windows
-1. If SDK not installed already, install Windows SDK
+1. SDK Windows 11 (Mandatory regardless how many already installed)
 
 ## Test the MSVC installation
 1. **Start → Developer Command Prompt for VS 2022**
