@@ -1,5 +1,8 @@
 # Microsoft Visual C++ (MSVC)
 
+## Visual Studio Code System Installer
+Make sure the Visual Studio Code installed is the System Installer and NOT the User Installer. So, go to Insiders Edition and select the System Installer x64.
+
 ## Install Visual Studio Tools
 
 Go to the page [https://visualstudio.microsoft.com/downloads/](https://visualstudio.microsoft.com/downloads/), and under **Tools for Visual Studio**, download **Build Tools for Visual Studio**.
