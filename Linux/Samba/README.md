@@ -37,3 +37,15 @@ sudo service smbd restart
 sudo service nmbd restart
 ```
 
+## Verify the installation
+```sh
+sudo service nmbd status
+sudo service smbd status
+```
+
+## Enable the NetBIOS in other distros
+In order to make the share discoverable, add the NetBIOS to the running services, like so:
+```sh
+sudo systemctl enable --now nmb
+```
+
