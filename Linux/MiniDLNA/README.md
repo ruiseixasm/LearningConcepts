@@ -43,4 +43,5 @@ To make the name of folders more explicit, use symbolic links, like so:
 ```sh
 ln -s [target_file] [link_name]
 ```
+The `link_name` can be the entire path.
 
