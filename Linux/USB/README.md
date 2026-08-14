@@ -51,7 +51,7 @@ sudo chown -R rui:rui /mnt/wd_black
 ```
 
 To set full permissions if necessarilly, do:
-```
+```sh
 sudo chmod -R 777 /mnt/wd_black
 ```
 
