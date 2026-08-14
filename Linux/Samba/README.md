@@ -19,7 +19,7 @@ sudo nano /etc/samba/smb.conf
 ```
 
 Edit as follows:
-```
+```ini
 [NAS]
    comment = MX Linux file server
    path = /home/rui/Videos

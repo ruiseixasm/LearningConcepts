@@ -11,18 +11,18 @@ sudo nano /etc/minidlna.conf
 ```
 
 Look for the line with `media_dir=` and set it as:
-```
+```ini
 media_dir=V,/mnt/nas_video
 media_dir=A,/mnt/nas_music
 ```
 
 To have a friendly fire it's possible to edit it here>
-```
+```ini
 friendly_name=NAS_MiniDLNA
 ```
 
 To the DLNA server detect new files set:
-```
+```ini
 inotify=yes
 ```
 

@@ -47,13 +47,13 @@ modinfo ntfs3
 ```
 
 Then enable it by rewriting the lines above as so:
-```text
+```
 UUID=BLACK_DISK_UUID /mnt/wd_black ntfs3 defaults,nofail 0 0
 UUID=BLUE_DISK_UUID /mnt/wd_blue ntfs3 defaults,nofail 0 0
 ```
 
 In case the `ntfs3` not being present in the Linux Kernel, then it is better to use `big_writes` on the `fstab` configuration file, to overcome the default of 4KB block limit, like so:
-```
+```ini
 UUID=BLACK_DISK_UUID /mnt/wd_black ntfs defaults,big_writes,nofail 0 0
 UUID=BLUE_DISK_UUID /mnt/wd_blue ntfs defaults,big_writes,nofail 0 0
 ```
