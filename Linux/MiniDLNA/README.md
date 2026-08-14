@@ -16,7 +16,7 @@ media_dir=V,/mnt/nas_video
 media_dir=A,/mnt/nas_music
 ```
 
-To have a friendly fire it's possible to edit it here>
+To have a friendly fire it's possible to edit it here:
 ```ini
 friendly_name=NAS_MiniDLNA
 ```
@@ -36,3 +36,11 @@ sudo ufw allow 8200/tcp
 ```sh
 sudo service minidlna restart
 ```
+
+# Create symbolic links
+
+To make the name of folders more explicit, use symbolic links, like so:
+```sh
+ln -s [target_file] [link_name]
+```
+
