@@ -50,3 +50,10 @@ sudo ufw allow 8200/tcp
 sudo service minidlna restart
 ```
 
+# Check server status
+In case the first doesn't work, try the second.
+```sh
+sudo systemctl status minidlna
+sudo service minidlna status
+```
+
