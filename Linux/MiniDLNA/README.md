@@ -26,6 +26,11 @@ To the DLNA server detect new files set:
 inotify=yes
 ```
 
+To remove the useless initial folders Pictures, Music and Video, set:
+```ini
+root_container=B
+```
+
 Alow the following of sym links to open the files on other folders outside the media_dirs
 ```ini
 wide_links=yes
