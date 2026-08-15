@@ -26,6 +26,11 @@ To the DLNA server detect new files set:
 inotify=yes
 ```
 
+Alow the following of sym links to open the files on other folders outside the media_dirs
+```ini
+wide_links=yes
+```
+
 # Allow the service by the Firewall
 ```sh
 sudo ufw allow 1900/udp
