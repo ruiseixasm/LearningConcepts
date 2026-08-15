@@ -51,8 +51,10 @@ sudo ufw allow 8200/tcp
 ```
 
 # Restart the DLNA server
+Choose the one that works on your system bellow:
 ```sh
 sudo service minidlna restart
+sudo systemctl restart minidlna
 ```
 
 # Check server status
