@@ -28,6 +28,11 @@ Open the configuration file in write mode
 sudo nano /etc/fstab
 ```
 
+If the access is locked by other user, type:
+```sh
+sudo rm /etc/.fstab.swp
+```
+
 Adjust the configurations for each drive accordingly like this:
 ```
 UUID=BLACK_DISK_UUID /mnt/wd_black ntfs defaults,nofail 0 0
