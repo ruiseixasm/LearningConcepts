@@ -16,5 +16,5 @@ And edit the following line:
 autologin-user=rui
 autologin-user-timeout=0
 ```
-The last line avoids delays to start the user session
+The last line avoids delays to start the user session.
 
