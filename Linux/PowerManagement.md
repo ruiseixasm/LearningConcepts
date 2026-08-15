@@ -23,5 +23,15 @@ Open the login configuration file.
 sudo nano /etc/acpi/events/powerbtn
 ```
 
+Add the following configuration
+```ini
+event=button/power
+#action=/etc/acpi/powerbtn.sh
+action=/usr/sbin/pm-suspend
+```
 
+Restart the service
+```sh
+sudo service acpid restart
+```
 
