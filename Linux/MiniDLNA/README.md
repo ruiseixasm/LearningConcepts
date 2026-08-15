@@ -31,6 +31,14 @@ Alow the following of sym links to open the files on other folders outside the m
 wide_links=yes
 ```
 
+# Create symbolic links
+
+To make the name of folders more explicit, use symbolic links, like so:
+```sh
+ln -s [target_file] [link_name]
+```
+The `link_name` can be the entire path.
+
 # Allow the service by the Firewall
 ```sh
 sudo ufw allow 1900/udp
@@ -41,12 +49,4 @@ sudo ufw allow 8200/tcp
 ```sh
 sudo service minidlna restart
 ```
-
-# Create symbolic links
-
-To make the name of folders more explicit, use symbolic links, like so:
-```sh
-ln -s [target_file] [link_name]
-```
-The `link_name` can be the entire path.
 
