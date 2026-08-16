@@ -18,9 +18,20 @@ Type the command:
 sudo nano /etc/samba/smb.conf
 ```
 
-Edit as follows:
+Start by giving the workgroup name like so:
 ```ini
-[NAS]
+[global]
+
+## Browsing/Identification ###
+
+# Change this to the workgroup/NT-domain name your Samba server will part of
+   workgroup = DAVID
+```
+
+Edit Add your shares as follows:
+
+```ini
+[MY_Share]
    comment = MX Linux file server
    path = /home/rui/Videos
    browseable = yes
@@ -31,7 +42,7 @@ Edit as follows:
    valid users = rui
 ```
 
-## Reboot the service
+## Restart the services
 ```sh
 sudo service smbd restart
 sudo service nmbd restart
