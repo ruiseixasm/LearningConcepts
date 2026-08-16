@@ -27,6 +27,14 @@ sftp://user@host/
 ```sh
 sudo ufw allow from 192.168.1.0/24 to any port nfs
 ```
+To check all added ports to the firewall, type:
+```sh
+sudo ufw status numbered
+```
+Note: To remove any wrong set range of IPs, do:
+```sh
+sudo ufw delete allow from 192.168.2.0/24 to any port nfs
+```
 
 ## Activate the share
 ```sh
@@ -60,5 +68,15 @@ sudo mount -t nfs -o ro server_ip:/mnt/nfs_share /media/nfs_host
 To a definitive mount, add this line to the `/etc/fstab`.
 ```ini
 server_ip:/mnt/share_nfs  /media/nfs_host  nfs  ro,defaults,timeo=14,noatime,_netdev  0  0
+```
+
+Check everything is working with a list on the mount directory.
+```sh
+ls -la /media/nfs_host
+```
+
+Unmount it whenever needed.
+```sh
+sudo umount /media/nfs_host
 ```
 
