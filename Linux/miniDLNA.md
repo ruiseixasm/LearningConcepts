@@ -31,7 +31,7 @@ To remove the useless initial folders Pictures, Music and Video, set:
 root_container=B
 ```
 
-Alow the following of sym links to open the files on other folders outside the media_dirs
+Alow the following of sym links to open the files on other folders outside the media_dirs.
 ```ini
 wide_links=yes
 ```
