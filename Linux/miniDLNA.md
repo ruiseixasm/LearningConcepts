@@ -77,3 +77,5 @@ sudo service minidlna stop
 sudo minidlnad -r
 sudo service minidlna start
 ```
+
+Note: If you use -R instead, then it deletes the entire database and reconstructs it completely.
