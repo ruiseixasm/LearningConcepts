@@ -14,7 +14,13 @@ sudo nano /etc/exports
 
 Then, add one line per access like so:
 ```ini
-/mnt/share_nfs  192.168.1.*(rw,sync,no_subtree_check)
+/mnt/share_nfs  192.168.1.*(ro,sync,no_subtree_check)
+```
+Because there is no authentication in NFS, it's advisable to leave it as read-only (`ro`)
+
+In case of writing files use the sftp instead, use the the address like so in the path field.
+```path
+sftp://user@host/
 ```
 
 ## Open the needed firewall ports
