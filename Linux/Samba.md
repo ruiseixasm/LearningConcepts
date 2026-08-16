@@ -25,7 +25,7 @@ Start by giving the workgroup name like so:
 ## Browsing/Identification ###
 
 # Change this to the workgroup/NT-domain name your Samba server will part of
-   workgroup = DAVID
+   workgroup = WORKGROUP
 ```
 
 Edit Add your shares as follows:
@@ -58,5 +58,15 @@ sudo service smbd status
 In order to make the share discoverable, add the NetBIOS to the running services, like so:
 ```sh
 sudo systemctl enable --now nmb
+```
+
+## Check the client PCs workgroups
+Open the Windows command line and type:
+```sh
+net config workstation
+```
+Check if the names match, if doesn't match, change it like so:
+```sh
+sysdm.cpl
 ```
 
