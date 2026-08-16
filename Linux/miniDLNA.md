@@ -64,3 +64,16 @@ sudo systemctl status minidlna
 sudo service minidlna status
 ```
 
+# Rescan folders
+In order to remove older folders, type:
+```sh
+sudo systemctl stop minidlna
+sudo minidlnad -r
+sudo systemctl start minidlna
+```
+or
+```sh
+sudo service minidlna stop
+sudo minidlnad -r
+sudo service minidlna start
+```
