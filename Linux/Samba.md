@@ -89,6 +89,12 @@ Add this line to the `fstab`
 /DAVID/share /mnt/david cifs credentials=/root/.david_credentials,_netdev,nofail 0  0
 ```
 
+## Mount in a Windows machine
+To associate to a mounting driver
+```sh
+net use Z: \\david\WD_Black /user:rui *
+```
+
 # Troubleshoot
 ## Logs monitoring
 Open the Samba config file
@@ -109,6 +115,12 @@ sudo tail -f /var/log/samba/log.192.168.1.213
 ```
 Note, for failed logins the log registers by IP
 
+Check authentication database
+```sh
+sudo pdbedit -L -v | grep -A 20 '^Unix username:.*rui'
+```
+
+
 ## Check Windows client PCs workgroups
 Open the Windows command line and type:
 ```sh
@@ -118,6 +130,28 @@ net config workstation
 Check if the names match, if doesn't match, change it like so:
 ```sh
 sysdm.cpl
+```
+
+Check all the kept keys
+```sh
+cmdkey /list
+```
+
+Delete a specific key
+```sh
+cmdkey /delete:david
+cmdkey /list | findstr /I "david"
+```
+
+User parameters
+```sh
+whoami
+whoami /user
+```
+
+Delete all exiting cached Samba logins
+```sh
+net use * /delete /y
 ```
 
 
