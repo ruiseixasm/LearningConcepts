@@ -60,7 +60,7 @@ In order to make the share discoverable, add the NetBIOS to the running services
 sudo systemctl enable --now nmb
 ```
 
-## Check the client PCs workgroups
+## Check Windows client PCs workgroups
 Open the Windows command line and type:
 ```sh
 net config workstation
@@ -68,5 +68,34 @@ net config workstation
 Check if the names match, if doesn't match, change it like so:
 ```sh
 sysdm.cpl
+```
+
+## Mount on other Linux machines
+Create a windows mount point
+```sh
+sudo mkdir /mnt/david
+```
+
+Place the login credential in the safe folder `root`
+```sh
+sudo touch /root/.david_credentials
+sudo chmod 600 /root/.david_credentials
+sudo nano /root/.david_credentials
+```
+
+Add the username and password to the file above
+```ini
+username=name
+password=1234
+```
+
+Open the `fstab` file
+```sh
+sudo nano /etc/fstab
+```
+
+Add this line to the `fstab`
+```ini
+/DAVID/share /mnt/david cifs credentials=/root/.david_credentials,_netdev,nofail 0  0
 ```
 
