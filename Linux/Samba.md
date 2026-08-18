@@ -108,6 +108,11 @@ Then add this line
    log level = 5
 ```
 
+Try to login to the self machine
+```sh
+sudo smbclient -L localhost -U rui
+```
+
 Start monitoring the logs of the respective machine, like so
 ```sh
 sudo ls -l /var/log/samba
@@ -119,6 +124,9 @@ Check authentication database
 ```sh
 sudo pdbedit -L -v | grep -A 20 '^Unix username:.*rui'
 ```
+
+## Check on a Linux machine
+
 
 
 ## Check Windows client PCs workgroups
