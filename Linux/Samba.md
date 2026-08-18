@@ -108,6 +108,13 @@ Then add this line
    log level = 5
 ```
 
+Make sure the smbclient is installed
+```sh
+sudo apt update
+sudo apt install smbclient
+which smbclient
+```
+
 Try to login to the self machine
 ```sh
 sudo smbclient -L localhost -U rui
