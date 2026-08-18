@@ -1,5 +1,4 @@
-# File sharing with Samba
-
+# Installation
 ## Installation of Samba
 ```sh
 sudo apt update
@@ -60,16 +59,7 @@ In order to make the share discoverable, add the NetBIOS to the running services
 sudo systemctl enable --now nmb
 ```
 
-## Check Windows client PCs workgroups
-Open the Windows command line and type:
-```sh
-net config workstation
-```
-Check if the names match, if doesn't match, change it like so:
-```sh
-sysdm.cpl
-```
-
+# Mount
 ## Mount on other Linux machines
 Create a windows mount point
 ```sh
@@ -98,4 +88,34 @@ Add this line to the `fstab`
 ```ini
 /DAVID/share /mnt/david cifs credentials=/root/.david_credentials,_netdev,nofail 0  0
 ```
+
+# Troubleshoot
+## Logs monitoring
+Open the Samba config file
+```sh
+sudo nano /etc/samba/smb.conf
+```
+
+Then add this line
+```ini
+# Set the log level, by default is 1
+   log level = 5
+```
+
+Start monitoring the logs of the respective machine, like so
+```sh
+sudo tail -f /var/log/samba/log.192.168.1.213
+```
+
+## Check Windows client PCs workgroups
+Open the Windows command line and type:
+```sh
+net config workstation
+```
+
+Check if the names match, if doesn't match, change it like so:
+```sh
+sysdm.cpl
+```
+
 
