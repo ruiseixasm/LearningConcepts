@@ -104,8 +104,10 @@ Then add this line
 
 Start monitoring the logs of the respective machine, like so
 ```sh
+sudo ls -l /var/log/samba
 sudo tail -f /var/log/samba/log.192.168.1.213
 ```
+Note, for failed logins the log registers by IP
 
 ## Check Windows client PCs workgroups
 Open the Windows command line and type:
