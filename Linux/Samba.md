@@ -149,6 +149,17 @@ smbclient //david/WD_Black -U rui
 ```
 
 ## Check Windows client PCs
+Important note, Samba uses the NTLMv2 authentication level, so, make sure the windows is set to:
+```txt
+Send NTLMv2 response only. Refuse LM & NTLM
+```
+To do so, edit the group policy:
+1. Press Windows Key + R, type `secpol.msc`, and press Enter.
+2. Navigate to: **Local Policies > Security Options**.
+3. Find and double-click: **Network security: LAN Manager authentication level**.
+4. Change the dropdown menu to: **Send NTLMv2 response only. Refuse LM & NTLM**.
+5. Click Apply and reboot your PC.
+
 Open the Windows command line and type:
 ```sh
 net config workstation
@@ -199,5 +210,4 @@ net use \\DAVID\IPC$ /delete
 net use \\DAVID\WD_Black /delete
 Get-SmbConnection
 ```
-
 
