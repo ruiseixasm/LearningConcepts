@@ -69,6 +69,7 @@ HandleLidSwitchExternalPower=ignore
 Then restart the logind service (or just reboot your computer):
 ```sh
 sudo systemctl restart systemd-logind
+sudo service acpid restart
 ```
 
 You can view what devices are allowed to trigger power states by running:
