@@ -193,3 +193,11 @@ Get-SmbConnection
 net use
 ```
 
+Delete all existing sessions
+```sh
+net use \\DAVID\IPC$ /delete
+net use \\DAVID\WD_Black /delete
+Get-SmbConnection
+```
+
+
