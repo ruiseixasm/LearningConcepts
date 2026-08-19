@@ -98,3 +98,9 @@ Apply the configurations:
 sudo service lightdm restart
 ```
 
+## Suspend command
+To suspend the computer remotely, do one of the following commands
+```sh
+systemctl suspend
+sudo pm-suspend
+```
