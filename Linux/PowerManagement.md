@@ -98,6 +98,44 @@ Apply the configurations:
 sudo service lightdm restart
 ```
 
+#### Solution 4 (XFCE redundant suspend command)
+Because XFCE is already sending the suspend command.
+
+So, the acpi command isn't needed anymore.
+```sh
+sudo nano /etc/acpi/events/powerbtn
+```
+
+Comment the line
+```ini
+#action=/usr/sbin/pm-suspend
+```
+
+Restart the `acpid`
+```sh
+sudo service acpid restart
+```
+
+On the other hand, it's possible to edit the XFCE configuration instead.
+
+Search for the targeted configuration
+```sh
+grep -i -C 2 'button' ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+```
+Edit it like so:
+```sh
+~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml
+```
+Then edit the respective field to `0`
+```ini
+<property name="power-button-action" type="uint" value="1"/>
+```
+
+Finally restart the XCFE power management
+```sh
+xfce4-power-manager --restart
+```
+
 ## Suspend command
 To suspend the computer remotely, do one of the following commands
 ```sh
