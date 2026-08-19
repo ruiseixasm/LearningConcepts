@@ -79,7 +79,15 @@ sudo service minidlna start
 ```
 Note: If you use `-R` instead, then it deletes the entire database and reconstructs it completely.
 
+# Troubleshooting
 Check logs if an error occurs
 ```sh
 cat /var/log/minidlna/minidlna.log
 ```
+
+MX Linux service scripts often struggle if the runtime or cache folders are not explicitly owned by the `minidlna` user. Run these commands to fix ownership:
+```sh
+sudo mkdir -p /var/run/minidlna /var/cache/minidlna /var/log/minidlna
+sudo chown -R minidlna:minidlna /var/run/minidlna /var/cache/minidlna /var/log/minidlna
+```
+
