@@ -190,5 +190,6 @@ Return the exiting mounted smb drives
 ```sh
 Get-SmbMapping
 Get-SmbConnection
+net use
 ```
 
