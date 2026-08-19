@@ -35,3 +35,44 @@ Restart the service
 sudo service acpid restart
 ```
 
+### Troubleshooting
+In case of a suspend after waking up, double waking up needed.
+
+#### Solution 1
+If you are using a laptop, Linux often misreads the physical lid state upon resume. Forcing the kernel to assume the lid is open at startup stops this loop.
+```sh
+sudo nano /etc/default/grub
+```
+
+Add `button.lid_init_state=open` to the end of the parameters inside the quotes. For example:
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash button.lid_init_state=open"
+```
+
+Update your bootloader so the changes take effect:
+```sh
+sudo update-grub
+```
+
+#### Solution 2
+If you are using MX Linux with systemd enabled (or its shim), `logind` might be fighting your desktop environment (like XFCE, KDE, or Fluxbox) over who gets to sleep the computer. You should let your desktop control it instead.
+```sh
+sudo nano /etc/systemd/logind.conf
+```
+
+Change these lines to ignore and remove the `#` symbol if present:
+```ini
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+```
+
+Then restart the logind service (or just reboot your computer):
+```sh
+sudo systemctl restart systemd-logind
+```
+
+You can view what devices are allowed to trigger power states by running:
+```sh
+cat /proc/acpi/wakeup
+```
+
