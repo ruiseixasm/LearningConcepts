@@ -143,6 +143,11 @@ Try to login to the Samba server
 smbclient -L //david -U rui
 ```
 
+Enter in command line
+```sh
+smbclient //david/WD_Black -U rui
+```
+
 ## Check Windows client PCs workgroups
 Open the Windows command line and type:
 ```sh
