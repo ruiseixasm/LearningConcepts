@@ -88,7 +88,7 @@ Manage the LightDM
 sudo nano /etc/lightdm/lightdm.conf
 ```
 
-Add the following configuration line:
+Add the following configuration line in the section `[LightDM]`:
 ```ini
 lock-screen-on-suspend=false
 ```
