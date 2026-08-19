@@ -148,7 +148,7 @@ Enter in command line
 smbclient //david/WD_Black -U rui
 ```
 
-## Check Windows client PCs workgroups
+## Check Windows client PCs
 Open the Windows command line and type:
 ```sh
 net config workstation
@@ -181,4 +181,14 @@ Delete all exiting cached Samba logins
 net use * /delete /y
 ```
 
+This lists all Windows configurations
+```sh
+Get-SmbClientConfiguration
+```
+
+Return the exiting mounted smb drives
+```sh
+Get-SmbMapping
+Get-SmbConnection
+```
 
