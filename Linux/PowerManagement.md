@@ -77,3 +77,24 @@ You can view what devices are allowed to trigger power states by running:
 cat /proc/acpi/wakeup
 ```
 
+#### Solution 3
+Check the power logs
+```sh
+sudo grep -E -i "suspend|wake|acpi|button|thermal|crit" /var/log/syslog | tail -n 20
+```
+
+Manage the LightDM
+```sh
+sudo nano /etc/lightdm/lightdm.conf
+```
+
+Add the following configuration line:
+```ini
+lock-screen-on-suspend=false
+```
+
+Apply the configurations:
+```sh
+sudo service lightdm restart
+```
+
