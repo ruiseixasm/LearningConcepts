@@ -132,9 +132,16 @@ Check authentication database
 sudo pdbedit -L -v | grep -A 20 '^Unix username:.*rui'
 ```
 
-## Check on a Linux machine
+## Check Linux client computers
+```sh
+which smbclient
+```
+If it isn't installed, install it as shown above.
 
-
+Try to login to the Samba server
+```sh
+smbclient -L //david -U rui
+```
 
 ## Check Windows client PCs workgroups
 Open the Windows command line and type:
