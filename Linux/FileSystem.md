@@ -18,8 +18,6 @@ without AHCI support because the internal enclosure board uses the simpler
 UASP (USB Attached SCSI Protocol).
 
 ## Copying and moving files with rsync
-
-
 To **copy** a folder from one place to another, do:
 ```sh
 rsync -avh --progress --append-verify /media/Source/Folder/ /media/Destiny/Folder/
