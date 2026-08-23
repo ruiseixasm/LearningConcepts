@@ -135,3 +135,21 @@ rsync -avh --progress --append-verify --remove-source-files /media/Source/Folder
 find /media/Source/Folder/ -type d -empty -delete
 ```
 Because the `rsync` preserves the empty directories (`d`), it is needed to remove those directories afterwards.
+
+## How to set drive partitions
+Start the graphical partition tool and select the menus accordingly
+```sh
+sudo cfdisk /dev/sda
+```
+Don't forget to select **Write** at the end of the process to create the partition.
+
+Finally check the creation of the partition
+```sh
+sudo lsblk
+```
+
+For the targeted partition format it like so
+```sh
+sudo mkfs.ext4 /dev/sdaX
+```
+
