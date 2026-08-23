@@ -112,7 +112,7 @@ In case of an ext4 device, to update the ownership of the files, do:
 sudo chown -R rui:rui /mnt/wd_black
 ```
 
-To set full permissions if necessarilly, do:
+To set full permissions if necessarily, do:
 ```sh
 sudo chmod -R 777 /mnt/wd_black
 ```
@@ -122,10 +122,11 @@ To **copy** a folder from one place to another, do:
 ```sh
 rsync -avh --progress --append-verify /media/Source/Folder/ /media/Destiny/Folder/
 ```
+`rsync` automatically creates the destiny directory `Folder` if non existing.
 
-You can always **test** it first by doing so:
+You can always **test** it first with `dry-run` like so:
 ```sh
-rsync -avh --progress --ignore-existing --ignore-errors /media/Source/Folder/ /media/Destiny/Folder/
+rsync -avh --dry-run --progress --ignore-existing --ignore-errors /media/Source/Folder/ /media/Destiny/Folder/
 ```
 
 To **move** the command is this instead:
