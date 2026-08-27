@@ -136,6 +136,14 @@ find /media/Source/Folder/ -type d -empty -delete
 ```
 Because the `rsync` preserves the empty directories (`d`), it is needed to remove those directories afterwards.
 
+## Getting full structure tree
+To get the file system tree
+```sh
+sudo apt install tree
+tree /path/to/folder
+tree /path/to/folder > structure.txt
+```
+
 ## How to set drive partitions
 Start the graphical partition tool and select the menus accordingly
 ```sh
