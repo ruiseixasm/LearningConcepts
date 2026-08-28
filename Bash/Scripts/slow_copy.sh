@@ -3,9 +3,9 @@
 ORIGIN="/mnt/wd_black/Videos/Movies"
 DESTINY="/mnt/red/Videos/Movies"
 
-# TIME LIMIT PER FILE (ex: 10 seconds)
-# Skips if it takes more than 10 seconds.
-TIME_LIMIT="10s"
+# TIME LIMIT PER FILE (ex: 120 seconds)
+# Skips if it takes more than 120 seconds.
+TIME_LIMIT="120s"
 
 # Finds all files under the ORIGIN directory
 find "$ORIGIN" -type f | while read -r file; do
