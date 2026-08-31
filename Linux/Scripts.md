@@ -41,7 +41,7 @@ echo "🎉 Concluded!"
 ```
 
 ## Repeated movie files
-To search for movies that are repated
+To search for movies that are repated based only on the first word in their name
 ```sh
 #!/bin/bash
 
