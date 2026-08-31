@@ -1,6 +1,5 @@
 # Command Examples
 
-## Index
 * [`find`](#find)
 
 ## `find`
