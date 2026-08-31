@@ -1,5 +1,8 @@
 # Command Examples
 
+## Index
+* [`find`](#find)
+
 ## `find`
 
 ### Remove all empty Directories
