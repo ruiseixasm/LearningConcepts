@@ -39,3 +39,62 @@ done
 
 echo "🎉 Concluded!"
 ```
+
+## Repeated movie files
+To search for movies that are repated
+```sh
+#!/bin/bash
+
+video_extensions="mp4|mkv|avi|mov|flv|wmv|webm|mpeg|mpg"
+
+# Step 1: Count occurrences of each first word
+declare -A word_count
+
+while IFS= read -r -d '' file; do
+    filename=$(basename "$file")
+    if [[ "$filename" =~ \.($video_extensions)$ ]]; then
+        # Get first word (case-insensitive)
+        first_word=$(echo "${filename%.*}" | awk -F'[ ._-]' '{print tolower($1)}')
+        
+        # Initialize if not exists, then increment
+        if [[ -z "${word_count[$first_word]}" ]]; then
+            word_count[$first_word]=1
+        else
+            ((word_count[$first_word]++))
+        fi
+    fi
+done < <(find . -type f -print0 2>/dev/null)
+
+# Step 2: For each word with count > 1, find all matching files
+first_group=1
+
+for word in "${!word_count[@]}"; do
+    # Only process if count > 1
+    if [ ${word_count["$word"]} -gt 1 ]; then
+        # Find all files matching this word
+        matches=()
+        
+        while IFS= read -r -d '' file; do
+            filename=$(basename "$file")
+            if [[ "$filename" =~ \.($video_extensions)$ ]]; then
+                file_word=$(echo "${filename%.*}" | awk -F'[ ._-]' '{print tolower($1)}')
+                if [ "$file_word" == "$word" ]; then
+                    matches+=("$file")
+                fi
+            fi
+        done < <(find . -type f -print0 2>/dev/null)
+        
+        # Print the group
+        if [ $first_group -eq 0 ]; then
+            echo ""
+        fi
+        
+        echo "=== Group: $word (${word_count[$word]} files) ==="
+        for file in "${matches[@]}"; do
+            echo "$file"
+        done
+        
+        first_group=0
+    fi
+done
+```
