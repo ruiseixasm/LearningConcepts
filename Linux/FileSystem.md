@@ -29,7 +29,7 @@ lsblk
 df -h
 ```
 
-### Mounting  directories
+### Mounting directories
 ```sh
 sudo mkdir -p /mnt/wd_black
 sudo mkdir -p /mnt/wd_blue
@@ -68,7 +68,7 @@ grep ntfs /proc/filesystems
 ```
 
 If it returns nothing, then try:
-```
+```sh
 modinfo ntfs3
 ```
 
