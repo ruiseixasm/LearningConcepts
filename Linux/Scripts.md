@@ -200,24 +200,24 @@ echo "Source mounted: $SOURCE"
 
 declare -A PROCESSABLE_TARGETS
 
+SOURCE_NAME="${SOURCE##*/}"
+
 for target in "${TARGETS[@]}"; do
 
+    target_name="${target##*/}"
+
+    # Never allow the source drive to be a backup target.
+    if [[ "$target_name" == "$SOURCE_NAME" ]]; then
+        echo "ERROR: Target is the source drive: $target"
+        echo "Ignoring it."
+        continue
+    fi
+
     if mountpoint -q "$target"; then
-
-        # Extract the drive name.
-        #
-        # /mnt/blue -> blue
-        #
-        name="${target##*/}"
-
-        PROCESSABLE_TARGETS["$name"]="$target"
-
+        PROCESSABLE_TARGETS["$target_name"]="$target"
         echo "Target mounted: $target"
-
     else
-
         echo "Target NOT mounted: $target"
-
     fi
 
 done
