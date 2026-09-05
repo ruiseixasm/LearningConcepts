@@ -34,6 +34,8 @@
     },
     "python.defaultInterpreterPath": "/usr/bin/python3.13",
     "cSpell.words": [
+		"anacron",
+		"anacrontab",
 		"autoremove",
 		"binded",
 		"declspec",
