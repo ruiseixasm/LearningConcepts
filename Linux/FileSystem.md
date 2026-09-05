@@ -85,6 +85,15 @@ UUID=BLUE_DISK_UUID /mnt/wd_blue ntfs defaults,big_writes,nofail 0 0
 ```
 **IMPORTANT NOTE**: Avoid `big_writes` in SMR type of HDDs!
 
+In case it's an *exFAT* drive format, then the configuratio is the following:
+```ini
+UUID=GREEN_DISK_UUID /mnt/wd_green exfat defaults,umask=000,nofail 0 0
+```
+Just make sure *exFAT* is installed in your system
+```sh
+cat /proc/filesystems | grep exfat
+```
+
 ### How to mount and unmount added USB devices
 To mount drives use one of the following:
 ```sh
