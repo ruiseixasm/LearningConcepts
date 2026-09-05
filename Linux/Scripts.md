@@ -41,7 +41,7 @@ echo "🎉 Concluded!"
 ```
 
 ## Repeated movie files
-To search for movies that are repated based only on the first word in their name
+To search for movies that are repeated based only on the first word in their name
 ```sh
 #!/bin/bash
 
@@ -105,7 +105,7 @@ To keep a backup copy of folders that are tagged as such with one of these tags:
 backup.blue
 backup.black
 ```
-So, the scrip becomes:
+So, the script becomes:
 ```sh
 #!/bin/bash
 
@@ -123,14 +123,14 @@ So, the scrip becomes:
 #
 # A directory is selected for backup by placing a tag file inside it:
 #
-#   backup.black
-#   backup.blue
+#   backup_to.black
+#   backup_to.blue
 #
-# The name after "backup." identifies the target drive under /mnt.
+# The name after "backup_to." identifies the target drive under /mnt.
 #
 # Example:
 #
-#   /mnt/red/Documents/backup.blue
+#   /mnt/red/Documents/backup_to.blue
 #
 # means:
 #
@@ -158,7 +158,7 @@ TARGETS=(
     "/mnt/blue"
 )
 
-TAG_PREFIX="backup."
+TAG_PREFIX="backup_to."
 
 
 ############################
@@ -196,7 +196,7 @@ echo "Source mounted: $SOURCE"
 # Both COPY and REMOVE use this set.
 #
 # Therefore, if /mnt/blue isn't mounted, there is no point in processing
-# backup.blue at all.
+# backup_to.blue at all.
 
 declare -A PROCESSABLE_TARGETS
 
@@ -247,17 +247,7 @@ done
 
 
 ###############################################################################
-# COPY
-###############################################################################
-
-echo
-echo "========================================"
-echo "COPY"
-echo "========================================"
-
-
-###############################################################################
-# process_directory
+# backup_source
 #
 # Arguments:
 #
@@ -267,7 +257,7 @@ echo "========================================"
 #
 # If it finds:
 #
-#   backup.blue
+#   backup_to.blue
 #
 # inside the current directory, the ENTIRE current directory is copied to:
 #
@@ -275,12 +265,12 @@ echo "========================================"
 #
 # and the function returns immediately.
 #
-# This is the important pruning behaviour:
+# This is the important pruning behavior:
 #
 # Once a directory has a backup tag, we DO NOT scan anything below it.
 ###############################################################################
 
-process_directory()
+backup_source()
 {
     local directory="$1"
 
@@ -309,9 +299,9 @@ process_directory()
         #
         # Example:
         #
-        #   /mnt/red/Documents/backup.blue
+        #   /mnt/red/Documents/backup_to.blue
         #
-        # basename -> backup.blue
+        # basename -> backup_to.blue
         # remove prefix -> blue
         #######################################################################
 
@@ -375,7 +365,10 @@ process_directory()
         echo "  Destination: $destination"
         echo
 
-        mkdir -p "$destination"
+		if [ ! -d "$destination" ]; then
+			echo "mkdir -p \"$destination\"" >> BackupRed.log
+			mkdir -p "$destination"
+		fi
 
 
         #######################################################################
@@ -390,9 +383,14 @@ process_directory()
         # into the already-created destination directory.
         #######################################################################
 
-        rsync -a \
-            "$directory/" \
-            "$destination/"
+		rsync -rt \
+			"$directory/" \
+			"$destination/"
+
+			# -rlt means:
+			# 	-r → recursive
+			# 	-l → preserve symlinks
+			# 	-t → preserve modification timestamps
 
 
         #######################################################################
@@ -423,27 +421,11 @@ process_directory()
 
         [ -d "$child" ] || continue
 
-        process_directory "$child"
+        backup_source "$child"
 
     done
 }
 
-
-###############################################################################
-# Start recursive COPY scan
-###############################################################################
-
-process_directory "$SOURCE"
-
-
-###############################################################################
-# REMOVE
-###############################################################################
-
-echo
-echo "========================================"
-echo "REMOVE"
-echo "========================================"
 
 
 ###############################################################################
@@ -483,7 +465,7 @@ remove_obsolete()
     #
     # Example:
     #
-    #   /mnt/blue/Documents/backup.blue
+    #   /mnt/blue/Documents/backup_to.blue
     #
     ###########################################################################
 
@@ -549,11 +531,11 @@ remove_obsolete()
         #
         # Since this function is processing target_name, the expected tag is:
         #
-        #   backup.blue
+        #   backup_to.blue
         #
         # or:
         #
-        #   backup.black
+        #   backup_to.black
         #######################################################################
 
         source_tag="$source_directory/${TAG_PREFIX}${target_name}"
@@ -591,7 +573,7 @@ remove_obsolete()
         echo "  Source tag missing:"
         echo "    $source_tag"
 
-
+		echo "rm -rf -- \"$directory\"" >> BackupRed.log
         rm -rf -- "$directory"
 
 
@@ -613,8 +595,13 @@ remove_obsolete()
 
 
 ###############################################################################
-# Process every mounted target
+# Start recursive REMOVE
 ###############################################################################
+
+echo
+echo "========================================"
+echo "Start recursive REMOVE"
+echo "========================================"
 
 for target_name in "${!PROCESSABLE_TARGETS[@]}"; do
 
@@ -627,6 +614,18 @@ for target_name in "${!PROCESSABLE_TARGETS[@]}"; do
     remove_obsolete "$target_name" "$target"
 
 done
+
+
+###############################################################################
+# Start recursive COPY scan
+###############################################################################
+
+echo
+echo "========================================"
+echo "Start recursive COPY"
+echo "========================================"
+
+backup_source "$SOURCE"
 
 
 ###############################################################################
