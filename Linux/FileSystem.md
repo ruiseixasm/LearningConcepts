@@ -93,6 +93,12 @@ Just make sure *exFAT* is installed in your system
 ```sh
 cat /proc/filesystems | grep exfat
 ```
+The system some times needs to be reboot to load `exfat` into kernel after detecting `exfat` drives.
+If the system hasn't loaded the exfat yet, type de following:
+```sh
+sudo modprobe exfat
+cat /proc/filesystems | grep exfat
+```
 
 ### How to mount and unmount added USB devices
 To mount drives use one of the following:
