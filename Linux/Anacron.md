@@ -19,8 +19,14 @@ weekly-backup → unique job identifier
 /path/to/backup.sh → your backup script
 ```
 
-Typical example
+The given script should be in a save place in order to not be tampered with, so, this is the safe place:
 ```ini
-7    10    weekly-backup_to    /mnt/red/BashScripts/BackupRed.sh
+7    10    weekly.backup_to    /usr/local/sbin/BackupRed.sh
 ```
 10 min of delay to make sure the system starts correctly if off
+
+Given that the anacron runs the script as root, the target script should be writable only by root and owned by it, like so:
+```sh
+sudo chown root:root /usr/local/sbin/BackupRed.sh
+sudo chmod 755 /usr/local/sbin/BackupRed.sh
+```

@@ -366,7 +366,7 @@ backup_source()
         echo
 
 		if [ ! -d "$destination" ]; then
-			echo "mkdir -p \"$destination\"" >> BackupRed.log
+			echo "mkdir -p \"$destination\"" >> /var/log/BackupRed.log
 			mkdir -p "$destination"
 		fi
 
@@ -573,7 +573,7 @@ remove_obsolete()
         echo "  Source tag missing:"
         echo "    $source_tag"
 
-		echo "rm -rf -- \"$directory\"" >> BackupRed.log
+		echo "rm -rf -- \"$directory\"" >> /var/log/BackupRed.log
         rm -rf -- "$directory"
 
 
@@ -637,4 +637,3 @@ echo "========================================"
 echo "BACKUP COMPLETE"
 echo "========================================"
 ```
-
