@@ -374,7 +374,8 @@ backup_source()
         #######################################################################
         # rsync
         #
-        # -a = archive mode
+        # -a = archive mode (for ext4)
+        # -rt --modify-window=1 (for exFAT)
         #
         # The trailing slash on the source means:
         #
@@ -383,7 +384,7 @@ backup_source()
         # into the already-created destination directory.
         #######################################################################
 
-		rsync -rt \
+		rsync -rt --modify-window=1 --delete \
 			"$directory/" \
 			"$destination/"
 
@@ -391,6 +392,9 @@ backup_source()
 			# 	-r → recursive
 			# 	-l → preserve symlinks
 			# 	-t → preserve modification timestamps
+            # --modify-window=1:
+            #   Allows a time range of 1 second instead of 0 (default)
+            #   The exFAT or NTFS has a resolution of 2 seconds and not 1 like ext4
 
 
         #######################################################################
