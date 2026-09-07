@@ -41,3 +41,8 @@ total 16
 -rw------- 1 root root 9 set  6 15:27 weekly.backup_to
 ```
 Note that `9` is the size of the file and not the month, '20260907' are 8 charancters (8 bytes) plus the '\n' one.
+
+To force an imediate run (`-n` for now) for a particular task, run
+```sh
+sudo anacron -fn weekly.backup_to
+```

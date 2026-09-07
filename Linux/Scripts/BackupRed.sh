@@ -257,7 +257,11 @@ backup_source()
         echo
 
 		if [ ! -d "$destination" ]; then
-			echo "mkdir -p \"$destination\"" >> /var/log/BackupRed.log
+
+            # Generates a timestamp like: [2026-09-07 17:10:25]
+            TIMESTAMP=$(date "+[%Y-%m-%d %H:%M:%S]")
+
+			echo "$TIMESTAMP mkdir -p \"$destination\"" >> /var/log/BackupRed.log
 			mkdir -p "$destination"
 		fi
 
@@ -468,7 +472,10 @@ remove_obsolete()
         echo "  Source tag missing:"
         echo "    $source_tag"
 
-		echo "rm -rf -- \"$directory\"" >> /var/log/BackupRed.log
+        # Generates a timestamp like: [2026-09-07 17:10:25]
+        TIMESTAMP=$(date "+[%Y-%m-%d %H:%M:%S]")
+
+		echo "$TIMESTAMP rm -rf -- \"$directory\"" >> /var/log/BackupRed.log
         rm -rf -- "$directory"
 
 
