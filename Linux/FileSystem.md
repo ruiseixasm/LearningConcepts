@@ -28,7 +28,8 @@ sudo smartctl -H /dev/sdX
 lsblk
 df -h
 ```
-
+In Linux, `blk` stands for block, referring to block devices—storage hardware that handles data in fixed-size blocks,
+such as hard disk drives (HDDs), solid-state drives (SSDs), and USB flash drives.
 ### Mounting directories
 ```sh
 sudo mkdir -p /mnt/wd_black
