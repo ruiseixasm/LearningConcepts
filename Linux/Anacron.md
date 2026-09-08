@@ -30,3 +30,19 @@ Given that the anacron runs the script as root, the target script should be writ
 sudo chown root:root /usr/local/sbin/BackupRed.sh
 sudo chmod 755 /usr/local/sbin/BackupRed.sh
 ```
+
+Check the last runs for each task
+```sh
+$ ls -l /var/spool/anacron/
+total 16
+-rw------- 1 root root 9 set  7 07:57 cron.daily
+-rw------- 1 root root 9 ago 14 13:27 cron.monthly
+-rw------- 1 root root 9 set  4 08:26 cron.weekly
+-rw------- 1 root root 9 set  6 15:27 weekly.backup_to
+```
+Note that `9` is the size of the file and not the month, '20260907' are 8 charancters (8 bytes) plus the '\n' one.
+
+To force an imediate run (`-n` for now) for a particular task, run
+```sh
+sudo anacron -fn weekly.backup_to
+```
