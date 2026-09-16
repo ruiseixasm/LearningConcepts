@@ -15,7 +15,7 @@ git config --global user.email "ruiseixasm@mail.com"
 ## On GitHub
 Make sure the `gh` command is installed
 ```sh
-shich gh
+which gh
 ```
 If not installed install it with this command
 ```sh
