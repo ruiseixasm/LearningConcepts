@@ -26,4 +26,17 @@ Use it by typing
 gh auth login
 ```
 
+# REBASE VS MERGE
+Now by default Git asks for the choice of `rebase` or `merge`, where rebase keeps a single brach line
+but locks uncommitted pushes into it given the new hash that produces. To keep doing `merge` automatically,
+
+type for global
+```sh
+git config --global pull.rebase false
+```
+
+but only for the repository, type
+```sh
+git config pull.rebase false
+```
 
