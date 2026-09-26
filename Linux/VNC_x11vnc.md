@@ -43,3 +43,19 @@ To be able to call it from any place and not just from Scripts, move it to bin.
 sudo mv ~/vnc-start /usr/local/bin/
 ```
 
+# In Ubuntu
+Install `ubuntu-frame-vnc`
+```sh
+sudo snap install ubuntu-frame-vnc
+```
+Turn on the daemon feature
+```sh
+sudo snap set ubuntu-frame-vnc daemon=true
+```
+Open firewall ports
+```sh
+sudo ufw allow 5900/tcp
+sudo ufw allow 5901/tcp
+```
+
+
