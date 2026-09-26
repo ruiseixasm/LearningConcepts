@@ -44,6 +44,7 @@ sudo mv ~/vnc-start /usr/local/bin/
 ```
 
 # In Ubuntu
+## Installation
 Install `ubuntu-frame-vnc`
 ```sh
 sudo snap install ubuntu-frame-vnc
@@ -52,10 +53,17 @@ Turn on the daemon feature
 ```sh
 sudo snap set ubuntu-frame-vnc daemon=true
 ```
+## Opening to remote connections
 Open firewall ports
 ```sh
 sudo ufw allow 5900/tcp
 sudo ufw allow 5901/tcp
 ```
+By default `ubuntu-frame-vnc` only accepts connections from `localhost`,
+to accept from remote computers do:
+```sh
+sudo snap set ubuntu-frame-vnc listen=0.0.0.0
+```
+
 
 
