@@ -58,6 +58,5 @@
 		"textvariable",
 		"Threadpools",
 		"workgroups"
-	],
-    "cmake.sourceDirectory": "/home/rui/GitHub/LearningConcepts/Python/ChatGPT/ctypes_library"
+	]
 }
