@@ -58,6 +58,5 @@
 		"textvariable",
 		"Threadpools",
 		"workgroups"
-	],
-    "cmake.sourceDirectory": "C:/Users/rui/Documents/GitHub/LearningConcepts/CMake/VSCode"
+	]
 }
